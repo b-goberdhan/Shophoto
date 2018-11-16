@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="Shophoto.Buttons.FABPlusButton"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="210" d:DesignWidth="100"
+             Width="100" Height="210">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="White"></Setter>
+        </Style>
+        <ControlTemplate x:Key="FABPlusButton" TargetType="Button" >
+            <Border Background="Red" Width="50" Height="50" CornerRadius="50">
+                <Grid>
+                    <iconPacks:PackIconModern Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                          Kind="Add" Foreground="White"
+                                          Height="30" Width="30" Rotation="45">
+                    </iconPacks:PackIconModern>
+                    <iconPacks:PackIconModern Visibility="{Binding IsClosed, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                          Kind="Add" Foreground="White"
+                                          Height="30" Width="30">
+                    </iconPacks:PackIconModern>
+                </Grid>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="FABMenuButtons" TargetType="{x:Type buttons:IconButton}">
+            <StackPanel Orientation="Horizontal" Width="90">
+
+                <Grid Background="Black" Width="45" Height="20" Margin="0,0,5,0" >
+                    <ContentControl Content="{TemplateBinding Content}"
+                                VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"
+                                Foreground="AntiqueWhite" FontSize="8">
+                    </ContentControl>
+                </Grid>
+                <Border Width="35" Height="35" CornerRadius="50" Margin="0,0,0,0" Background="Red">
+                    <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" 
+                                    Content="{TemplateBinding Icon}"></ContentControl>
+                </Border>
+
+            </StackPanel>
+
+        </ControlTemplate>
+    </UserControl.Resources>
+    <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        <StackPanel Margin="0,0,3,0" Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}">
+            <buttons:IconButton Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
+                                Icon="{iconPacks:Octicons Kind=Trashcan}"
+                                Content="Delete" Command="{Binding DeleteButtonCommand}">
+            </buttons:IconButton>
+            <buttons:IconButton Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
+                                Icon="{iconPacks:Octicons Kind=Tag}" 
+                                Content="Tag"
+                                Command="{Binding TagButtonCommand}"></buttons:IconButton>
+            <buttons:IconButton Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
+                                Icon="{iconPacks:Octicons Kind=DesktopDownload}"
+                                Content="Download" Command="{Binding DownloadButtonCommand}">
+            </buttons:IconButton>
+            <buttons:IconButton Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5" 
+                                Icon="{iconPacks:Octicons Kind=CloudUpload}"
+                                Content="Upload" Command="{Binding UploadButtonCommand}">
+            </buttons:IconButton>
+        </StackPanel>
+        <Button HorizontalAlignment="Right" Command="{Binding ToggleButtonCommand}" Template="{StaticResource FABPlusButton}"></Button>
+    </StackPanel>
+</UserControl>

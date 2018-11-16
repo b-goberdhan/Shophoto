@@ -1,0 +1,12 @@
+﻿<Application x:Class="Shophoto.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Shophoto"
+             xmlns:converters="clr-namespace:Shophoto.Converters"
+             xmlns:vm="clr-namespace:Shophoto.ViewModels"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <converters:BoolToVisConverter x:Key="BoolToVisConverter"></converters:BoolToVisConverter>
+        <vm:NinjectLocator x:Key="NinjectLocator"></vm:NinjectLocator>
+    </Application.Resources>
+</Application>

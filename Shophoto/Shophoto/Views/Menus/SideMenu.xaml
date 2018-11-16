@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Shophoto.Views.Menus.SideMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             Width="250"
+             DataContext="{Binding SideMenuVM, Source={StaticResource NinjectLocator}}"
+             d:DesignHeight="720" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="MenuButton" TargetType="{x:Type buttons:IconButton}">
+            <Border Height="50" Width="250" BorderThickness="0,0,0,1" BorderBrush="Black">
+                <StackPanel Orientation="Horizontal" Background="White">
+                    <Border Margin="2"  BorderThickness="2" Width="45" Height="45"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Icon}">
+
+                        </ContentControl>
+                    </Border>
+                    <ContentControl Margin="10,0,0,0" Width="150"
+                                VerticalAlignment="Center"
+                                FontSize="20"
+                                Content="{TemplateBinding Content}">
+
+                    </ContentControl>
+                </StackPanel>
+            </Border>
+            
+        </ControlTemplate>
+    </UserControl.Resources>
+    <StackPanel Width="250" VerticalAlignment="Top">
+        <buttons:IconButton Template="{StaticResource MenuButton}"
+                            Icon="{iconPacks:Octicons Kind=Archive, Width=25, Height=25}"
+                            Content="Collection" 
+                            Command="{Binding CollectionButtonCommand}">
+            
+        </buttons:IconButton>
+        <buttons:IconButton Template="{StaticResource ResourceKey=MenuButton}"
+                            Icon="{iconPacks:Octicons Kind=Settings, Width=25, Height=25}"
+                            Content="Settings"/>
+    </StackPanel>
+</UserControl>

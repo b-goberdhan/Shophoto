@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="Shophoto.Views.Collections.Aux.Upload"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:image="clr-namespace:Shophoto.Image"
+             mc:Ignorable="d" >
+    <StackPanel Width="815" Height="680" Background="WhiteSmoke">
+        <buttons:IconButton Width="75" Height="75" 
+                                    Icon="{iconPacks:Modern Kind=ArrowLeft, Width=50, Height=50}"
+                                    Background="Transparent" BorderBrush="Transparent"
+                                    VerticalAlignment="Top" HorizontalAlignment="Left"
+                                    Margin="60,60,0,40"
+                                    Command="{Binding GoBackCommand}">
+        </buttons:IconButton>
+        <TextBlock Height="55" Padding="75,0,0,0" Margin="0,0,0,10" FontSize="40">
+                    Upload Images to Collection</TextBlock>
+        <Border BorderBrush="Black" BorderThickness="0,2,0,0"
+                        Height="400" Width="700">
+            <StackPanel>
+                <Grid>
+                    <Rectangle Margin="0,20,0,0" Height="300" Stroke="Black"
+                                   StrokeThickness="3" StrokeDashArray="3 3">
+                    </Rectangle>
+                    <ListView Margin="0,20,0,0" Width="690" Height="290" BorderBrush="Transparent"
+                              ItemsSource="{Binding ImagesToUpload}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0,0" VerticalAlignment="Center">
+                    <buttons:IconButton Content="Browse..." FontSize="30" Height="50" Width="150"
+                                        Background="Transparent" BorderBrush="Black" BorderThickness="4"
+                                        Command="{Binding UploadCommand}">
+                    </buttons:IconButton>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</UserControl>

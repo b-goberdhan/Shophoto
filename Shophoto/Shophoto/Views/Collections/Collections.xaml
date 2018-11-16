@@ -1,0 +1,48 @@
+﻿<UserControl x:Class="Shophoto.Views.Collections.Collections"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shophoto.Views.Collections"
+             xmlns:image="clr-namespace:Shophoto.Image"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:collctionAux="clr-namespace:Shophoto.Views.Collections.Aux"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid Width="815" Height="680" Background="WhiteSmoke">
+        <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
+            <StackPanel x:Name="Main">
+                <Grid>
+                    <Border Width="770" Height="60" BorderBrush="Gray" BorderThickness="0,0,0,1">
+
+                    </Border>
+                </Grid>
+                <ListView Margin="0,25,0,0" Width="770" Height="560"
+                      ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      Background="Transparent" BorderBrush="Transparent"
+                      ItemsSource="{Binding ImageThumbnails}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                </ListView>
+            </StackPanel>
+            <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                               DataContext="{Binding FABPlusButtonVM}"
+                               Margin="20"></buttons:FABPlusButton>
+        </Grid>
+        <Grid Visibility="{Binding IsOnUploadView, Converter={StaticResource BoolToVisConverter}}">
+            <collctionAux:Upload DataContext="{Binding UploadVM}"></collctionAux:Upload>
+        </Grid>
+
+    </Grid>
+</UserControl>
