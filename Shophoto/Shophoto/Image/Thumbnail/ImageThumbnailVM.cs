@@ -10,11 +10,19 @@ using System.Windows.Media;
 
 namespace Shophoto.Image.Thumbnail
 {
-    public class ImageThumbnailVM : BaseVM
+    public enum QuickButtonState
+    {
+        None,
+        Delete,
+        ThreeDot,
+        Edit
+    }
+
+    public abstract class ImageThumbnailVM : BaseVM
     {
         public ImageThumbnailVM()
         {
-
+            _visible = true;
         }
 
         private ImageSource _imageSource;
@@ -42,29 +50,59 @@ namespace Shophoto.Image.Thumbnail
             }
         }
 
-        private ICommand _leftClick;
-        public ICommand LeftClick
+        public DateTime _dateUploaded;
+        public DateTime DateUploaded
         {
-            get
+            get { return _dateUploaded; }
+            set
             {
-                return _leftClick ?? (_leftClick = new CommandHandler(() =>
-                {
-                    object o = this;
-                    int i = 0;
-                }));
+                _dateUploaded = value;
+                NotifyPropertyChanged();
+            }
+        }
+        private bool _visible;
+        public bool Visible
+        {
+            get { return _visible; }
+            set
+            {
+                _visible = value;
+                NotifyPropertyChanged();
             }
         }
 
-        private ICommand _rightClick;
-        public ICommand RightClick
+        public virtual ICommand LeftClick
         {
-            get
-            {
-                return _rightClick ?? (_rightClick = new CommandHandler(() =>
-                {
-                    int i = 1;
-                }));
-            }
+            get;
         }
+
+        public virtual ICommand RightClick
+        {
+            get;
+        }
+
+        protected virtual QuickButtonState QuickButtonState { get; set; } = QuickButtonState.None;
+
+        public bool HasQuickButton
+        {
+            get { return QuickButtonState != QuickButtonState.None; }
+        }
+        public bool HasDeleteQuickButton
+        {
+            get { return QuickButtonState == QuickButtonState.Delete; }
+        }
+        public bool HasThreeDotQuickButton
+        {
+            get { return QuickButtonState == QuickButtonState.ThreeDot; }
+        }
+        public bool HasEditQuickButton
+        {
+            get { return QuickButtonState == QuickButtonState.Edit; }
+        }
+       
+
+        public virtual ICommand DeleteQuickButtonClick { get; }
+        public virtual ICommand ThreeDotButtonClick { get; }
+        public virtual ICommand EditQuickButtonClick { get; }
     }
 }

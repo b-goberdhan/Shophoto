@@ -5,15 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shophoto.Image"
              mc:Ignorable="d" 
+             xmlns:button="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              d:DesignHeight="150" d:DesignWidth="200"
-             >
+             Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}">
     <UserControl.InputBindings>
         <MouseBinding Gesture="LeftClick" Command="{Binding LeftClick}"></MouseBinding>
         <MouseBinding Gesture="RightClick" Command="{Binding RightClick}"></MouseBinding>
     </UserControl.InputBindings>
-    <Grid Width="200" Height="150" Background="White" >
-
+    <Grid Width="200" Height="150" Background="White">
         <Image Source="{Binding ImageSource}"></Image>
+        <Grid Visibility="{Binding HasQuickButton, Converter={StaticResource BoolToVisConverter}}">
+            <button:IconButton Visibility="{Binding HasDeleteQuickButton, Converter={StaticResource BoolToVisConverter}}"
+                           Width="35" Height="35"
+                           VerticalAlignment="Top" HorizontalAlignment="Right"
+                           Background="Transparent"
+                           BorderBrush="Transparent"
+                           Icon="{iconPacks:Modern Kind=Delete, Width=20, Height=20}"
+                           Command="{Binding DeleteQuickButtonClick}"></button:IconButton>
+            <button:IconButton Visibility="{Binding HasThreeDotQuickButton, Converter={StaticResource BoolToVisConverter}}"
+                               Width="35" Height="35"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               Icon="{iconPacks:Material Kind=DotsHorizontal, Width=20, Height=20}"
+                               Command="{Binding ThreeDotButtonClick}">
+            </button:IconButton>
+            <button:IconButton Visibility="{Binding HasEditQuickButton, Converter={StaticResource BoolToVisConverter}}"
+                               Width="35" Height="35"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               Icon="{iconPacks:Modern Kind=PageEdit, Width=20, Height=20}"
+                               Command="{Binding EditQuickButtonClick}">
+            </button:IconButton>
+        </Grid>
         <Grid VerticalAlignment="Bottom" Width="200" Height="40" Background="WhiteSmoke">
             <TextBlock VerticalAlignment="Center" Margin="5,0,0,0"
                        FontSize="20" Text="{Binding Name}">

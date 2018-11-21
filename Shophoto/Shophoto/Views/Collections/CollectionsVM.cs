@@ -1,11 +1,13 @@
 ﻿using Shophoto.Buttons;
 using Shophoto.Command;
 using Shophoto.Image.Thumbnail;
+using Shophoto.InputBox;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections.Aux;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,21 +25,59 @@ namespace Shophoto.Views.Collections
     {
         private readonly FABPlusButtonVM _fabPlusButtonVM;
         private readonly UploadVM _uploadVM;
+        
         public CollectionsVM(FABPlusButtonVM fabPlusButtonVM, UploadVM uploadVM)
         {
             State = CollectionsState.Main;
             _fabPlusButtonVM = fabPlusButtonVM;
             _uploadVM = uploadVM;
-
+            _searchBoxVM = new SearchBoxVM();
 
             _fabPlusButtonVM.OnUploadClicked += FabPlusButtonVM_OnUploadClicked;
             _uploadVM.OnGoBackClicked += UploadVM_OnGoBackClicked;
+            _uploadVM.OnUploadClicked += UploadVM_OnUploadClicked;
+            SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
+            _imageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>();
+        }
 
+        private void SearchBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "InputText")
+            {
+                FilterCollectionImagesByText(SearchBoxVM.InputText);
+            }
+        }
 
-            _imageThumbnails = new ObservableCollection<ImageThumbnailVM>();
-            _imageThumbnails.Add(new ImageThumbnailVM() { Name = "Image 1" });
-            _imageThumbnails.Add(new ImageThumbnailVM() { Name = "Image 2"});
+        private void FilterCollectionImagesByText(string text)
+        {
+            foreach (ImageThumbnailCollectionsVM thumbnails in _imageThumbnails)
+            {
+                
+                thumbnails.Visible = thumbnails.Name.ToLower().IndexOf(text.ToLower()) == 0;
+            }
+        }
 
+        private SearchBoxVM _searchBoxVM;
+        public SearchBoxVM SearchBoxVM
+        {
+            get { return _searchBoxVM; }
+            set
+            {
+                _searchBoxVM = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private void UploadVM_OnUploadClicked(ICollection<ImageThumbnailCollectionsVM> uploadedImages)
+        {
+            if (State == CollectionsState.Upload)
+            {
+                foreach (ImageThumbnailCollectionsVM thumbnail in uploadedImages)
+                {
+                    _imageThumbnails.Add(thumbnail);
+                }
+                State = CollectionsState.Main;
+            }
         }
 
         public UploadVM UploadVM
@@ -69,8 +109,8 @@ namespace Shophoto.Views.Collections
 
 
 
-        private ObservableCollection<ImageThumbnailVM> _imageThumbnails;
-        public ObservableCollection<ImageThumbnailVM> ImageThumbnails
+        private ObservableCollection<ImageThumbnailCollectionsVM> _imageThumbnails;
+        public ObservableCollection<ImageThumbnailCollectionsVM> ImageThumbnails
         {
             get { return _imageThumbnails; }
             set {

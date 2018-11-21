@@ -9,8 +9,12 @@ namespace Shophoto.Command
 {
     public class CommandHandler : ICommand
     {
-        private Action _action;
+        private Action<object> _action;
         public CommandHandler(Action action)
+        {
+            _action = (obj) => action();
+        }
+        public CommandHandler(Action<object> action)
         {
             _action = action;
         }
@@ -24,7 +28,7 @@ namespace Shophoto.Command
 
         public void Execute(object parameter)
         {
-            _action();
+            _action(parameter);
         }
     }
 }

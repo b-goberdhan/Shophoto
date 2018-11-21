@@ -7,6 +7,7 @@ using Shophoto.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,19 +17,21 @@ using System.Windows.Media.Imaging;
 
 namespace Shophoto.Views.Collections.Aux
 {
+    public delegate void ImagesUploadedHandler(ICollection<ImageThumbnailCollectionsVM> uploadedImages);
     public class UploadVM : BaseVM
     {
         public event EventHandler OnGoBackClicked;
+        public event ImagesUploadedHandler OnUploadClicked;
         private readonly ImageService _imageService;
         public UploadVM(ImageService imageService)
         {
             _imageService = imageService;
-            _imageToUpload = new ObservableCollection<ImageThumbnailVM>();
+            ImagesToUpload = new ObservableCollection<ImageThumbnailUploadVM>();
         }
 
         public void Reset()
         {
-            _imageToUpload = new ObservableCollection<ImageThumbnailVM>();
+            ImagesToUpload = new ObservableCollection<ImageThumbnailUploadVM>();
         }
 
         private ICommand _goBackCommand;
@@ -43,17 +46,43 @@ namespace Shophoto.Views.Collections.Aux
             }
         }
 
+        private ICommand _browseCommand;
+        public ICommand BrowseCommand
+        {
+            get
+            {
+                return _browseCommand ?? (_browseCommand = new CommandHandler(EnableOpenFileDialog));
+            }
+        }
+
         private ICommand _uploadCommand;
         public ICommand UploadCommand
         {
             get
             {
-                return _uploadCommand ?? (_uploadCommand = new CommandHandler(EnableOpenFileDialog));
+                return _uploadCommand ?? (_uploadCommand = new CommandHandler(() =>
+                {
+                    var imagesUploaded = new List<ImageThumbnailCollectionsVM>();
+                    foreach(var uploadThumbnail in _imageToUpload)
+                    {
+                        imagesUploaded.Add(new ImageThumbnailCollectionsVM()
+                        {
+                            ImageSource = uploadThumbnail.ImageSource.Clone(),
+                            Name = uploadThumbnail.Name
+                        });
+                    }
+                    OnUploadClicked?.Invoke(imagesUploaded);
+                }));
             }
         }
 
-        private ObservableCollection<ImageThumbnailVM> _imageToUpload;
-        public ObservableCollection<ImageThumbnailVM> ImagesToUpload
+        public bool CanClickUpload
+        {
+            get { return _imageToUpload.Count > 0; }
+        }
+
+        private ObservableCollection<ImageThumbnailUploadVM> _imageToUpload;
+        public ObservableCollection<ImageThumbnailUploadVM> ImagesToUpload
         {
             get { return _imageToUpload; }
             set
@@ -62,23 +91,49 @@ namespace Shophoto.Views.Collections.Aux
                 NotifyPropertyChanged();
             }
         }
+
+        private string ParseImageName(string path)
+        {
+            int indexOfLastSlash = path.LastIndexOf('/');
+            if (indexOfLastSlash + 1 >= path.Length)
+            {
+                return path;
+            }
+            if (indexOfLastSlash == -1)
+            {
+                indexOfLastSlash = path.LastIndexOf('\\');
+            }
+            if (indexOfLastSlash == -1)
+            {
+                return path;
+            }
+
+            return path.Substring(indexOfLastSlash + 1);
+
+        }
         private void EnableOpenFileDialog()
         {
             OpenFileDialog fileBrowser = new OpenFileDialog();
+            fileBrowser.Multiselect = true;
             var result = fileBrowser.ShowDialog();
             if (result == true)
             {
                 List<ImageSource> images = new List<ImageSource>();
-                foreach (var file in fileBrowser.OpenFiles())
+                foreach (FileStream file in fileBrowser.OpenFiles())
                 {
                     BitmapImage image = new BitmapImage();
                     image.BeginInit();
                     image.StreamSource = file;
                     image.EndInit();
-                    ImageThumbnailVM imageThumbnailVM = new ImageThumbnailVM();
+                    ImageThumbnailUploadVM imageThumbnailVM = new ImageThumbnailUploadVM(_imageToUpload);
                     imageThumbnailVM.ImageSource = image;
+                    imageThumbnailVM.Name = ParseImageName(file.Name);
+                    imageThumbnailVM.DateUploaded = DateTime.Now;
                     _imageToUpload.Add(imageThumbnailVM);
+
+                    
                 }
+                NotifyPropertyChanged("CanClickUpload");
             }
         }
     }

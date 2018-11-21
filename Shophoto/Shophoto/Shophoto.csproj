@@ -72,10 +72,17 @@
     </Compile>
     <Compile Include="Command\CommandHandler.cs" />
     <Compile Include="Buttons\FABPlusButtonVM.cs" />
+    <Compile Include="Image\Thumbnail\ImageThumbnailCollectionsVM.cs" />
+    <Compile Include="Image\Thumbnail\ImageThumbnailUploadVM.cs" />
     <Compile Include="Image\Thumbnail\ImageThumbnailVM.cs" />
     <Compile Include="Image\Thumbnail\ImageThumbnail.xaml.cs">
       <DependentUpon>ImageThumbnail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputBox\InputBoxVM.cs" />
+    <Compile Include="InputBox\InputBox.xaml.cs">
+      <DependentUpon>InputBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InputBox\SearchBoxVM.cs" />
     <Compile Include="Ninject\IocConfiguration.cs" />
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="MainWindowVM.cs" />
@@ -107,6 +114,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Image\Thumbnail\ImageThumbnail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InputBox\InputBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

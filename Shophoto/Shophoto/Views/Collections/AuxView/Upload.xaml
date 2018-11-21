@@ -33,7 +33,7 @@
                         </ListView.ItemTemplate>
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal"></WrapPanel>
+                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
@@ -42,9 +42,13 @@
                 <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0,0" VerticalAlignment="Center">
                     <buttons:IconButton Content="Browse..." FontSize="30" Height="50" Width="150"
                                         Background="Transparent" BorderBrush="Black" BorderThickness="4"
+                                        Command="{Binding BrowseCommand}">
+                    </buttons:IconButton>
+                    <buttons:IconButton Content="Upload" Margin="400,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
+                                        Background="Transparent" BorderBrush="Black" BorderThickness="4"
                                         Command="{Binding UploadCommand}">
                     </buttons:IconButton>
-                </StackPanel>
+                </StackPanel>       
             </StackPanel>
         </Border>
     </StackPanel>

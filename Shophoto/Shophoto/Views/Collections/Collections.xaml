@@ -8,6 +8,7 @@
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:collctionAux="clr-namespace:Shophoto.Views.Collections.Aux"
+             xmlns:inputBox="clr-namespace:Shophoto.InputBox"
              mc:Ignorable="d">
     <UserControl.Resources>
 
@@ -16,11 +17,19 @@
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel x:Name="Main">
                 <Grid>
-                    <Border Width="770" Height="60" BorderBrush="Gray" BorderThickness="0,0,0,1">
-
+                    <Border Width="770" Height="60"
+                            Margin="0,40,0,0"
+                            BorderBrush="Gray" BorderThickness="0,0,0,1">
+                        <Grid>
+                            <inputBox:InputBox Width="300"
+                                               Height="40"
+                                               VerticalAlignment="Center"
+                                               
+                                               HorizontalAlignment="Left" Margin="50,0,0,0"  DataContext="{Binding SearchBoxVM}"></inputBox:InputBox>
+                        </Grid>
                     </Border>
                 </Grid>
-                <ListView Margin="0,25,0,0" Width="770" Height="560"
+                <ListView Margin="0,55,0,0" Width="770" Height="490"
                       ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       Background="Transparent" BorderBrush="Transparent"
                       ItemsSource="{Binding ImageThumbnails}">
@@ -31,7 +40,7 @@
                     </ListView.ItemTemplate>
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal"></WrapPanel>
+                            <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
@@ -40,7 +49,7 @@
                                DataContext="{Binding FABPlusButtonVM}"
                                Margin="20"></buttons:FABPlusButton>
         </Grid>
-        <Grid Visibility="{Binding IsOnUploadView, Converter={StaticResource BoolToVisConverter}}">
+        <Grid Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
             <collctionAux:Upload DataContext="{Binding UploadVM}"></collctionAux:Upload>
         </Grid>
 
