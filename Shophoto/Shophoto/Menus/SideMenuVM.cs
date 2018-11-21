@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Shophoto.Views.Menus
+namespace Shophoto.Menus
 {
     public class SideMenuVM
     {

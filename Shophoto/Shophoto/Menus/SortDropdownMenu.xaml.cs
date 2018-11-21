@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Shophoto.Views.Menus
+namespace Shophoto.Menus
 {
     /// <summary>
-    /// Interaction logic for PageSelector.xaml
+    /// Interaction logic for DropdownMenu.xaml
     /// </summary>
-    public partial class SideMenu : UserControl
+    public partial class SortDropdownMenu : UserControl
     {
-        public SideMenu()
+        public SortDropdownMenu()
         {
             InitializeComponent();
         }

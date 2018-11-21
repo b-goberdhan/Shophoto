@@ -21,11 +21,8 @@
                             Margin="0,40,0,0"
                             BorderBrush="Gray" BorderThickness="0,0,0,1">
                         <Grid>
-                            <inputBox:InputBox Width="300"
-                                               Height="40"
-                                               VerticalAlignment="Center"
-                                               
-                                               HorizontalAlignment="Left" Margin="50,0,0,0"  DataContext="{Binding SearchBoxVM}"></inputBox:InputBox>
+                            <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
+                                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0"></inputBox:InputBox>
                         </Grid>
                     </Border>
                 </Grid>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Shophoto"
         xmlns:views="clr-namespace:Shophoto.Views"
-        xmlns:menus="clr-namespace:Shophoto.Views.Menus"
+        xmlns:menus="clr-namespace:Shophoto.Menus"
         xmlns:buttons="clr-namespace:Shophoto.Buttons"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080"

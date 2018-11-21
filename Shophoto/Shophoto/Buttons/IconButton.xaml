@@ -10,4 +10,5 @@
                     HorizontalAlignment="Center"
                     Content="{Binding ElementName=iconButton, Path=Icon}">
     </ContentControl>
+    
 </Button>

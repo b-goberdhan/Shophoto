@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="20" VerticalAlignment="Center"
+                 FontSize="20" Padding="5" VerticalAlignment="Center"
                  >
         </TextBox>
     </Grid>

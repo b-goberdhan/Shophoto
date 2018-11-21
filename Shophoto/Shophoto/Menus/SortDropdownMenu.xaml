@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="Shophoto.Menus.SortDropdownMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="110" d:DesignWidth="150">
+    <UserControl.Resources>
+        <Style TargetType="buttons:IconButton" x:Key="DropdownButtons">
+            <Setter Property="Height" Value="40"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="BorderBrush" Value="WhiteSmoke"></Setter>
+            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
+            <Setter Property="FontSize" Value="18"></Setter>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel Width="150">
+        <buttons:IconButton Height="30" Style="{StaticResource DropdownButtons}"
+                            Command="{Binding OnSortClicked}">
+            <Grid>
+                <icons:PackIconModern VerticalAlignment="Center" Kind="Sort" Margin="0,0,85,0"></icons:PackIconModern>
+                <TextBlock Width="50" Margin="15,0,0,0">Sort</TextBlock>
+            </Grid>
+        </buttons:IconButton>
+        <StackPanel Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}}">
+            <buttons:IconButton Style="{StaticResource DropdownButtons}" Content="Alphabeticle"
+                                Command="{Binding OnAlphaSort}"></buttons:IconButton>
+            <buttons:IconButton Style="{StaticResource DropdownButtons}" 
+                                Command="{Binding OnDateSort}"
+                                Content="Date Upload"></buttons:IconButton>
+        </StackPanel>
+
+    </StackPanel>
+</UserControl>
