@@ -9,43 +9,59 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:collctionAux="clr-namespace:Shophoto.Views.Collections.Aux"
              xmlns:inputBox="clr-namespace:Shophoto.InputBox"
+             xmlns:menus="clr-namespace:Shophoto.Menus"
+             xmlns:common="clr-namespace:Shophoto.Views.Common"
              mc:Ignorable="d">
     <UserControl.Resources>
 
     </UserControl.Resources>
-    <Grid Width="815" Height="680" Background="WhiteSmoke">
+    <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel x:Name="Main">
-                <Grid>
-                    <Border Width="770" Height="60"
-                            Margin="0,40,0,0"
-                            BorderBrush="Gray" BorderThickness="0,0,0,1">
-                        <Grid>
-                            <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
-                                               VerticalAlignment="Center" HorizontalAlignment="Left" Margin="50,0,0,0"></inputBox:InputBox>
+                <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
+                    <Grid>
+                        <Grid Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
+                              Height="490">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                                       FontSize="25" FontStyle="Italic" Opacity="0.75">
+                                Click '+' and upload to get started
+                            </TextBlock>
+                            
                         </Grid>
-                    </Border>
-                </Grid>
-                <ListView Margin="0,55,0,0" Width="770" Height="490"
+                        <ListView Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True}" Width="710" Height="490"
                       ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                       Background="Transparent" BorderBrush="Transparent"
                       ItemsSource="{Binding ImageThumbnails}">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        </ListView>
+                    </Grid>
+                </Border>
+                
             </StackPanel>
+            <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
+                               VerticalAlignment="Top" HorizontalAlignment="Left" 
+                               Margin="50,60,0,0"></inputBox:InputBox>
+
+            <menus:SortDropdownMenu HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Margin="0,60,130,0"
+                                    Height="120"
+                                    DataContext="{Binding SortDropdownMenuVM}"
+                                    ></menus:SortDropdownMenu>
             <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding FABPlusButtonVM}"
                                Margin="20"></buttons:FABPlusButton>
         </Grid>
+        <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"></common:ConfirmationBar>
         <Grid Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
             <collctionAux:Upload DataContext="{Binding UploadVM}"></collctionAux:Upload>
         </Grid>

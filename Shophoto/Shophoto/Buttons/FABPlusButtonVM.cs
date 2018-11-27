@@ -15,6 +15,7 @@ namespace Shophoto.Buttons
     public class FABPlusButtonVM : BaseVM
     {
         public event EventHandler OnUploadClicked;
+        public event EventHandler OnDeleteClicked;
         public FABPlusButtonVM()
         {
             IsOpen = false;
@@ -61,7 +62,7 @@ namespace Shophoto.Buttons
             {
                 return _deleteButtonCommand ?? (_deleteButtonCommand = new CommandHandler(() =>
                 {
-
+                    OnDeleteClicked?.Invoke(this, null);
                 }));
             }
         }

@@ -2,6 +2,7 @@
 using Shophoto.Command;
 using Shophoto.Image;
 using Shophoto.Image.Thumbnail;
+using Shophoto.InputBox;
 using Shophoto.Services;
 using Shophoto.ViewModels;
 using System;
@@ -23,7 +24,7 @@ namespace Shophoto.Views.Collections.Aux
         public event EventHandler OnGoBackClicked;
         public event ImagesUploadedHandler OnUploadClicked;
         private readonly ImageService _imageService;
-        public UploadVM(ImageService imageService)
+        public UploadVM(ImageService imageService, SearchBoxVM AHAHA)
         {
             _imageService = imageService;
             ImagesToUpload = new ObservableCollection<ImageThumbnailUploadVM>();

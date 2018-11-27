@@ -45,6 +45,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +85,15 @@
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="InputBox\SearchBoxVM.cs" />
+    <Compile Include="Menus\Context\ContextMenu.xaml.cs">
+      <DependentUpon>ContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\Context\ContextMenuItem.xaml.cs">
+      <DependentUpon>ContextMenuItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\Context\ContextMenuItemVM.cs" />
+    <Compile Include="Menus\Context\ContextMenuVM.cs" />
+    <Compile Include="Menus\Context\ImageThumbnailContextMenuVM.cs" />
     <Compile Include="Menus\SortDropdownMenu.xaml.cs">
       <DependentUpon>SortDropdownMenu.xaml</DependentUpon>
     </Compile>
@@ -101,6 +112,11 @@
       <DependentUpon>Upload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Collections\AuxView\UploadVM.cs" />
+    <Compile Include="Views\Common\ConfirmationBar.xaml.cs">
+      <DependentUpon>ConfirmationBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Common\ConfirmationBarVM.cs" />
+    <Compile Include="Views\Common\DeleteConfirmationBarVM.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -141,6 +157,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Menus\Context\ContextMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menus\Context\ContextMenuItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Menus\SortDropdownMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Collections\AuxView\Upload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Common\ConfirmationBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

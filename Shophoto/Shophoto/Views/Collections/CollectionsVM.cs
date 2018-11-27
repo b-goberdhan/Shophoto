@@ -5,15 +5,14 @@ using Shophoto.InputBox;
 using Shophoto.Menus;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections.Aux;
+using Shophoto.Views.Common;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Shophoto.Menus;
+
 namespace Shophoto.Views.Collections
 {
 
@@ -24,20 +23,19 @@ namespace Shophoto.Views.Collections
     }
     public class CollectionsVM : BaseVM
     {
-        private readonly FABPlusButtonVM _fabPlusButtonVM;
-        private readonly UploadVM _uploadVM;
-        private readonly SearchBoxVM _searchBoxVM;
-        private readonly SortDropdownMenuVM _sortDropdownMenuVM;
-
-
-        public CollectionsVM(FABPlusButtonVM fabPlusButtonVM, UploadVM uploadVM, SearchBoxVM searchBoxVM, SortDropdownMenuVM sortDropdownMenuVM)
+        public CollectionsVM(
+            FABPlusButtonVM fabPlusButtonVM, 
+            UploadVM uploadVM, 
+            SearchBoxVM searchBoxVM, 
+            SortDropdownMenuVM sortDropdownMenuVM,
+            DeleteConfirmationBarVM deleteConfirmationVM)
         {
             State = CollectionsState.Main;
-            _fabPlusButtonVM = fabPlusButtonVM;
-            _uploadVM = uploadVM;
-            _searchBoxVM = searchBoxVM;
-            _sortDropdownMenuVM = sortDropdownMenuVM;
-
+            FABPlusButtonVM = fabPlusButtonVM;
+            UploadVM = uploadVM;
+            SearchBoxVM = searchBoxVM;
+            SortDropdownMenuVM = sortDropdownMenuVM;
+            DeleteConfirmationBarVM = deleteConfirmationVM;
             RegisterEvents();
             ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>();
 
@@ -46,30 +44,51 @@ namespace Shophoto.Views.Collections
         private void RegisterEvents()
         {
             FABPlusButtonVM.OnUploadClicked += FabPlusButtonVM_OnUploadClicked;
+            FABPlusButtonVM.OnDeleteClicked += FABPlusButtonVM_OnDeleteClicked; 
             UploadVM.OnGoBackClicked += UploadVM_OnGoBackClicked;
             UploadVM.OnUploadClicked += UploadVM_OnUploadClicked;
             SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
-            
+            SortDropdownMenuVM.PropertyChanged += SortDropdownMenuVM_PropertyChanged;
+            DeleteConfirmationBarVM.OnDeleteConfirmed += DeleteConfirmationBarVM_OnDeleteConfirmed;
+            DeleteConfirmationBarVM.PropertyChanged += DeleteConfirmationBarVM_PropertyChanged;
         }
 
-        public FABPlusButtonVM FABPlusButtonVM
-        {
-            get { return _fabPlusButtonVM; }
-        }
+        
+
+        public FABPlusButtonVM FABPlusButtonVM { get; }
 
         private void FabPlusButtonVM_OnUploadClicked(object sender, EventArgs e)
         {
-            //Switch to the upload view!
-
             State = CollectionsState.Upload;
-            _uploadVM.Reset();
-            _fabPlusButtonVM.IsOpen = false;
+            UploadVM.Reset();
+            FABPlusButtonVM.IsOpen = false;
         }
 
-        public UploadVM UploadVM
+        private void FABPlusButtonVM_OnDeleteClicked(object sender, EventArgs e)
         {
-            get { return _uploadVM; }
+            DeleteConfirmationBarVM.IsVisible = true;
+            FABPlusButtonVM.IsOpen = false;
+            foreach (var thumbnail in ImageThumbnails)
+            {
+                thumbnail.ShowDeleteCheckbox();
+                thumbnail.OnCheckboxClicked += Thumbnail_OnCheckboxClicked;
+            }
         }
+
+        private void Thumbnail_OnCheckboxClicked(object sender, EventArgs e)
+        {
+            var thumbnail = sender as ImageThumbnailCollectionsVM;
+            if (thumbnail.IsChecked)
+            {
+                DeleteConfirmationBarVM.NumberSelected++;
+            }
+            else
+            {
+                DeleteConfirmationBarVM.NumberSelected--;
+            }
+        }
+
+        public UploadVM UploadVM { get; }
         private void UploadVM_OnUploadClicked(ICollection<ImageThumbnailCollectionsVM> uploadedImages)
         {
             if (State == CollectionsState.Upload)
@@ -90,10 +109,7 @@ namespace Shophoto.Views.Collections
         }
 
 
-        public SearchBoxVM SearchBoxVM
-        {
-            get { return _searchBoxVM; }
-        }
+        public SearchBoxVM SearchBoxVM { get; }
         private void SearchBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "InputText")
@@ -111,11 +127,56 @@ namespace Shophoto.Views.Collections
         }
 
 
-        public SortDropdownMenuVM SortDropdownMenuVM
+        public SortDropdownMenuVM SortDropdownMenuVM { get; }
+        private void SortDropdownMenuVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            get { return _sortDropdownMenuVM; }
+            if (e.PropertyName == "SortingState")
+            {
+                if (SortDropdownMenuVM.SortingState == SortDropdownState.Alphabetical)
+                {
+                    ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) =>
+                    {
+                        return thumbnail.Name;
+                    }));
+                }
+                else if(SortDropdownMenuVM.SortingState == SortDropdownState.Date)
+                {
+                    ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) => 
+                    {
+                        return thumbnail.DateUploaded; 
+                    }));
+                }
+            }
         }
 
+        public DeleteConfirmationBarVM DeleteConfirmationBarVM { get; }
+        private void DeleteConfirmationBarVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsVisible")
+            {
+                if (!DeleteConfirmationBarVM.IsVisible)
+                {
+                    //Remove all the checkboxes for this!
+                    foreach (var thumbnail in ImageThumbnails)
+                    {
+                        thumbnail.HideDeleteCheckbox();
+                    }
+                }
+            }
+        }
+        private void DeleteConfirmationBarVM_OnDeleteConfirmed(object sender, EventArgs e)
+        {
+            var imagesToDelete = ImageThumbnails.Where((thumbail) =>
+            {
+                return thumbail.IsChecked;
+            }).ToList();
+
+            foreach (var thumbnail in imagesToDelete)
+            {
+                thumbnail.OnCheckboxClicked -= Thumbnail_OnCheckboxClicked;
+                ImageThumbnails.Remove(thumbnail);
+            }
+        }
 
         private ObservableCollection<ImageThumbnailCollectionsVM> _imageThumbnails;
         public ObservableCollection<ImageThumbnailCollectionsVM> ImageThumbnails
@@ -140,6 +201,7 @@ namespace Shophoto.Views.Collections
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("IsOnMainView");
                 NotifyPropertyChanged("IsOnUploadView");
+                NotifyPropertyChanged("HasImages");
             }
         }
 
@@ -155,6 +217,13 @@ namespace Shophoto.Views.Collections
             get
             {
                 return State == CollectionsState.Upload;
+            }
+        }
+        public bool HasImages
+        {
+            get
+            {
+                return ImageThumbnails.Count > 0;
             }
         }
 

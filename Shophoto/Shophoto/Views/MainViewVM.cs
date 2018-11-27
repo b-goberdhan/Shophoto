@@ -4,7 +4,7 @@ namespace Shophoto.Views
 {
     public class MainViewVM
     {
-        public MainViewVM(SideMenuVM sideMenuVM)
+        public MainViewVM()
         {
 
         }

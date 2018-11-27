@@ -6,7 +6,7 @@
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             d:DesignHeight="110" d:DesignWidth="150">
+             d:DesignHeight="120" d:DesignWidth="150">
     <UserControl.Resources>
         <Style TargetType="buttons:IconButton" x:Key="DropdownButtons">
             <Setter Property="Height" Value="40"></Setter>
@@ -17,15 +17,25 @@
         </Style>
     </UserControl.Resources>
     <StackPanel Width="150">
-        <buttons:IconButton Height="30" Style="{StaticResource DropdownButtons}"
-                            Command="{Binding OnSortClicked}">
+        <buttons:IconButton Height="40" Style="{StaticResource DropdownButtons}"
+                            Command="{Binding OnOpenDropdownClicked}">
             <Grid>
-                <icons:PackIconModern VerticalAlignment="Center" Kind="Sort" Margin="0,0,85,0"></icons:PackIconModern>
-                <TextBlock Width="50" Margin="15,0,0,0">Sort</TextBlock>
+                <TextBlock
+                         Text="{Binding CurrentSortingSelected, Mode=OneWay}" 
+                         Width="100"
+                         Margin="0,0,20,0"></TextBlock>
+                <icons:PackIconOcticons Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True, FallbackValue=Collapsed}" 
+                                        Kind="ChevronUp"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"></icons:PackIconOcticons>
+                <icons:PackIconOcticons Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
+                                        Kind="ChevronDown"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"></icons:PackIconOcticons>
             </Grid>
         </buttons:IconButton>
         <StackPanel Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}}">
-            <buttons:IconButton Style="{StaticResource DropdownButtons}" Content="Alphabeticle"
+            <buttons:IconButton Style="{StaticResource DropdownButtons}" Content="Name"
                                 Command="{Binding OnAlphaSort}"></buttons:IconButton>
             <buttons:IconButton Style="{StaticResource DropdownButtons}" 
                                 Command="{Binding OnDateSort}"

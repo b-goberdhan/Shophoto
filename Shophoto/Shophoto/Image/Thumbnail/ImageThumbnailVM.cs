@@ -1,4 +1,5 @@
 ﻿using Shophoto.Command;
+using Shophoto.Menus.Context;
 using Shophoto.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace Shophoto.Image.Thumbnail
         None,
         Delete,
         ThreeDot,
-        Edit
+        Edit,
+        Checkbox
     }
 
     public abstract class ImageThumbnailVM : BaseVM
@@ -71,6 +73,8 @@ namespace Shophoto.Image.Thumbnail
             }
         }
 
+        
+
         public virtual ICommand LeftClick
         {
             get;
@@ -81,7 +85,24 @@ namespace Shophoto.Image.Thumbnail
             get;
         }
 
-        protected virtual QuickButtonState QuickButtonState { get; set; } = QuickButtonState.None;
+        private QuickButtonState _quickButtonState;
+        protected QuickButtonState QuickButtonState {
+            get
+            {
+                return _quickButtonState;
+            }
+            set
+            {
+                _quickButtonState = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("HasQuickButton");
+                NotifyPropertyChanged("HasDeleteQuickButton");
+                NotifyPropertyChanged("HasThreeDotQuickButton");
+                NotifyPropertyChanged("HasEditQuickButton");
+                NotifyPropertyChanged("HasCheckbox");
+
+            }
+        }
 
         public bool HasQuickButton
         {
@@ -99,10 +120,31 @@ namespace Shophoto.Image.Thumbnail
         {
             get { return QuickButtonState == QuickButtonState.Edit; }
         }
-       
+        public bool HasCheckbox
+        {
+            get { return QuickButtonState == QuickButtonState.Checkbox; }
+        }
+
+        private bool _isChecked;
+        public bool IsChecked
+        {
+            get { return _isChecked && QuickButtonState == QuickButtonState.Checkbox; }
+            set {
+                _isChecked = value;
+                NotifyPropertyChanged();
+            }
+        }
+        public virtual ICommand QuickButtonOnCheckBoxClicked { get; }
 
         public virtual ICommand DeleteQuickButtonClick { get; }
         public virtual ICommand ThreeDotButtonClick { get; }
         public virtual ICommand EditQuickButtonClick { get; }
+
+        #region IGNORE THIS
+        public virtual bool IsContextMenuVisible { get; set; }
+        public virtual ImageThumbnailContextMenuVM ImageThumbnailContextMenuVM { get; }
+        #endregion
+
+
     }
 }

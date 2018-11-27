@@ -8,11 +8,45 @@ using Shophoto.Command;
 using System.Windows.Input;
 namespace Shophoto.Menus
 {
+    public enum SortDropdownState
+    {
+        Alphabetical,
+        Date
+    }
+
     public class SortDropdownMenuVM : BaseVM
     {
         public SortDropdownMenuVM() : base()
         {
 
+        }
+
+        public string CurrentSortingSelected
+        {
+            get
+            {
+                if (SortingState == SortDropdownState.Date)
+                {
+                    return "Date Upload";
+                }
+                else if (SortingState == SortDropdownState.Alphabetical)
+                {
+                    return "Name";
+                }
+                return "";
+            }
+        }
+
+        private SortDropdownState _sortingState;
+        public SortDropdownState SortingState
+        {
+            get { return _sortingState; }
+            set
+            {
+                _sortingState = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("CurrentSortingSelected");
+            }
         }
 
         private bool _isDropdownOpen;
@@ -26,12 +60,12 @@ namespace Shophoto.Menus
             }
         }
 
-        private ICommand _onSortClicked;
-        public ICommand OnSortClicked
+        private ICommand _onOpenDropdownClicked;
+        public ICommand OnOpenDropdownClicked
         {
             get
             {
-                return _onSortClicked ?? (_onSortClicked = new CommandHandler(() =>
+                return _onOpenDropdownClicked ?? (_onOpenDropdownClicked = new CommandHandler(() =>
                 {
                     IsDropdownOpen = !IsDropdownOpen;
                 }));
@@ -45,19 +79,21 @@ namespace Shophoto.Menus
             {
                 return _onAlphaSort ?? (_onAlphaSort = new CommandHandler(() =>
                 {
-
+                    SortingState = SortDropdownState.Alphabetical;
+                    IsDropdownOpen = false;
                 }));
             }
         }
 
-        private ICommand _onDataSort;
-        public ICommand OnDataSort
+        private ICommand _onDateSort;
+        public ICommand OnDateSort
         {
             get
             {
-                return _onDataSort ?? (_onDataSort = new CommandHandler(() =>
+                return _onDateSort ?? (_onDateSort = new CommandHandler(() =>
                 {
-
+                    SortingState = SortDropdownState.Date;
+                    IsDropdownOpen = false;
                 }));
             }
         }

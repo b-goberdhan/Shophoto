@@ -13,7 +13,7 @@
             <Setter Property="Foreground" Value="White"></Setter>
         </Style>
         <ControlTemplate x:Key="FABPlusButton" TargetType="Button" >
-            <Border Background="Red" Width="50" Height="50" CornerRadius="50">
+            <Border Background="{StaticResource LightRed}" Width="50" Height="50" CornerRadius="50">
                 <Grid>
                     <iconPacks:PackIconModern Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                           Kind="Add" Foreground="White"
@@ -35,7 +35,7 @@
                                 Foreground="AntiqueWhite" FontSize="8">
                     </ContentControl>
                 </Grid>
-                <Border Width="35" Height="35" CornerRadius="50" Margin="0,0,0,0" Background="Red">
+                <Border Width="35" Height="35" CornerRadius="50" Margin="0,0,0,0" Background="{StaticResource LightRed}">
                     <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" 
                                     Content="{TemplateBinding Icon}"></ContentControl>
                 </Border>
@@ -44,7 +44,9 @@
 
         </ControlTemplate>
     </UserControl.Resources>
+    
     <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
+        
         <StackPanel Margin="0,0,3,0" Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}">
             <buttons:IconButton Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Octicons Kind=Trashcan}"

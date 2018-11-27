@@ -7,6 +7,7 @@
              mc:Ignorable="d" 
              xmlns:button="clr-namespace:Shophoto.Buttons"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:contextMenus="clr-namespace:Shophoto.Menus.Context"
              d:DesignHeight="150" d:DesignWidth="200"
              Visibility="{Binding Visible, Converter={StaticResource BoolToVisConverter}}">
     <UserControl.InputBindings>
@@ -39,12 +40,32 @@
                                Icon="{iconPacks:Modern Kind=PageEdit, Width=20, Height=20}"
                                Command="{Binding EditQuickButtonClick}">
             </button:IconButton>
+            <Grid Visibility="{Binding HasCheckbox, Converter={StaticResource BoolToVisConverter}}" 
+                  VerticalAlignment="Top" HorizontalAlignment="Right">
+                <button:IconButton Width="35" Height="35" 
+                               Icon="{iconPacks:Material Kind=Check}"
+                               Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisConverter}}"
+                               Command="{Binding QuickButtonOnCheckBoxClicked}"
+                               Background="White"
+                               ></button:IconButton>
+                <button:IconButton Width="35" Height="35" 
+                                   Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
+                                   Command="{Binding QuickButtonOnCheckBoxClicked}"
+                                   Background="White"></button:IconButton> 
+            </Grid>
+            
         </Grid>
+
         <Grid VerticalAlignment="Bottom" Width="200" Height="40" Background="WhiteSmoke">
             <TextBlock VerticalAlignment="Center" Margin="5,0,0,0"
                        FontSize="20" Text="{Binding Name}">
             </TextBlock>
         </Grid>
+        
         <Border BorderBrush="Black" BorderThickness="1"></Border>
+        <contextMenus:ContextMenu DataContext="{Binding ImageThumbnailContextMenuVM}" 
+                                  Margin="0,35,10,0" 
+                                  VerticalAlignment="Top" HorizontalAlignment="Right">
+        </contextMenus:ContextMenu>
     </Grid>
 </UserControl>

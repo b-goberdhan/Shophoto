@@ -9,7 +9,8 @@
         xmlns:buttons="clr-namespace:Shophoto.Buttons"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1080"
-        DataContext="{Binding MainWindowVM, Source={StaticResource NinjectLocator}}">
+        DataContext="{Binding MainWindowVM, Source={StaticResource NinjectLocator}}"
+        SizeToContent="Width">
     <Grid>
         <StackPanel Orientation="Horizontal" Width="1080">
             <menus:SideMenu HorizontalAlignment="Left"></menus:SideMenu>
