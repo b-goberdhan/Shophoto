@@ -9,20 +9,46 @@ using System.Windows.Input;
 
 namespace Shophoto.Menus
 {
-    public class SideMenuVM
+    public enum SideMenuState
     {
-        private readonly MainWindowVM _mainVM;
-        public SideMenuVM(MainWindowVM mainVM)
+        Project,
+        Collection
+    }
+    public class SideMenuVM : BaseVM
+    {
+        public EventHandler OnProjectButtonClicked;
+        public SideMenuVM()
         {
-            _mainVM = mainVM;
+            State = SideMenuState.Project;
         }
 
-        public ICommand _collectionButtonCommand;
-        public ICommand CollectionButtonCommand
+        public ICommand _projectsButtonClicked;
+        public ICommand ProjectsButtonClickCommand
         {
             get {
-                return _collectionButtonCommand ?? (_collectionButtonCommand = new CommandHandler(_mainVM.OnCollectionButtonClicked));
+                return _projectsButtonClicked ?? (_projectsButtonClicked = new CommandHandler(() =>
+                {
+                    State = SideMenuState.Project;
+                    OnProjectButtonClicked?.Invoke(this, null);
+                }));
             }
+        }
+
+        private SideMenuState _state;
+        public SideMenuState State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("IsProjectSelected");
+            }
+        }
+
+        public bool IsProjectSelected
+        {
+            get { return State == SideMenuState.Project; }
         }
     }
 }

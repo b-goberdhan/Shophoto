@@ -188,6 +188,8 @@ namespace Shophoto.Views.Collections
             }
         }
 
+        
+
         private CollectionsState _state;
         public CollectionsState State
         {

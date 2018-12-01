@@ -6,6 +6,7 @@ using Shophoto.Services;
 using Shophoto.Views;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Collections.Aux;
+using Shophoto.Views.Projects;
 
 namespace Shophoto.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Shophoto.ViewModels
             Bind<SortDropdownMenuVM>().ToSelf().InTransientScope();
 
             Bind<CollectionsVM>().ToSelf().InTransientScope();
+            Bind<ProjectsVM>().ToSelf().InTransientScope();
+
             Bind<MainViewVM>().ToSelf().InTransientScope();
             Bind<MainWindowVM>().ToSelf().InSingletonScope();
             Bind<ImageService>().ToSelf().InSingletonScope();

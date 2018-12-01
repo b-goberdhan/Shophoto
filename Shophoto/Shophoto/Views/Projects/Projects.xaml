@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="Shophoto.Views.Projects.Projects"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shophoto.Views.Projects"
+             xmlns:project="clr-namespace:Shophoto.Views.Projects.Folder"
+             xmlns:collections="clr-namespace:Shophoto.Views.Collections"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             mc:Ignorable="d" 
+>
+    <Grid Width="815" Background="WhiteSmoke">
+        <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+            <StackPanel x:Name="Main">
+                <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
+                    <ListView Width="710" Height="490"
+                                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  Background="Transparent" BorderBrush="Transparent"
+                                  ItemsSource="{Binding ProjectFolders}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <project:ProjectFolder Margin="5"></project:ProjectFolder>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                    </ListView>
+                </Border>
+
+            </StackPanel>
+        </Grid>
+        <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
+            <collections:Collections DataContext="{Binding CurrentlyOpenedProjectFolder.CollectionsVM}"></collections:Collections>
+        </Grid>
+        <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                               DataContext="{Binding FABPlusButtonVM}"
+                               Margin="20"></buttons:FABPlusButton>
+    </Grid>
+</UserControl>

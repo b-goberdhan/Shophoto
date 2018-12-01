@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="Shophoto.Views.Projects.Folder.ProjectFolder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shophoto.Views.Projects.Folder"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="200"
+              >
+    <UserControl.InputBindings>
+        <MouseBinding Gesture="LeftClick" Command="{Binding LeftClickCommand}"></MouseBinding>
+    </UserControl.InputBindings>
+    <Grid Background="White" Width="200" Height="150">
+        <iconPacks:PackIconModern 
+            Margin="5"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Center"
+            Kind="FolderOpen" Width="100" Height="100"></iconPacks:PackIconModern>
+        <Grid Height="40" VerticalAlignment="Bottom">
+            <TextBlock
+                     Background="WhiteSmoke" Height="40" FontSize="20" 
+                     VerticalAlignment="Center" Padding="5"
+                     Text="{Binding Name, FallbackValue=My Project}"></TextBlock>
+        </Grid>
+    </Grid>
+</UserControl>

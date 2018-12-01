@@ -4,37 +4,43 @@ using Shophoto.Menus;
 using Shophoto.Views;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Collections.Aux;
+using Shophoto.Views.Projects;
 
 namespace Shophoto.ViewModels
 {
     public class NinjectLocator
     {
-        public FABPlusButtonVM FABPlusButtonVM
+        public static FABPlusButtonVM FABPlusButtonVM
         {
             get { return IocKernel.Get<FABPlusButtonVM>(); }
         }
 
-        public SideMenuVM SideMenuVM
+        public static SideMenuVM SideMenuVM
         {
             get { return IocKernel.Get<SideMenuVM>(); }
         }
 
-        public UploadVM UploadVM
+        public static UploadVM UploadVM
         {
             get { return IocKernel.Get<UploadVM>(); }
         }
         
-        public CollectionsVM CollectionsVM
+        public static ProjectsVM ProjectsVM
+        {
+            get { return IocKernel.Get<ProjectsVM>(); }
+        }
+
+        public static CollectionsVM CollectionsVM
         {
             get { return IocKernel.Get<CollectionsVM>(); }
         }
 
-        public MainViewVM MainViewVM
+        public static MainViewVM MainViewVM
         {
             get { return IocKernel.Get<MainViewVM>(); }
         }
 
-        public MainWindowVM MainWindowVM
+        public static MainWindowVM MainWindowVM
         {
             get { return IocKernel.Get<MainWindowVM>(); }
         }

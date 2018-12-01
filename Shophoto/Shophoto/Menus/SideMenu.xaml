@@ -7,21 +7,36 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              Width="250"
-             DataContext="{Binding SideMenuVM, Source={StaticResource NinjectLocator}}"
-             d:DesignHeight="720" d:DesignWidth="300">
+             d:DesignHeight="720" d:DesignWidth="300" 
+             Background="WhiteSmoke">
     <UserControl.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="{x:Type buttons:IconButton}">
+            <Setter Property="Background" Value="Gray"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value=".80"></Setter>
+                </Trigger>
+                <DataTrigger Binding="{Binding IsProjectSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource LightRed}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <ControlTemplate x:Key="MenuButton" TargetType="{x:Type buttons:IconButton}">
             <Border Height="50" Width="250" BorderThickness="0,0,0,1" BorderBrush="Black">
-                <StackPanel Orientation="Horizontal" Background="White">
+                <StackPanel Orientation="Horizontal" Background="{TemplateBinding Background}">
+                    <Grid Width="20" Background="{TemplateBinding Foreground}"></Grid>
                     <Border Margin="2"  BorderThickness="2" Width="45" Height="45"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Icon}">
+                        <ContentControl Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{TemplateBinding Icon}">
 
                         </ContentControl>
                     </Border>
                     <ContentControl Margin="10,0,0,0" Width="150"
                                 VerticalAlignment="Center"
                                 FontSize="20"
+                                    Foreground="Black"
                                 Content="{TemplateBinding Content}">
 
                     </ContentControl>
@@ -32,13 +47,16 @@
     </UserControl.Resources>
     <StackPanel Width="250" VerticalAlignment="Top">
         <buttons:IconButton Template="{StaticResource MenuButton}"
-                            Icon="{iconPacks:Octicons Kind=Archive, Width=25, Height=25}"
-                            Content="Collection" 
-                            Command="{Binding CollectionButtonCommand}">
+                            Icon="{iconPacks:Modern Kind=Folder, Width=25, Height=25}"
+                            Content="Projects" 
+                            Command="{Binding ProjectsButtonClickCommand}"
+                            Style="{StaticResource MenuButtonStyle}"
+                            >
             
         </buttons:IconButton>
         <buttons:IconButton Template="{StaticResource ResourceKey=MenuButton}"
                             Icon="{iconPacks:Octicons Kind=Settings, Width=25, Height=25}"
+
                             Content="Settings"/>
     </StackPanel>
 </UserControl>

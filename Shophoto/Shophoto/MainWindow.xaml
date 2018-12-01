@@ -13,8 +13,8 @@
         SizeToContent="Width">
     <Grid>
         <StackPanel Orientation="Horizontal" Width="1080">
-            <menus:SideMenu HorizontalAlignment="Left"></menus:SideMenu>
-            <views:MainView DataContext="{Binding MainViewVM, Source={StaticResource NinjectLocator}}"></views:MainView>
+            <menus:SideMenu HorizontalAlignment="Left" DataContext="{Binding SideMenuVM}"></menus:SideMenu>
+            <views:MainView DataContext="{Binding MainViewVM}"></views:MainView>
         </StackPanel>
     </Grid>
 </Window>

@@ -103,6 +103,7 @@
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="Ninject\NinjectLocator.cs" />
     <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
     <Compile Include="Views\Collections\Collections.xaml.cs">
       <DependentUpon>Collections.xaml</DependentUpon>
@@ -125,6 +126,14 @@
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SideMenuVM.cs" />
+    <Compile Include="Views\Projects\Folder\ProjectFolder.xaml.cs">
+      <DependentUpon>ProjectFolder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\Folder\ProjectFolderVM.cs" />
+    <Compile Include="Views\Projects\ProjectsVM.cs" />
+    <Compile Include="Views\Projects\Projects.xaml.cs">
+      <DependentUpon>Projects.xaml</DependentUpon>
+    </Compile>
     <Page Include="Buttons\FABPlusButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +195,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menus\SideMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\Folder\ProjectFolder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\Projects.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
