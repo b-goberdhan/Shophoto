@@ -11,12 +11,14 @@ namespace Shophoto.Views.Projects.AuxView
 {
     public class CreateProjectVM : BaseVM
     {
+        public event EventHandler OnGoBackClicked;
+        public event EventHandler OnCreateProjectClicked;
         public CreateProjectVM()
         {
 
         }
 
-        public event EventHandler OnGoBackClicked;
+
         private ICommand _goBackCommand;
         public ICommand GoBackCommand
         {
@@ -25,6 +27,18 @@ namespace Shophoto.Views.Projects.AuxView
                 return _goBackCommand ?? (_goBackCommand = new CommandHandler(() =>
                 {
                     OnGoBackClicked?.Invoke(this, null);
+                }));
+            }
+        }
+
+        private ICommand _createProjectCommand;
+        public ICommand CreateProjectCommand
+        {
+            get
+            {
+                return _createProjectCommand ?? (_createProjectCommand = new CommandHandler(() =>
+                {
+                    OnCreateProjectClicked?.Invoke(this, null);
                 }));
             }
         }

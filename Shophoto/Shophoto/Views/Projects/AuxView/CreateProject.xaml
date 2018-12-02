@@ -22,12 +22,11 @@
         <Border BorderBrush="Black" BorderThickness="0,2,0,0"
                         Height="400" Width="700">
             <StackPanel>
-                <Grid>
+                <Grid Height="320">
                    
                 </Grid>
 
                 <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0,0" VerticalAlignment="Center">
-                    
                     <buttons:IconButton Content="Create" Margin="530,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
                                         Background="Transparent" BorderBrush="Black" BorderThickness="4"
                                         Command="{Binding CreateProjectCommand}">

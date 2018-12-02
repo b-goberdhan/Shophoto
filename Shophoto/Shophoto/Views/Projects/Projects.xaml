@@ -8,10 +8,13 @@
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:auxView="clr-namespace:Shophoto.Views.Projects.AuxView"
+             xmlns:input="clr-namespace:Shophoto.InputBox"
+             xmlns:menus="clr-namespace:Shophoto.Menus"
              mc:Ignorable="d">
     <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
                 <StackPanel x:Name="Main">
                     <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
                         <ListView Width="710" Height="490"
@@ -36,11 +39,20 @@
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
                 <collections:Collections DataContext="{Binding CurrentlyOpenedProjectFolder.CollectionsVM}"></collections:Collections>
             </Grid>
-            <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding ProjectsFABButtonVM}"
                                Margin="20"></buttons:FABPlusButton>
+                <input:InputBox Width="270" VerticalAlignment="Top" Height="40"
+                            Margin="100,60,0,0"
+                            DataContext="{Binding SearchBoxVM}"></input:InputBox>
+                <menus:SortDropdownMenu VerticalAlignment="Top" HorizontalAlignment="Right"
+                                    Margin="0,60,50,0"
+                                    DataContext="{Binding SortDropdownMenuVM}"></menus:SortDropdownMenu>
+            </Grid>
+
         </Grid>
-        <Grid Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}">
+        <Grid Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}, FallbackValue=Collapsed}">
             <auxView:CreateProject DataContext="{Binding CreateProjectVM}"></auxView:CreateProject>
         </Grid>
     </Grid>

@@ -8,7 +8,7 @@
              mc:Ignorable="d" 
              Width="250"
              d:DesignHeight="720" d:DesignWidth="300" 
-             Background="WhiteSmoke">
+             Background="DarkGray">
     <UserControl.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type buttons:IconButton}">
             <Setter Property="Background" Value="Gray"></Setter>

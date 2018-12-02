@@ -1,4 +1,6 @@
 ﻿using Shophoto.Buttons;
+using Shophoto.InputBox;
+using Shophoto.Menus;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Projects.AuxView;
@@ -6,6 +8,7 @@ using Shophoto.Views.Projects.Folder;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,15 +25,33 @@ namespace Shophoto.Views.Projects
 
         public ProjectsVM(
             ProjectsFABButtonVM fABPlusButtonVM,
-            CreateProjectVM createProjectVM)
+            CreateProjectVM createProjectVM,
+            SortDropdownMenuVM sortDropdownMenuVM,
+            SearchBoxVM searchBoxVM)
         {
             ProjectsFABButtonVM = fABPlusButtonVM;
             CreateProjectVM = createProjectVM;
+            SortDropdownMenuVM = sortDropdownMenuVM;
+            SearchBoxVM = searchBoxVM;
             ProjectFolders = new ObservableCollection<ProjectFolderVM>();
 
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
             RegisterEvents();
         }
+
+
+        private void RegisterEvents()
+        {
+            ProjectsFABButtonVM.OnAddProjectClicked += ProjectsFABButtonVM_OnAddProjectClicked;
+            CreateProjectVM.OnGoBackClicked += CreateProjectVM_OnGoBackClicked;
+            SortDropdownMenuVM.PropertyChanged += SortDropdownMenuVM_PropertyChanged;
+            SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
+            foreach (ProjectFolderVM folder in ProjectFolders)
+            {
+                folder.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
+            }
+        }
+
 
         private ProjectsPageState _state;
         public ProjectsPageState State
@@ -55,19 +76,6 @@ namespace Shophoto.Views.Projects
             get { return State == ProjectsPageState.CreateProjectPage; }
         }
 
-
-        private void RegisterEvents()
-        {
-            ProjectsFABButtonVM.OnAddProjectClicked += ProjectsFABButtonVM_OnAddProjectClicked;
-            CreateProjectVM.OnGoBackClicked += CreateProjectVM_OnGoBackClicked;
-            foreach (ProjectFolderVM folder in ProjectFolders)
-            {
-                folder.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
-            }
-        }
-
-        
-
         public ProjectsFABButtonVM ProjectsFABButtonVM { get; }
         private void ProjectsFABButtonVM_OnAddProjectClicked(object sender, EventArgs e)
         {
@@ -78,6 +86,18 @@ namespace Shophoto.Views.Projects
         private void CreateProjectVM_OnGoBackClicked(object sender, EventArgs e)
         {
             State = ProjectsPageState.ProjectsPage;
+        }
+
+        public SortDropdownMenuVM SortDropdownMenuVM { get; }
+        private void SortDropdownMenuVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
+
+        public SearchBoxVM SearchBoxVM { get; }
+        private void SearchBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
         }
 
 
