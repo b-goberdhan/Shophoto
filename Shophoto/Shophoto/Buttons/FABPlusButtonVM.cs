@@ -12,10 +12,9 @@ using System.Windows.Input;
 
 namespace Shophoto.Buttons
 {
-    public class FABPlusButtonVM : BaseVM
+    public abstract class FABPlusButtonVM : BaseVM
     {
-        public event EventHandler OnUploadClicked;
-        public event EventHandler OnDeleteClicked;
+
         public FABPlusButtonVM()
         {
             IsOpen = false;
@@ -43,6 +42,12 @@ namespace Shophoto.Buttons
             }
         }
 
+        public virtual bool HasDeleteButton { get; }
+        public virtual bool HasTagButton { get; }
+        public virtual bool HasDownloadButton { get; }
+        public virtual bool HasAddProjectButton { get; } 
+        public virtual bool HasUploadButton { get; }
+
         private ICommand _toggleButton;
         public ICommand ToggleButtonCommand
         {
@@ -55,53 +60,12 @@ namespace Shophoto.Buttons
             }
         }
 
-        private ICommand _deleteButtonCommand;
-        public ICommand DeleteButtonCommand
-        {
-            get
-            {
-                return _deleteButtonCommand ?? (_deleteButtonCommand = new CommandHandler(() =>
-                {
-                    OnDeleteClicked?.Invoke(this, null);
-                }));
-            }
-        }
+        public virtual ICommand DeleteButtonCommand { get; }
+        public virtual ICommand TagButtonCommand { get; }
+        public virtual ICommand DownloadButtonCommand { get; }
+        public virtual ICommand UploadButtonCommand { get; }
+        public virtual ICommand AddProjectButtonCommand { get; }
 
-        private ICommand _tagButtonCommand;
-        public ICommand TagButtonCommand
-        {
-            get
-            {
-                return _tagButtonCommand ?? (_tagButtonCommand = new CommandHandler(() =>
-                {
-
-                }));
-            }
-        }
-
-        private ICommand _downloadButtonCommand;
-        public ICommand DownloadButtonCommand
-        {
-            get
-            {
-                return _downloadButtonCommand ?? (_downloadButtonCommand = new CommandHandler(() =>
-                {
-
-                }));
-            }
-        }
-
-        private ICommand _uploadButtonCommand;
-        public ICommand UploadButtonCommand
-        {
-            get
-            {
-                return _uploadButtonCommand ?? (_uploadButtonCommand = new CommandHandler(() =>
-                {
-                    OnUploadClicked?.Invoke(this, null);
-                }));
-            }
-        }
 
     }
 }

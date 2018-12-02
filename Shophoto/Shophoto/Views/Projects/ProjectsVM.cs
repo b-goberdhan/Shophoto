@@ -1,6 +1,7 @@
 ﻿using Shophoto.Buttons;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
+using Shophoto.Views.Projects.AuxView;
 using Shophoto.Views.Projects.Folder;
 using System;
 using System.Collections.Generic;
@@ -11,29 +12,74 @@ using System.Threading.Tasks;
 
 namespace Shophoto.Views.Projects
 {
+    public enum ProjectsPageState
+    {
+        ProjectsPage,
+        CreateProjectPage
+    }
     public class ProjectsVM : BaseVM
     {
 
-        public ProjectsVM(FABPlusButtonVM fABPlusButtonVM)
+        public ProjectsVM(
+            ProjectsFABButtonVM fABPlusButtonVM,
+            CreateProjectVM createProjectVM)
         {
-            FABPlusButtonVM = fABPlusButtonVM;
+            ProjectsFABButtonVM = fABPlusButtonVM;
+            CreateProjectVM = createProjectVM;
             ProjectFolders = new ObservableCollection<ProjectFolderVM>();
 
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
             RegisterEvents();
         }
 
-        public FABPlusButtonVM FABPlusButtonVM { get; }
+        private ProjectsPageState _state;
+        public ProjectsPageState State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                NotifyPropertyChanged();
+                NotifyPropertyChanged("IsOnProjectPage");
+                NotifyPropertyChanged("IsOnCreateProjectPage");
+            }
+        }
+
+        public bool IsOnProjectPage
+        {
+            get { return State == ProjectsPageState.ProjectsPage; }
+        }
+
+        public bool IsOnCreateProjectPage
+        {
+            get { return State == ProjectsPageState.CreateProjectPage; }
+        }
+
 
         private void RegisterEvents()
         {
+            ProjectsFABButtonVM.OnAddProjectClicked += ProjectsFABButtonVM_OnAddProjectClicked;
+            CreateProjectVM.OnGoBackClicked += CreateProjectVM_OnGoBackClicked;
             foreach (ProjectFolderVM folder in ProjectFolders)
             {
                 folder.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
             }
         }
 
-     
+        
+
+        public ProjectsFABButtonVM ProjectsFABButtonVM { get; }
+        private void ProjectsFABButtonVM_OnAddProjectClicked(object sender, EventArgs e)
+        {
+            State = ProjectsPageState.CreateProjectPage;
+        }
+
+        public CreateProjectVM CreateProjectVM { get; }
+        private void CreateProjectVM_OnGoBackClicked(object sender, EventArgs e)
+        {
+            State = ProjectsPageState.ProjectsPage;
+        }
+
 
 
         private ObservableCollection<ProjectFolderVM> _projectFolders;

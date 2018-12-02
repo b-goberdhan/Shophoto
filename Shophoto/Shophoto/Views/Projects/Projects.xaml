@@ -7,36 +7,41 @@
              xmlns:project="clr-namespace:Shophoto.Views.Projects.Folder"
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
-             mc:Ignorable="d" 
->
+             xmlns:auxView="clr-namespace:Shophoto.Views.Projects.AuxView"
+             mc:Ignorable="d">
     <Grid Width="815" Background="WhiteSmoke">
-        <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
-            <StackPanel x:Name="Main">
-                <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
-                    <ListView Width="710" Height="490"
+        <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
+            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                <StackPanel x:Name="Main">
+                    <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
+                        <ListView Width="710" Height="490"
                                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   Background="Transparent" BorderBrush="Transparent"
                                   ItemsSource="{Binding ProjectFolders}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <project:ProjectFolder Margin="5"></project:ProjectFolder>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
-                    </ListView>
-                </Border>
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <project:ProjectFolder Margin="5"></project:ProjectFolder>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+                        </ListView>
+                    </Border>
 
-            </StackPanel>
-        </Grid>
-        <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
-            <collections:Collections DataContext="{Binding CurrentlyOpenedProjectFolder.CollectionsVM}"></collections:Collections>
-        </Grid>
-        <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                               DataContext="{Binding FABPlusButtonVM}"
+                </StackPanel>
+            </Grid>
+            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
+                <collections:Collections DataContext="{Binding CurrentlyOpenedProjectFolder.CollectionsVM}"></collections:Collections>
+            </Grid>
+            <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                               DataContext="{Binding ProjectsFABButtonVM}"
                                Margin="20"></buttons:FABPlusButton>
+        </Grid>
+        <Grid Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}">
+            <auxView:CreateProject DataContext="{Binding CreateProjectVM}"></auxView:CreateProject>
+        </Grid>
     </Grid>
 </UserControl>

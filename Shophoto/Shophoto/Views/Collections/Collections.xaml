@@ -58,7 +58,7 @@
                                     DataContext="{Binding SortDropdownMenuVM}"
                                     ></menus:SortDropdownMenu>
             <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                               DataContext="{Binding FABPlusButtonVM}"
+                               DataContext="{Binding CollectionsFABButtonVM}"
                                Margin="20"></buttons:FABPlusButton>
         </Grid>
         <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"></common:ConfirmationBar>

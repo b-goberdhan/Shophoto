@@ -22,7 +22,7 @@
             <StackPanel>
                 <Grid>
                     <Rectangle Margin="0,20,0,0" Height="300" Stroke="Black"
-                                   StrokeThickness="3" StrokeDashArray="3 3">
+                                   StrokeThickness="2" StrokeDashArray="3 3">
                     </Rectangle>
                     <ListView Margin="0,20,0,0" Width="690" Height="290" BorderBrush="Transparent"
                               ItemsSource="{Binding ImagesToUpload}">

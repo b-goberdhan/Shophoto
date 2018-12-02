@@ -7,6 +7,7 @@ using Shophoto.Views;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Collections.Aux;
 using Shophoto.Views.Projects;
+using Shophoto.Views.Projects.AuxView;
 
 namespace Shophoto.ViewModels
 {
@@ -14,9 +15,11 @@ namespace Shophoto.ViewModels
     {
         public override void Load()
         {
-            Bind<FABPlusButtonVM>().ToSelf().InTransientScope();
+            Bind<CollectionsFABButtonVM>().ToSelf().InTransientScope();
+            Bind<ProjectsFABButtonVM>().ToSelf().InTransientScope();
             Bind<SideMenuVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
+            Bind<CreateProjectVM>().ToSelf().InTransientScope();
             Bind<SearchBoxVM>().ToSelf().InTransientScope();
             Bind<SortDropdownMenuVM>().ToSelf().InTransientScope();
 

@@ -24,14 +24,14 @@ namespace Shophoto.Views.Collections
     public class CollectionsVM : BaseVM
     {
         public CollectionsVM(
-            FABPlusButtonVM fabPlusButtonVM, 
+            CollectionsFABButtonVM fabPlusButtonVM, 
             UploadVM uploadVM, 
             SearchBoxVM searchBoxVM, 
             SortDropdownMenuVM sortDropdownMenuVM,
             DeleteConfirmationBarVM deleteConfirmationVM)
         {
             State = CollectionsState.Main;
-            FABPlusButtonVM = fabPlusButtonVM;
+            CollectionsFABButtonVM = fabPlusButtonVM;
             UploadVM = uploadVM;
             SearchBoxVM = searchBoxVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
@@ -43,8 +43,8 @@ namespace Shophoto.Views.Collections
 
         private void RegisterEvents()
         {
-            FABPlusButtonVM.OnUploadClicked += FabPlusButtonVM_OnUploadClicked;
-            FABPlusButtonVM.OnDeleteClicked += FABPlusButtonVM_OnDeleteClicked; 
+            CollectionsFABButtonVM.OnUploadClicked += FabPlusButtonVM_OnUploadClicked;
+            CollectionsFABButtonVM.OnDeleteClicked += FABPlusButtonVM_OnDeleteClicked; 
             UploadVM.OnGoBackClicked += UploadVM_OnGoBackClicked;
             UploadVM.OnUploadClicked += UploadVM_OnUploadClicked;
             SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
@@ -55,19 +55,19 @@ namespace Shophoto.Views.Collections
 
         
 
-        public FABPlusButtonVM FABPlusButtonVM { get; }
+        public CollectionsFABButtonVM CollectionsFABButtonVM { get; }
 
         private void FabPlusButtonVM_OnUploadClicked(object sender, EventArgs e)
         {
             State = CollectionsState.Upload;
             UploadVM.Reset();
-            FABPlusButtonVM.IsOpen = false;
+            CollectionsFABButtonVM.IsOpen = false;
         }
 
         private void FABPlusButtonVM_OnDeleteClicked(object sender, EventArgs e)
         {
             DeleteConfirmationBarVM.IsVisible = true;
-            FABPlusButtonVM.IsOpen = false;
+            CollectionsFABButtonVM.IsOpen = false;
             foreach (var thumbnail in ImageThumbnails)
             {
                 thumbnail.ShowDeleteCheckbox();
