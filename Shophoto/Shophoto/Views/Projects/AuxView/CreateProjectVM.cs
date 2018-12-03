@@ -1,6 +1,7 @@
 ﻿using Shophoto.Command;
 using Shophoto.InputBox;
 using Shophoto.ViewModels;
+using Shophoto.Views.Projects.Folder;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,13 +12,21 @@ using System.Windows.Input;
 
 namespace Shophoto.Views.Projects.AuxView
 {
+    public delegate void CreateProjectFolderHandler(ProjectFolderVM projectFolderVM);
     public class CreateProjectVM : BaseVM
     {
         public event EventHandler OnGoBackClicked;
-        public event EventHandler OnCreateProjectClicked;
-        public CreateProjectVM(LargeInputBoxVM largeInputBoxVM)
+        public event CreateProjectFolderHandler OnCreateProjectClicked;
+        public CreateProjectVM(
+            InputBoxVM projectNameVM,
+            LargeInputBoxVM projectSummaryInputBoxVM,
+            InputBoxVM customerNameInputBoxVM,
+            InputBoxVM emailInputBoxVM)
         {
-            LargeInputBoxVM = largeInputBoxVM;
+            ProjectNameVM = projectNameVM;
+            ProjectSummaryInputBoxVM = projectSummaryInputBoxVM;
+            CustomerNameInputBoxVM = customerNameInputBoxVM;
+            EmailInputBoxVM = emailInputBoxVM;
             RegisterEvents();    
         }
 
@@ -25,14 +34,35 @@ namespace Shophoto.Views.Projects.AuxView
 
         private void RegisterEvents()
         {
-            LargeInputBoxVM.PropertyChanged += LargeInputBoxVM_PropertyChanged;
+            ProjectNameVM.PropertyChanged += ProjectNameVM_PropertyChanged;
+            ProjectSummaryInputBoxVM.PropertyChanged += LargeInputBoxVM_PropertyChanged;
+            CustomerNameInputBoxVM.PropertyChanged += CustomerNameInputBoxVM_PropertyChanged;
+            EmailInputBoxVM.PropertyChanged += EmailInputBoxVM_PropertyChanged;
+        }
+
+        public InputBoxVM ProjectNameVM { get; }
+        private void ProjectNameVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
         }
 
 
-        public LargeInputBoxVM LargeInputBoxVM { get; }
+        public LargeInputBoxVM ProjectSummaryInputBoxVM { get; }
         private void LargeInputBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+            CanCreateProject = VerifyInputBoxesHaveText();
+        }
+
+        public InputBoxVM CustomerNameInputBoxVM { get; }
+        private void CustomerNameInputBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            CanCreateProject = VerifyInputBoxesHaveText();
+        }
+
+        public InputBoxVM EmailInputBoxVM { get; }
+        private void EmailInputBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            CanCreateProject = VerifyInputBoxesHaveText();
         }
 
         private ICommand _goBackCommand;
@@ -54,9 +84,48 @@ namespace Shophoto.Views.Projects.AuxView
             {
                 return _createProjectCommand ?? (_createProjectCommand = new CommandHandler(() =>
                 {
-                    OnCreateProjectClicked?.Invoke(this, null);
+                    //Ensure that all inputs were provided properly before
+                    //this event.
+
+
+                    if (!VerifyInputBoxesHaveText())
+                    {
+                        SetErrorOnInputBoxes();
+                    }
+                    else
+                    {
+
+                        
+                        OnCreateProjectClicked?.Invoke(null);
+                    }                   
                 }));
             }
+        }
+
+        private bool _canCreateProject;
+        public bool CanCreateProject
+        {
+            get { return _canCreateProject; }
+            set
+            {
+                _canCreateProject = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private bool VerifyInputBoxesHaveText()
+        {
+            return 
+                ProjectSummaryInputBoxVM.InputText.Replace(" ", "") != "" ||
+                CustomerNameInputBoxVM.InputText.Replace(" ", "") != "" ||
+                EmailInputBoxVM.InputText.Replace(" ", "") != "";
+        }
+
+        private void SetErrorOnInputBoxes()
+        {
+            ProjectSummaryInputBoxVM.HasError = ProjectSummaryInputBoxVM.InputText.Replace(" ", "") == "";
+            CustomerNameInputBoxVM.HasError = CustomerNameInputBoxVM.InputText.Replace(" ", "") == "";
+            EmailInputBoxVM.HasError = EmailInputBoxVM.InputText.Replace(" ", "") == "";
         }
     }
 }

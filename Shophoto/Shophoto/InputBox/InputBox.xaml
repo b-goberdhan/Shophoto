@@ -12,13 +12,43 @@
         <Style x:Key="InputBoxStyle" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Transparent"></Setter>
             <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                </Trigger>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                </Trigger>
+                <DataTrigger Binding="{Binding HasError}" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource LightRed}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
+        <ControlTemplate x:Key="TextInputTemplate" TargetType="TextBox">
+            <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+                    BorderBrush="{TemplateBinding Border.BorderBrush}"
+                    Background="{TemplateBinding Panel.Background}"
+                    SnapsToDevicePixels="True"
+                    Height="{TemplateBinding Height}"
+                    Width="{TemplateBinding Width}">
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Hidden"
+                              Focusable="True"
+                              Name="PART_ContentHost"
+                              Padding="{TemplateBinding Padding}"/>
+            </Border>
+        </ControlTemplate>
     </UserControl.Resources>
     <Grid>
         <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
                  Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="20" Padding="5" VerticalAlignment="Center" 
-                 Style="{StaticResource InputBoxStyle}">
+                 Style="{StaticResource InputBoxStyle}" 
+                 Template="{StaticResource TextInputTemplate}"
+                 Height="{Binding ElementName=inputBox, Path=Height}">
         </TextBox>
         <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
                  Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
@@ -27,7 +57,8 @@
                  AcceptsReturn="True"
                  VerticalScrollBarVisibility="Auto"
                  Height="{Binding ElementName=inputBox, Path=Height}"
-                 Style="{StaticResource InputBoxStyle}">
+                 Style="{StaticResource InputBoxStyle}"
+                 Template="{StaticResource TextInputTemplate}">
         </TextBox>
     </Grid>
 </UserControl>

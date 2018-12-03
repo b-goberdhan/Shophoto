@@ -20,9 +20,11 @@ namespace Shophoto.ViewModels
             Bind<SideMenuVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
+
+            Bind<InputBoxVM>().ToSelf().InTransientScope();
             Bind<SearchBoxVM>().ToSelf().InTransientScope();
             Bind<LargeInputBoxVM>().ToSelf().InTransientScope();
-
+           
             Bind<SortDropdownMenuVM>().ToSelf().InTransientScope();
 
             Bind<CollectionsVM>().ToSelf().InTransientScope();

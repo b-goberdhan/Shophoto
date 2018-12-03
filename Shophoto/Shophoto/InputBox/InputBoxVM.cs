@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace Shophoto.InputBox
 {
-    public abstract class InputBoxVM : BaseVM
+    public class InputBoxVM : BaseVM
     {
         private string _inputText;
         public string InputText
@@ -22,6 +22,16 @@ namespace Shophoto.InputBox
             }
         }
 
+        private bool _hasError;
+        public bool HasError
+        {
+            get { return _hasError; }
+            set
+            {
+                _hasError = value;
+                NotifyPropertyChanged();
+            }
+        }
         public virtual string PlaceHolderText { get; set; }
         public virtual bool HasMultiLineText { get; }
     }
