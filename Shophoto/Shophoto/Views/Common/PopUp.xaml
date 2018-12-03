@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="Shophoto.Views.Common.PopUp"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shophoto.Views.Common"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}"
+             mc:Ignorable="d">
+    <Grid>
+        <Border Width="500" Height="300" Background="White"
+                BorderBrush="Red" BorderThickness="3">
+            <Grid>
+                <Grid Height="252" VerticalAlignment="Top">
+                    <TextBlock FontSize="40" Text="{Binding Title, FallbackValue=My Alert}" Height="60" TextAlignment="Center"
+                               VerticalAlignment="Top" Margin="0,40,0,0"></TextBlock>
+                    <TextBlock FontSize="25" 
+                               Margin="30,110,30,20"
+                               Text="{Binding Info, FallbackValue=Some info}"
+                               TextWrapping="Wrap"></TextBlock>
+                </Grid>
+                <buttons:IconButton Width="500" Height="40" 
+                                FontSize="25" VerticalAlignment="Bottom"
+                                Content="Dismiss" Command="{Binding OnDismissedClicked}"></buttons:IconButton>
+            </Grid>
+
+        </Border>
+
+
+    </Grid>
+</UserControl>

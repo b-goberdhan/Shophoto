@@ -10,7 +10,7 @@ namespace Shophoto.InputBox
     {
         public SearchBoxVM() : base()
         {
-
+            PlaceHolderText = "Search...";
         }
 
         private string _placeHolderText;

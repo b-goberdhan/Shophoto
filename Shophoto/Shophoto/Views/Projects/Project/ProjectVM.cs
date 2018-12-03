@@ -13,8 +13,7 @@ namespace Shophoto.Views.Projects.Project
     {
 
         public ProjectVM()
-        {
-
+        { 
         }
 
 
@@ -39,6 +38,29 @@ namespace Shophoto.Views.Projects.Project
                 NotifyPropertyChanged();
             }
         }
+
+        private string _customerName;
+        public string CustomerName
+        {
+            get { return _customerName; }
+            set
+            {
+                _customerName = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _customerEmail;
+        public string CustomerEmail
+        {
+            get { return _customerEmail; }
+            set
+            {
+                _customerEmail = value;
+                NotifyPropertyChanged();
+            }
+        }
+
 
         private CollectionsVM _collectionsVM;
         public CollectionsVM CollectionsVM

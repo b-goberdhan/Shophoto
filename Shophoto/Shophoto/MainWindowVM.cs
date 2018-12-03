@@ -1,5 +1,6 @@
 ﻿using Shophoto.Menus;
 using Shophoto.Views;
+using Shophoto.Views.Common;
 using Shophoto.Views.Projects;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,8 @@ namespace Shophoto.ViewModels
     {
         public MainWindowVM(
             MainViewVM mainViewVM,
-            SideMenuVM sideMenuVM)
+            SideMenuVM sideMenuVM
+            )
         {
             MainViewVM = mainViewVM;
             SideMenuVM = sideMenuVM;

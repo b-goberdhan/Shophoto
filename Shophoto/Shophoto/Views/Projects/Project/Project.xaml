@@ -6,21 +6,27 @@
              xmlns:local="clr-namespace:Shophoto.Views.Projects.Project"
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              mc:Ignorable="d">
-    <Grid Width="985" Height="Auto">
-        <StackPanel Orientation="Horizontal">
-            <StackPanel HorizontalAlignment="Left" Background="White" Width="170">
-                <TextBlock Margin="0,70,0,0" Height="40" Background="Transparent"
-                       TextAlignment="Center"
+    <Grid Width="1005" Height="Auto">
+        <Border BorderBrush="Black" BorderThickness="1,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Left" Background="White" Width="190">
+                    <TextBlock Margin="20,70,20,0" Height="40" Background="Transparent"
+                       TextAlignment="Left"
                        FontSize="25" Text="{Binding Name, FallbackValue=First Project}"></TextBlock>
-                <TextBlock FontSize="15" Margin="10,0" TextAlignment="Left" Text="Info:"></TextBlock>
-                <TextBlock FontSize="10" Margin="10,5" TextAlignment="Left" 
+                    <TextBlock Margin="20,10,20,10" FontSize="15" TextAlignment="Left" Text="Info:"></TextBlock>
+                    <TextBlock Margin="20,0,20,10" FontSize="10" TextAlignment="Left" 
                        TextWrapping="Wrap" Opacity=".8"
                        FontStyle="Italic"
                        Text="{Binding Summary, FallbackValue=thskdnldndlfdf dfddfdfdf sdsdsf df df}"></TextBlock>
-
+                    <TextBlock Margin="20,10,20,10" FontSize="15" TextAlignment="Left" Text="Customer Name:"></TextBlock>
+                    <TextBlock Margin="20,0,20,0" FontSize="10" TextAlignment="Left" Text="{Binding CustomerName}"></TextBlock>
+                    <TextBlock Margin="20,10,20,10" FontSize="15" TextAlignment="Left" Text="Customer Email:"></TextBlock>
+                    <TextBlock Margin="20,0,20,0" FontSize="10" TextAlignment="Left" Text="{Binding CustomerEmail}"></TextBlock>
+                </StackPanel>
+                <collections:Collections DataContext="{Binding CollectionsVM}"></collections:Collections>
             </StackPanel>
-            <collections:Collections DataContext="{Binding CollectionsVM}"></collections:Collections>
-        </StackPanel>
+        </Border>
+       
         
         
     </Grid>
