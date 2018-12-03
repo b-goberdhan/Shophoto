@@ -23,6 +23,6 @@ namespace Shophoto.InputBox
         }
 
         public virtual string PlaceHolderText { get; set; }
-
+        public virtual bool HasMultiLineText { get; }
     }
 }

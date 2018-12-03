@@ -1,7 +1,9 @@
 ﻿using Shophoto.Command;
+using Shophoto.InputBox;
 using Shophoto.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +15,25 @@ namespace Shophoto.Views.Projects.AuxView
     {
         public event EventHandler OnGoBackClicked;
         public event EventHandler OnCreateProjectClicked;
-        public CreateProjectVM()
+        public CreateProjectVM(LargeInputBoxVM largeInputBoxVM)
         {
-
+            LargeInputBoxVM = largeInputBoxVM;
+            RegisterEvents();    
         }
 
+
+
+        private void RegisterEvents()
+        {
+            LargeInputBoxVM.PropertyChanged += LargeInputBoxVM_PropertyChanged;
+        }
+
+
+        public LargeInputBoxVM LargeInputBoxVM { get; }
+        private void LargeInputBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
 
         private ICommand _goBackCommand;
         public ICommand GoBackCommand

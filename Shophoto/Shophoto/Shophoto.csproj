@@ -86,6 +86,7 @@
     <Compile Include="InputBox\InputBox.xaml.cs">
       <DependentUpon>InputBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InputBox\LargeInputBoxVM.cs" />
     <Compile Include="InputBox\SearchBoxVM.cs" />
     <Compile Include="Menus\Context\ContextMenu.xaml.cs">
       <DependentUpon>ContextMenu.xaml</DependentUpon>

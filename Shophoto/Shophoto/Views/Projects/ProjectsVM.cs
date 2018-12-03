@@ -117,13 +117,19 @@ namespace Shophoto.Views.Projects
         {
             var project = (ProjectFolderVM)sender;
             CurrentlyOpenedProjectFolder = project;
+            project.CollectionsVM.Title = project.Name + " images";
+        }
+
+        public void GoBackToProjectsDirectory()
+        {
+            CurrentlyOpenedProjectFolder = null;
         }
 
         private ProjectFolderVM _currenltyOpenedProjectFolder;
         public ProjectFolderVM CurrentlyOpenedProjectFolder
         {
             get { return _currenltyOpenedProjectFolder; }
-            set
+            private set
             {
                 _currenltyOpenedProjectFolder = value;
                 NotifyPropertyChanged();

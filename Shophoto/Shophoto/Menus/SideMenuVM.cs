@@ -16,7 +16,6 @@ namespace Shophoto.Menus
     }
     public class SideMenuVM : BaseVM
     {
-        public EventHandler OnProjectButtonClicked;
         public SideMenuVM()
         {
             State = SideMenuState.Project;
@@ -29,7 +28,6 @@ namespace Shophoto.Menus
                 return _projectsButtonClicked ?? (_projectsButtonClicked = new CommandHandler(() =>
                 {
                     State = SideMenuState.Project;
-                    OnProjectButtonClicked?.Invoke(this, null);
                 }));
             }
         }

@@ -11,15 +11,28 @@
              Background="DarkGray">
     <UserControl.Resources>
         <Style x:Key="MenuButtonStyle" TargetType="{x:Type buttons:IconButton}">
-            <Setter Property="Background" Value="Gray"></Setter>
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Opacity" Value="1"></Setter>
             
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Opacity" Value=".80"></Setter>
                 </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ProjectMenuButton" TargetType="{x:Type buttons:IconButton}" BasedOn="{StaticResource MenuButtonStyle}">
+            <Style.Triggers>
                 <DataTrigger Binding="{Binding IsProjectSelected}" Value="True">
-                    <Setter Property="Foreground" Value="{StaticResource LightRed}"></Setter>
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="SettingsMenuButton" TargetType="{x:Type buttons:IconButton}" BasedOn="{StaticResource MenuButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSettingsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -36,7 +49,7 @@
                     <ContentControl Margin="10,0,0,0" Width="150"
                                 VerticalAlignment="Center"
                                 FontSize="20"
-                                    Foreground="Black"
+                                Foreground="Black"
                                 Content="{TemplateBinding Content}">
 
                     </ContentControl>
@@ -50,13 +63,14 @@
                             Icon="{iconPacks:Modern Kind=Folder, Width=25, Height=25}"
                             Content="Projects" 
                             Command="{Binding ProjectsButtonClickCommand}"
-                            Style="{StaticResource MenuButtonStyle}"
-                            >
-            
-        </buttons:IconButton>
+                            Style="{StaticResource ProjectMenuButton}"
+                            ></buttons:IconButton>
+        <StackPanel Width="175" HorizontalAlignment="Right">
+    
+        </StackPanel>
         <buttons:IconButton Template="{StaticResource ResourceKey=MenuButton}"
                             Icon="{iconPacks:Octicons Kind=Settings, Width=25, Height=25}"
-
+                            Style="{StaticResource MenuButtonStyle}"
                             Content="Settings"/>
     </StackPanel>
 </UserControl>

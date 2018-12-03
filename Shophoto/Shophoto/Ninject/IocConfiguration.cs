@@ -21,6 +21,8 @@ namespace Shophoto.ViewModels
             Bind<UploadVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
             Bind<SearchBoxVM>().ToSelf().InTransientScope();
+            Bind<LargeInputBoxVM>().ToSelf().InTransientScope();
+
             Bind<SortDropdownMenuVM>().ToSelf().InTransientScope();
 
             Bind<CollectionsVM>().ToSelf().InTransientScope();

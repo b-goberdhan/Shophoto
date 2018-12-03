@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Shophoto.Views.Projects.AuxView"
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:input="clr-namespace:Shophoto.InputBox"
              mc:Ignorable="d" 
 
              >
@@ -17,14 +18,20 @@
                                     Margin="60,60,0,40"
                                     Command="{Binding GoBackCommand}">
         </buttons:IconButton>
-        <TextBlock Height="55" Padding="75,0,0,0" Margin="0,0,0,10" FontSize="40">
+        <TextBlock Height="55" Padding="55,0,0,0" Margin="0,0,0,10" FontSize="40">
                     Create a new project</TextBlock>
         <Border BorderBrush="Black" BorderThickness="0,2,0,0"
                         Height="400" Width="700">
             <StackPanel>
-                <Grid Height="320">
-                   
-                </Grid>
+                <StackPanel Height="320" Margin="0,10,0,0">
+                    <StackPanel Orientation="Horizontal" >
+                        <TextBlock Background="Transparent" VerticalAlignment="Top" 
+                                 Height="40" Width="250" FontSize="30">Project Summary</TextBlock>
+                        <input:InputBox Width="400" Height="175" Margin="50,0,0,0"
+                                        DataContext="{Binding LargeInputBoxVM}">
+                        </input:InputBox>
+                    </StackPanel> 
+                </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0,0" VerticalAlignment="Center">
                     <buttons:IconButton Content="Create" Margin="530,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"

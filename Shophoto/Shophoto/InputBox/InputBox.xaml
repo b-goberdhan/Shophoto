@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Shophoto.InputBox"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
+             Name="inputBox"
              d:DesignHeight="50" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="InputBoxStyle" TargetType="TextBox">
@@ -14,8 +15,18 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <TextBox Height="50" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
-                 FontSize="20" Padding="10" VerticalAlignment="Center" 
+        <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
+                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="20" Padding="5" VerticalAlignment="Center" 
+                 Style="{StaticResource InputBoxStyle}">
+        </TextBox>
+        <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
+                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="20" Padding="5" VerticalAlignment="Center" 
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 Height="{Binding ElementName=inputBox, Path=Height}"
                  Style="{StaticResource InputBoxStyle}">
         </TextBox>
     </Grid>

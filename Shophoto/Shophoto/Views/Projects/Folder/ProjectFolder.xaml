@@ -12,16 +12,22 @@
         <MouseBinding Gesture="LeftClick" Command="{Binding LeftClickCommand}"></MouseBinding>
     </UserControl.InputBindings>
     <Grid Background="White" Width="200" Height="150">
-        <iconPacks:PackIconModern 
+        <Grid>
+            <iconPacks:PackIconModern 
             Margin="5"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
             Kind="FolderOpen" Width="100" Height="100"></iconPacks:PackIconModern>
-        <Grid Height="40" VerticalAlignment="Bottom">
-            <TextBlock
+            <Grid Height="40" VerticalAlignment="Bottom">
+                <TextBlock
                      Background="WhiteSmoke" Height="40" FontSize="20" 
                      VerticalAlignment="Center" Padding="5"
                      Text="{Binding Name, FallbackValue=My Project}"></TextBlock>
+            </Grid>
+        </Grid>
+        <Grid>
+            <Border BorderBrush="Black"
+                    BorderThickness="1"></Border>
         </Grid>
     </Grid>
 </UserControl>
