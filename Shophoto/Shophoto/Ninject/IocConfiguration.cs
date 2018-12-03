@@ -6,6 +6,7 @@ using Shophoto.Services;
 using Shophoto.Views;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Collections.Aux;
+using Shophoto.Views.Common;
 using Shophoto.Views.Projects;
 using Shophoto.Views.Projects.AuxView;
 
@@ -18,6 +19,7 @@ namespace Shophoto.ViewModels
             Bind<CollectionsFABButtonVM>().ToSelf().InTransientScope();
             Bind<ProjectsFABButtonVM>().ToSelf().InTransientScope();
             Bind<SideMenuVM>().ToSelf().InTransientScope();
+            Bind<PopUpVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
 

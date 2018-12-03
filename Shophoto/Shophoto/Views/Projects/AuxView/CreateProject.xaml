@@ -12,7 +12,7 @@
              >
     <StackPanel Width="815" Height="680" Background="WhiteSmoke" Margin="0,0,0,0">
         <buttons:IconButton Width="75" Height="75" 
-                                    Icon="{iconPacks:Modern Kind=ArrowLeft, Width=50, Height=50}"
+                                    Icon="{iconPacks:Octicons Kind=ChevronLeft, Width=50, Height=50}"
                                     Background="Transparent" BorderBrush="Transparent"
                                     VerticalAlignment="Top" HorizontalAlignment="Left"
                                     Margin="60,40,0,40"

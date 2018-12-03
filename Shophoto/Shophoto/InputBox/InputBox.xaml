@@ -27,6 +27,17 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="WaterMarkStyle" TargetType="TextBlock">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{ Binding IsFocused, ElementName=RegularInput}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{ Binding IsFocused, ElementName=LargeInput}" Value="True">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <ControlTemplate x:Key="TextInputTemplate" TargetType="TextBox">
             <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
                     BorderBrush="{TemplateBinding Border.BorderBrush}"
@@ -44,13 +55,13 @@
     </UserControl.Resources>
     <Grid>
         <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
-                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
+                 Name="RegularInput" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="20" Padding="5" VerticalAlignment="Center" 
                  Style="{StaticResource InputBoxStyle}" 
                  Template="{StaticResource TextInputTemplate}"
                  Height="{Binding ElementName=inputBox, Path=Height}">
         </TextBox>
-        <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
+        <TextBox Name="LargeInput" Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
                  Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="20" Padding="5" VerticalAlignment="Center" 
                  TextWrapping="Wrap"
@@ -60,5 +71,12 @@
                  Style="{StaticResource InputBoxStyle}"
                  Template="{StaticResource TextInputTemplate}">
         </TextBox>
+        <TextBlock Name="Watermark" TextAlignment="Center"
+                   HorizontalAlignment="Left" VerticalAlignment="Center"
+                   Margin="20,0,0,0"
+                   FontStyle="Italic" FontSize="20"
+                   Opacity=".6" IsHitTestVisible="False"
+                   Style="{StaticResource WaterMarkStyle}"
+                   Text="{Binding PlaceHolderText}"></TextBlock>
     </Grid>
 </UserControl>
