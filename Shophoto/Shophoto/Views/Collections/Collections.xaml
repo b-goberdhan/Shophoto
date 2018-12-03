@@ -18,7 +18,7 @@
     <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel x:Name="Main">
-                <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
+                <Border Margin="50,110,50,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
                     <Grid>
                         <Grid Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
                               Height="490">
@@ -29,10 +29,10 @@
                             
                         </Grid>
                         <ListView Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True}" Width="710" Height="490"
-                      ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
-                      Background="Transparent" BorderBrush="Transparent"
-                      ItemsSource="{Binding ImageThumbnails}">
-                        <ListView.ItemTemplate>
+                          ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                          Background="Transparent" BorderBrush="Transparent"
+                          ItemsSource="{Binding ImageThumbnails}">
+                            <ListView.ItemTemplate>
                             <DataTemplate>
                                 <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
                             </DataTemplate>
@@ -47,7 +47,7 @@
                 </Border>
                 
             </StackPanel>
-            <TextBlock FontSize="30" Margin="50,60,50,0" Text="{Binding Title,FallbackValue=My Project Collection}"></TextBlock>
+            <TextBlock FontSize="30" Height="50" VerticalAlignment="Top" Margin="50,60,50,0" Text="{Binding Title,FallbackValue=My Project Collection}"></TextBlock>
             <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
                                VerticalAlignment="Top" HorizontalAlignment="Right" 
                                Margin="0,60,230,0"></inputBox:InputBox>

@@ -27,6 +27,40 @@ namespace Shophoto.Views.Projects.Folder
                 NotifyPropertyChanged();
             }
         }
+
+        private string _summary;
+        public string Summary
+        {
+            get { return _summary; }
+            set
+            {
+                _summary = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _customerName;
+        public string CustomerName
+        {
+            get { return _customerName; }
+            set
+            {
+                _customerName = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _customerEmail;
+        public string CustomerEmail
+        {
+            get { return _customerEmail; }
+            set
+            {
+                _customerEmail = value;
+                NotifyPropertyChanged();
+            }
+        }
+
         private CollectionsVM _collectionsVM;
         public CollectionsVM CollectionsVM
         {

@@ -9,11 +9,17 @@
              d:DesignHeight="210" d:DesignWidth="100"
              Width="100" Height="260">
     <UserControl.Resources>
-        <Style TargetType="Button">
+        <Style x:Key="FABHover" TargetType="Button">
             <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource HoverRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <ControlTemplate x:Key="FABPlusButton" TargetType="Button" >
-            <Border Background="{StaticResource LightRed}" Width="50" Height="50" CornerRadius="50">
+            <Border Background="{TemplateBinding Background}" Width="50" Height="50" CornerRadius="50">
                 <Grid>
                     <iconPacks:PackIconModern Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" 
                                           Kind="Add" Foreground="White"
@@ -35,7 +41,7 @@
                                 Foreground="AntiqueWhite" FontSize="8">
                     </ContentControl>
                 </Grid>
-                <Border Width="35" Height="35" CornerRadius="50" Margin="0,0,0,0" Background="{StaticResource LightRed}">
+                <Border Width="35" Height="35" CornerRadius="50" Margin="0,0,0,0" Background="{TemplateBinding Background}">
                     <ContentControl VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" 
                                     Content="{TemplateBinding Icon}"></ContentControl>
                 </Border>
@@ -51,30 +57,37 @@
             <buttons:IconButton Visibility="{Binding HasDeleteButton, Converter={StaticResource BoolToVisConverter}}" 
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Octicons Kind=Trashcan}"
+                                Style="{StaticResource FABHover}"
                                 Content="Delete" Command="{Binding DeleteButtonCommand}">
             </buttons:IconButton>
             <buttons:IconButton Visibility="{Binding HasTagButton, Converter={StaticResource BoolToVisConverter}}" 
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
-                                Icon="{iconPacks:Octicons Kind=Tag}" 
+                                Icon="{iconPacks:Octicons Kind=Tag}"
+                                Style="{StaticResource FABHover}"
                                 Content="Tag"
                                 Command="{Binding TagButtonCommand}"></buttons:IconButton>
             <buttons:IconButton Visibility="{Binding HasDownloadButton, Converter={StaticResource BoolToVisConverter}}"
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Octicons Kind=DesktopDownload}"
+                                Style="{StaticResource FABHover}"
                                 Content="Download" Command="{Binding DownloadButtonCommand}">
             </buttons:IconButton>
             <buttons:IconButton Visibility="{Binding HasUploadButton, Converter={StaticResource BoolToVisConverter}}" 
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5" 
                                 Icon="{iconPacks:Octicons Kind=CloudUpload}"
+                                Style="{StaticResource FABHover}"
                                 Content="Upload" Command="{Binding UploadButtonCommand}">
             </buttons:IconButton>
             <buttons:IconButton Visibility="{Binding HasAddProjectButton, Converter={StaticResource BoolToVisConverter}}"
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Material Kind=FolderPlus}"
+                                Style="{StaticResource FABHover}"
                                 Content="Add Project" Command="{Binding AddProjectButtonCommand}">
                 
             </buttons:IconButton>
         </StackPanel>
-        <Button HorizontalAlignment="Right" Command="{Binding ToggleButtonCommand}" Template="{StaticResource FABPlusButton}"></Button>
+        <Button HorizontalAlignment="Right" Command="{Binding ToggleButtonCommand}" 
+                Template="{StaticResource FABPlusButton}"
+                Style="{StaticResource FABHover}"></Button>
     </StackPanel>
 </UserControl>

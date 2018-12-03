@@ -5,6 +5,7 @@ using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Projects.AuxView;
 using Shophoto.Views.Projects.Folder;
+using Shophoto.Views.Projects.Project;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -34,8 +35,19 @@ namespace Shophoto.Views.Projects
             SortDropdownMenuVM = sortDropdownMenuVM;
             SearchBoxVM = searchBoxVM;
             ProjectFolders = new ObservableCollection<ProjectFolderVM>();
-
+            
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project1" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project2" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project3" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project4" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project5" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project6" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project7" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project8" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project9" });
+            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project10" });
+
             RegisterEvents();
         }
 
@@ -44,6 +56,7 @@ namespace Shophoto.Views.Projects
         {
             ProjectsFABButtonVM.OnAddProjectClicked += ProjectsFABButtonVM_OnAddProjectClicked;
             CreateProjectVM.OnGoBackClicked += CreateProjectVM_OnGoBackClicked;
+            CreateProjectVM.OnCreateProjectClicked += CreateProjectVM_OnCreateProjectClicked;
             SortDropdownMenuVM.PropertyChanged += SortDropdownMenuVM_PropertyChanged;
             SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
             foreach (ProjectFolderVM folder in ProjectFolders)
@@ -87,6 +100,13 @@ namespace Shophoto.Views.Projects
         {
             State = ProjectsPageState.ProjectsPage;
         }
+        private void CreateProjectVM_OnCreateProjectClicked(ProjectFolderVM projectFolderVM)
+        {
+            ProjectFolders.Add(projectFolderVM);
+            projectFolderVM.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
+            CreateProjectVM.Reset();
+            State = ProjectsPageState.ProjectsPage;
+        }
 
         public SortDropdownMenuVM SortDropdownMenuVM { get; }
         private void SortDropdownMenuVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -115,23 +135,28 @@ namespace Shophoto.Views.Projects
 
         private void Folder_OnProjectFolderOpen(object sender, EventArgs e)
         {
-            var project = (ProjectFolderVM)sender;
-            CurrentlyOpenedProjectFolder = project;
-            project.CollectionsVM.Title = project.Name + " images";
+            var projectFolder = (ProjectFolderVM)sender;
+            CurrentlyOpenedProject = new ProjectVM()
+            {
+                Name = projectFolder.Name,
+                CollectionsVM = projectFolder.CollectionsVM,
+                Summary = projectFolder.Summary
+            };
+            //project.CollectionsVM.Title = project.Name + " images";
         }
 
         public void GoBackToProjectsDirectory()
         {
-            CurrentlyOpenedProjectFolder = null;
+            CurrentlyOpenedProject = null;
         }
 
-        private ProjectFolderVM _currenltyOpenedProjectFolder;
-        public ProjectFolderVM CurrentlyOpenedProjectFolder
+        private ProjectVM _currenltyOpenedProject;
+        public ProjectVM CurrentlyOpenedProject
         {
-            get { return _currenltyOpenedProjectFolder; }
+            get { return _currenltyOpenedProject; }
             private set
             {
-                _currenltyOpenedProjectFolder = value;
+                _currenltyOpenedProject = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("IsProjectFolderOpen");
             }
@@ -139,7 +164,7 @@ namespace Shophoto.Views.Projects
 
         public bool IsProjectFolderOpen
         {
-            get { return CurrentlyOpenedProjectFolder != null; }
+            get { return CurrentlyOpenedProject != null; }
         }
 
     }

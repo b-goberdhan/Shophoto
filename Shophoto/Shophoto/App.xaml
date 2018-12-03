@@ -8,6 +8,7 @@
     <Application.Resources>
         <converters:BoolToVisConverter x:Key="BoolToVisConverter"></converters:BoolToVisConverter>
         <SolidColorBrush x:Key="LightRed" Color="#ff4c4c"></SolidColorBrush>
+        <SolidColorBrush x:Key="HoverRed" Color="#cc3c3c"></SolidColorBrush>
         <SolidColorBrush x:Key="SelectedBlue" Color="#257AFD"></SolidColorBrush>
         <vm:NinjectLocator x:Key="NinjectLocator"></vm:NinjectLocator>
     </Application.Resources>

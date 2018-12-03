@@ -4,26 +4,28 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shophoto.Views.Projects"
-             xmlns:project="clr-namespace:Shophoto.Views.Projects.Folder"
+             xmlns:projectFolder="clr-namespace:Shophoto.Views.Projects.Folder"
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:auxView="clr-namespace:Shophoto.Views.Projects.AuxView"
              xmlns:input="clr-namespace:Shophoto.InputBox"
              xmlns:menus="clr-namespace:Shophoto.Menus"
+             xmlns:project="clr-namespace:Shophoto.Views.Projects.Project"
              mc:Ignorable="d">
-    <Grid Width="815" Background="WhiteSmoke">
+    <!-- Width = 815-->
+    <Grid Width="985" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
-                <StackPanel x:Name="Main">
-                    <Border Margin="50,110,50,0" BorderThickness="0,1" BorderBrush="Gray">
-                        <ListView Width="710" Height="490"
+                <DockPanel x:Name="Main" Height="Auto" VerticalAlignment="Stretch">
+                    <Border Margin="50,110,50,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                        <ListView Height="Auto"
                                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   Background="Transparent" BorderBrush="Transparent"
                                   ItemsSource="{Binding ProjectFolders}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <project:ProjectFolder Margin="5"></project:ProjectFolder>
+                                    <projectFolder:ProjectFolder Margin="5"></projectFolder:ProjectFolder>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemsPanel>
@@ -34,15 +36,15 @@
                         </ListView>
                     </Border>
 
-                </StackPanel>
+                </DockPanel>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
-                <collections:Collections DataContext="{Binding CurrentlyOpenedProjectFolder.CollectionsVM}"></collections:Collections>
+                <project:Project DataContext="{Binding CurrentlyOpenedProject}"></project:Project>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding ProjectsFABButtonVM}"
-                               Margin="20"></buttons:FABPlusButton>
+                               Margin="0,0,0,20"></buttons:FABPlusButton>
                 <input:InputBox Width="270" VerticalAlignment="Top" Height="40"
                             Margin="100,60,0,0"
                             DataContext="{Binding SearchBoxVM}"></input:InputBox>

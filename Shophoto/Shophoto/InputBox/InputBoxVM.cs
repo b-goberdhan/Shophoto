@@ -11,12 +11,27 @@ namespace Shophoto.InputBox
 {
     public class InputBoxVM : BaseVM
     {
+        public InputBoxVM()
+        {
+            
+        }
         private string _inputText;
         public string InputText
         {
-            get { return _inputText; }
+            get
+            {
+                if (_inputText == null)
+                {
+                    _inputText = "";
+                }
+                return _inputText;
+            }
             set
             {
+                if (_inputText != value && !IsDirty)
+                {
+                    IsDirty = true;
+                }
                 _inputText = value;
                 NotifyPropertyChanged();
             }
@@ -32,6 +47,23 @@ namespace Shophoto.InputBox
                 NotifyPropertyChanged();
             }
         }
+
+        private bool _isDirty;
+        public bool IsDirty
+        {
+            get { return _isDirty; }
+            private set
+            {
+                _isDirty = value;
+            }
+        }
+
+        public void Reset()
+        {
+            IsDirty = false;
+            InputText = "";
+        }
+
         public virtual string PlaceHolderText { get; set; }
         public virtual bool HasMultiLineText { get; }
     }

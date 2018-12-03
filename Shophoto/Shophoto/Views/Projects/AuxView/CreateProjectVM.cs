@@ -23,7 +23,7 @@ namespace Shophoto.Views.Projects.AuxView
             InputBoxVM customerNameInputBoxVM,
             InputBoxVM emailInputBoxVM)
         {
-            ProjectNameVM = projectNameVM;
+            ProjectNameInputBoxVM = projectNameVM;
             ProjectSummaryInputBoxVM = projectSummaryInputBoxVM;
             CustomerNameInputBoxVM = customerNameInputBoxVM;
             EmailInputBoxVM = emailInputBoxVM;
@@ -34,16 +34,16 @@ namespace Shophoto.Views.Projects.AuxView
 
         private void RegisterEvents()
         {
-            ProjectNameVM.PropertyChanged += ProjectNameVM_PropertyChanged;
+            ProjectNameInputBoxVM.PropertyChanged += ProjectNameVM_PropertyChanged;
             ProjectSummaryInputBoxVM.PropertyChanged += LargeInputBoxVM_PropertyChanged;
             CustomerNameInputBoxVM.PropertyChanged += CustomerNameInputBoxVM_PropertyChanged;
             EmailInputBoxVM.PropertyChanged += EmailInputBoxVM_PropertyChanged;
         }
 
-        public InputBoxVM ProjectNameVM { get; }
+        public InputBoxVM ProjectNameInputBoxVM { get; }
         private void ProjectNameVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+            CanCreateProject = VerifyInputBoxesHaveText();
         }
 
 
@@ -86,17 +86,20 @@ namespace Shophoto.Views.Projects.AuxView
                 {
                     //Ensure that all inputs were provided properly before
                     //this event.
-
-
                     if (!VerifyInputBoxesHaveText())
                     {
                         SetErrorOnInputBoxes();
                     }
                     else
                     {
-
-                        
-                        OnCreateProjectClicked?.Invoke(null);
+                        var project = new ProjectFolderVM()
+                        {
+                            Name = ProjectNameInputBoxVM.InputText,
+                            Summary = ProjectSummaryInputBoxVM.InputText,
+                            CustomerName = CustomerNameInputBoxVM.InputText,
+                            CustomerEmail = EmailInputBoxVM.InputText
+                        };
+                        OnCreateProjectClicked?.Invoke(project);
                     }                   
                 }));
             }
@@ -116,16 +119,26 @@ namespace Shophoto.Views.Projects.AuxView
         private bool VerifyInputBoxesHaveText()
         {
             return 
-                ProjectSummaryInputBoxVM.InputText.Replace(" ", "") != "" ||
-                CustomerNameInputBoxVM.InputText.Replace(" ", "") != "" ||
+                ProjectNameInputBoxVM.InputText.Replace(" ", "") != "" &&
+                ProjectSummaryInputBoxVM.InputText.Replace(" ", "") != "" &&
+                CustomerNameInputBoxVM.InputText.Replace(" ", "") != "" &&
                 EmailInputBoxVM.InputText.Replace(" ", "") != "";
         }
 
         private void SetErrorOnInputBoxes()
         {
-            ProjectSummaryInputBoxVM.HasError = ProjectSummaryInputBoxVM.InputText.Replace(" ", "") == "";
-            CustomerNameInputBoxVM.HasError = CustomerNameInputBoxVM.InputText.Replace(" ", "") == "";
-            EmailInputBoxVM.HasError = EmailInputBoxVM.InputText.Replace(" ", "") == "";
+            ProjectNameInputBoxVM.HasError = ProjectNameInputBoxVM.InputText.Replace(" ", "") == "" && ProjectNameInputBoxVM.IsDirty;
+            ProjectSummaryInputBoxVM.HasError = ProjectSummaryInputBoxVM.InputText.Replace(" ", "") == "" && ProjectSummaryInputBoxVM.IsDirty;
+            CustomerNameInputBoxVM.HasError = CustomerNameInputBoxVM.InputText.Replace(" ", "") == "" && CustomerNameInputBoxVM.IsDirty;
+            EmailInputBoxVM.HasError = EmailInputBoxVM.InputText.Replace(" ", "") == "" && EmailInputBoxVM.IsDirty;
+        }
+
+        public void Reset()
+        {
+            ProjectNameInputBoxVM.Reset();
+            ProjectSummaryInputBoxVM.Reset();
+            CustomerNameInputBoxVM.Reset();
+            EmailInputBoxVM.Reset();
         }
     }
 }

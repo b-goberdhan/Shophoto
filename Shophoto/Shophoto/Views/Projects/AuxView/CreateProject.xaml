@@ -10,12 +10,12 @@
              mc:Ignorable="d" 
 
              >
-    <StackPanel Width="815" Height="680" Background="WhiteSmoke">
+    <StackPanel Width="815" Height="680" Background="WhiteSmoke" Margin="0,0,0,0">
         <buttons:IconButton Width="75" Height="75" 
                                     Icon="{iconPacks:Modern Kind=ArrowLeft, Width=50, Height=50}"
                                     Background="Transparent" BorderBrush="Transparent"
                                     VerticalAlignment="Top" HorizontalAlignment="Left"
-                                    Margin="60,60,0,40"
+                                    Margin="60,40,0,40"
                                     Command="{Binding GoBackCommand}">
         </buttons:IconButton>
         <TextBlock Height="55" Padding="55,0,0,0" Margin="0,0,0,10" FontSize="40">
@@ -44,11 +44,11 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
                         <TextBlock Background="Transparent" 
-                                   Height="40" Width="300" FontSize="25">Customers Email Adresse</TextBlock>
+                                   Height="40" Width="300" FontSize="25">Customers Email Address</TextBlock>
                         <input:InputBox DataContext="{Binding EmailInputBoxVM}" Width="400"></input:InputBox>
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Height="50" Margin="0,20,0,0" VerticalAlignment="Center">
-                        <buttons:IconButton Content="Create" Margin="530,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
+                    <StackPanel Orientation="Horizontal" Height="50" Margin="0,10,0,0" VerticalAlignment="Center">
+                        <buttons:IconButton Content="Create" Margin="550,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
                                         Background="Transparent" BorderBrush="Black" BorderThickness="2"
                                         IsEnabled="{Binding CanCreateProject}"
                                         Command="{Binding CreateProjectCommand}">

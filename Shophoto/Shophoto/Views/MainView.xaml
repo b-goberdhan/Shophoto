@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:Shophoto.Views"
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:projects="clr-namespace:Shophoto.Views.Projects">
-    <Grid>
+    <Grid Width="Auto" HorizontalAlignment="Stretch">
         <projects:Projects DataContext="{Binding ProjectsVM}"></projects:Projects>
     </Grid>
 </UserControl>
