@@ -18,7 +18,7 @@
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
                 <DockPanel x:Name="Main" Height="Auto" VerticalAlignment="Stretch">
-                    <Border Margin="50,110,50,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                    <Border Margin="50,110,100,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
                         <ListView Height="Auto"
                                   ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   Background="Transparent" BorderBrush="Transparent"
@@ -44,12 +44,12 @@
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding ProjectsFABButtonVM}"
-                               Margin="0,0,0,20"></buttons:FABPlusButton>
+                               Margin="20"></buttons:FABPlusButton>
                 <input:InputBox Width="270" VerticalAlignment="Top" Height="40"
-                            Margin="100,60,0,0"
+                            Margin="160,60,0,0"
                             DataContext="{Binding SearchBoxVM}"></input:InputBox>
                 <menus:SortDropdownMenu VerticalAlignment="Top" HorizontalAlignment="Right"
-                                    Margin="0,60,50,0"
+                                    Margin="0,60,100,0"
                                     DataContext="{Binding SortDropdownMenuVM}"></menus:SortDropdownMenu>
             </Grid>
 

@@ -142,7 +142,7 @@ namespace Shophoto.Views.Projects
                 CollectionsVM = projectFolder.CollectionsVM,
                 Summary = projectFolder.Summary
             };
-            //project.CollectionsVM.Title = project.Name + " images";
+            
         }
 
         public void GoBackToProjectsDirectory()
