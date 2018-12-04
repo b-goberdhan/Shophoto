@@ -1,4 +1,5 @@
-﻿using Shophoto.ViewModels;
+﻿using Shophoto.Command;
+using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Projects.Folder;
 using System;
@@ -6,12 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Shophoto.Views.Projects.Project
 {
     public class ProjectVM : BaseVM
     {
-
+        public event EventHandler OnGoBackClick;
         public ProjectVM()
         { 
         }
@@ -58,6 +60,19 @@ namespace Shophoto.Views.Projects.Project
             {
                 _customerEmail = value;
                 NotifyPropertyChanged();
+            }
+        }
+
+        private ICommand _goBackClickCommand;
+        public ICommand GoBackClickCommand
+        {
+            get
+            {
+                return _goBackClickCommand ?? (_goBackClickCommand = new CommandHandler(() =>
+                {
+                    CollectionsVM.CollectionsFABButtonVM.IsOpen = false;
+                    OnGoBackClick?.Invoke(this, null);
+                }));
             }
         }
 

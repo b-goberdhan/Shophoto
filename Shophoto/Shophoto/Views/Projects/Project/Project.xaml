@@ -5,14 +5,26 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shophoto.Views.Projects.Project"
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
     <Grid Width="1005" Height="Auto">
         <Border BorderBrush="{StaticResource SelectedBlue}" BorderThickness="2,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel HorizontalAlignment="Left" Background="White" Width="190">
-                    <TextBlock Margin="20,70,20,0" Height="40" Background="Transparent"
+                    <buttons:IconButton HorizontalAlignment="Left" Width="40" Height="40" 
+                                        Margin="10,10,0,0"
+                                        Icon="{iconPacks:Octicons Kind=ChevronLeft}"
+                                        Template="{StaticResource IconButtonTemplate}"
+                                        Style="{StaticResource IconButtonHoverStyle}"
+                                        BorderBrush="Transparent"
+                                        Command="{Binding GoBackClickCommand}"></buttons:IconButton>
+                    <Viewbox StretchDirection="DownOnly">
+                        <TextBlock Margin="10,20,10,0" Height="40" Background="Transparent"
                        TextAlignment="Left"
                        FontSize="25" Text="{Binding Name, FallbackValue=First Project}"></TextBlock>
+                    </Viewbox>
+
                     <TextBlock Margin="20,10,20,10" FontSize="15" TextAlignment="Left" Text="Info:"></TextBlock>
                     <TextBlock Margin="20,0,20,10" FontSize="10" TextAlignment="Left" 
                        TextWrapping="Wrap" Opacity=".8"

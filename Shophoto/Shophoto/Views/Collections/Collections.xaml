@@ -34,10 +34,10 @@
                           Background="Transparent" BorderBrush="Transparent"
                           ItemsSource="{Binding ImageThumbnails}">
                             <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <image:ImageThumbnail Margin="8"></image:ImageThumbnail>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <image:ImageThumbnail Margin="8"></image:ImageThumbnail>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>

@@ -12,13 +12,44 @@
              xmlns:menus="clr-namespace:Shophoto.Menus"
              xmlns:project="clr-namespace:Shophoto.Views.Projects.Project"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="FadeInAndSlideAnimation" TargetType="Grid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsOnCreateProjectPage}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:0.50">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.50">
+                                </DoubleAnimation>
+
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                 From="250" To="0" Duration="0:0:0.15">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseIn"></CubicEase>
+                                    </DoubleAnimation.EasingFunction>
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <!-- Width = 815-->
     <Grid Width="985" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
             <Grid Margin="0,0,0,0" Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
                 <Border Margin="0,110,0,0" Width="940" BorderThickness="0,1,0,0" BorderBrush="Gray">
-                        <ListView Width="940" Height="490"
+                    <Grid>
+                        <Grid Visibility="{Binding HasProjects, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
+                                FontSize="25" FontStyle="Italic" Opacity="0.75">
+                                Click '+' than add project to get started.</TextBlock>
+                        </Grid>
+                        <ListView Width="940" Height="490" Visibility="{Binding HasProjects, Converter={StaticResource BoolToVisConverter}}"
                                   ScrollViewer.CanContentScroll="True" 
                                   ScrollViewer.VerticalScrollBarVisibility="Auto"
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -36,7 +67,9 @@
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                         </ListView>
-                    </Border>
+                    </Grid>
+
+                </Border>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
                 <project:Project DataContext="{Binding CurrentlyOpenedProject}"></project:Project>
@@ -54,8 +87,18 @@
             </Grid>
 
         </Grid>
-        <Grid Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}, FallbackValue=Collapsed}">
-            <auxView:CreateProject DataContext="{Binding CreateProjectVM}"></auxView:CreateProject>
+        <!-- Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}"-->
+        <Grid VerticalAlignment="Center"
+              HorizontalAlignment="Center" 
+              Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}"
+              Style="{StaticResource FadeInAndSlideAnimation}">
+            <Grid.RenderTransform>
+                <TranslateTransform X="0" Y="0"></TranslateTransform>
+            </Grid.RenderTransform>
+            <auxView:CreateProject x:Name="createProject" 
+                               DataContext="{Binding CreateProjectVM}">
+            </auxView:CreateProject>
         </Grid>
+
     </Grid>
 </UserControl>

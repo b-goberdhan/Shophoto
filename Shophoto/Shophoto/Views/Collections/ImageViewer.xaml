@@ -7,33 +7,44 @@
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
-             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
+             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}, FallbackValue=Visible}">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <Grid>
-        <Grid Background="Black" Opacity=".5"></Grid>
+        <Grid Background="Black" Opacity=".5">
+            <Grid.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
+            </Grid.InputBindings>
+        </Grid>
         <StackPanel Background="White" Width="650" Height="550">
-            <StackPanel Orientation="Horizontal" Width="650" >
-                <TextBlock Margin="10,0,0,0" Text="{Binding Image.Name, FallbackValue=SomeImage.png}"
+            <Grid Width="650" >
+                <TextBlock Margin="10,10,0,0" Text="{Binding Image.Name, FallbackValue=SomeImage.png}"
                        FontSize="20" Height="30" VerticalAlignment="Top"></TextBlock>
                 <buttons:IconButton Icon="{iconPacks:Entypo Kind=Plus, Rotation=45}" 
-                                    Background="Transparent" BorderBrush="Transparent"
-                                    Width="40" Height="40" Margin="455,0,0,0"
+                                    BorderBrush="Transparent"
+                                    Width="40" Height="40" Margin="610,0,0,0"
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonHoverStyle}"
                                     Command="{Binding CloseCommand}"></buttons:IconButton>
-            </StackPanel>
+            </Grid>
 
-            <StackPanel Orientation="Horizontal" Height="500">
-                <buttons:IconButton Icon="{iconPacks:Octicons Kind=ChevronLeft}"
-                                    Background="Transparent"
+            <StackPanel Orientation="Horizontal" Height="510">
+                <buttons:IconButton Icon="{iconPacks:Octicons Kind=ChevronLeft}"                                    
                                     BorderBrush="Transparent"
                                     IsEnabled="{Binding IsLeftEnabled}"
                                     Command="{Binding OnClickLeftCommand}"
-                                    Width="30"></buttons:IconButton>
-                <Image Source="{Binding Image.ImageSource}" Margin="0,0,0,20" Width="590"></Image>
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonHoverStyle}"
+                                    Width="40"></buttons:IconButton>
+                <Image Source="{Binding Image.ImageSource}" Margin="0,0,0,20" Width="570"></Image>
                 <buttons:IconButton Icon="{iconPacks:Octicons Kind=ChevronRight}"
-                                    Background="Transparent"
                                     BorderBrush="Transparent"
                                     IsEnabled="{Binding IsRightEnabled}"
                                     Command="{Binding OnClickRightCommand}"
-                                    Width="30"></buttons:IconButton>
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonHoverStyle}"
+                                    Width="40"></buttons:IconButton>
             </StackPanel>
         </StackPanel>
     </Grid>
