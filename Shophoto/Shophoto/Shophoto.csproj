@@ -116,6 +116,10 @@
       <DependentUpon>Upload.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Collections\AuxView\UploadVM.cs" />
+    <Compile Include="Views\Collections\ImageViewer.xaml.cs">
+      <DependentUpon>ImageViewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Collections\ImageViewerVM.cs" />
     <Compile Include="Views\Common\ConfirmationBar.xaml.cs">
       <DependentUpon>ConfirmationBar.xaml</DependentUpon>
     </Compile>
@@ -198,6 +202,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Collections\AuxView\Upload.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Collections\ImageViewer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

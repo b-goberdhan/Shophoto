@@ -21,6 +21,7 @@ namespace Shophoto.ViewModels
             Bind<SideMenuVM>().ToSelf().InTransientScope();
             Bind<PopUpVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
+            Bind<ImageViewerVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
 
             Bind<InputBoxVM>().ToSelf().InTransientScope();

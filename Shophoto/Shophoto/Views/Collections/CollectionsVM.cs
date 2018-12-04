@@ -28,7 +28,8 @@ namespace Shophoto.Views.Collections
             UploadVM uploadVM, 
             SearchBoxVM searchBoxVM, 
             SortDropdownMenuVM sortDropdownMenuVM,
-            DeleteConfirmationBarVM deleteConfirmationVM)
+            DeleteConfirmationBarVM deleteConfirmationVM,
+            ImageViewerVM imageViewerVM)
         {
             State = CollectionsState.Main;
             CollectionsFABButtonVM = fabPlusButtonVM;
@@ -36,6 +37,7 @@ namespace Shophoto.Views.Collections
             SearchBoxVM = searchBoxVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
+            ImageViewerVM = imageViewerVM;
             RegisterEvents();
             ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>();
 
@@ -51,9 +53,11 @@ namespace Shophoto.Views.Collections
             SortDropdownMenuVM.PropertyChanged += SortDropdownMenuVM_PropertyChanged;
             DeleteConfirmationBarVM.OnDeleteConfirmed += DeleteConfirmationBarVM_OnDeleteConfirmed;
             DeleteConfirmationBarVM.PropertyChanged += DeleteConfirmationBarVM_PropertyChanged;
+            ImageViewerVM.OnClickLeft += ImageViewerVM_OnClickLeft;
+            ImageViewerVM.OnClickRight += ImageViewerVM_OnClickRight;
         }
 
-        
+
 
         public CollectionsFABButtonVM CollectionsFABButtonVM { get; }
 
@@ -95,11 +99,20 @@ namespace Shophoto.Views.Collections
             {
                 foreach (ImageThumbnailCollectionsVM thumbnail in uploadedImages)
                 {
+                    thumbnail.OnOpenImage += Thumbnail_OnOpenImage;
                     _imageThumbnails.Add(thumbnail);
                 }
                 State = CollectionsState.Main;
             }
         }
+
+        private void Thumbnail_OnOpenImage(object sender, EventArgs e)
+        {
+            ImageViewerVM.Image = (sender as ImageThumbnailCollectionsVM);
+            SetDisabledLeftRight();
+            ImageViewerVM.IsVisible = true;
+        }
+
         private void UploadVM_OnGoBackClicked(object sender, EventArgs e)
         {
             if (State == CollectionsState.Upload)
@@ -176,6 +189,36 @@ namespace Shophoto.Views.Collections
                 thumbnail.OnCheckboxClicked -= Thumbnail_OnCheckboxClicked;
                 ImageThumbnails.Remove(thumbnail);
             }
+        }
+
+        public ImageViewerVM ImageViewerVM { get; }
+        private void SetDisabledLeftRight()
+        {
+            ImageViewerVM.IsLeftEnabled = ImageThumbnails.IndexOf(ImageViewerVM.Image) > 0;
+            ImageViewerVM.IsRightEnabled = ImageThumbnails.IndexOf(ImageViewerVM.Image) < ImageThumbnails.Count - 1;
+        }
+        private void ImageViewerVM_OnClickRight(object sender, EventArgs e)
+        {
+            
+            if (ImageViewerVM.IsRightEnabled)
+            {
+                var currentIndex = ImageThumbnails.IndexOf(ImageViewerVM.Image);
+                ImageViewerVM.Image = ImageThumbnails[currentIndex + 1];
+            }
+            SetDisabledLeftRight();
+        }
+
+        private void ImageViewerVM_OnClickLeft(object sender, EventArgs e)
+        {
+            
+            if (ImageViewerVM.IsLeftEnabled)
+            {
+                var currentIndex = ImageThumbnails.IndexOf(ImageViewerVM.Image);
+                ImageViewerVM.Image = ImageThumbnails[currentIndex - 1];
+            }
+            SetDisabledLeftRight();
+
+
         }
 
         private ObservableCollection<ImageThumbnailCollectionsVM> _imageThumbnails;

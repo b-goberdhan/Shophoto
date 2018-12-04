@@ -7,7 +7,7 @@
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              mc:Ignorable="d">
     <Grid Width="1005" Height="Auto">
-        <Border BorderBrush="Black" BorderThickness="1,0,0,0">
+        <Border BorderBrush="{StaticResource SelectedBlue}" BorderThickness="2,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel HorizontalAlignment="Left" Background="White" Width="190">
                     <TextBlock Margin="20,70,20,0" Height="40" Background="Transparent"

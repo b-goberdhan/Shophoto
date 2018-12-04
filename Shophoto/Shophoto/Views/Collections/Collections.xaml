@@ -18,7 +18,7 @@
     <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel x:Name="Main">
-                <Border Margin="50,110,100,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                <Border Width="730" Height="490" Margin="0,110,0,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
                     <Grid>
                         <Grid Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
                               Height="490">
@@ -28,13 +28,14 @@
                             </TextBlock>
                             
                         </Grid>
-                        <ListView Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True}" Width="710" Height="490"
+                        <ListView Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True}" 
+                                  Width="730" Height="490"
                           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                           Background="Transparent" BorderBrush="Transparent"
                           ItemsSource="{Binding ImageThumbnails}">
                             <ListView.ItemTemplate>
                             <DataTemplate>
-                                <image:ImageThumbnail Margin="5"></image:ImageThumbnail>
+                                <image:ImageThumbnail Margin="8"></image:ImageThumbnail>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                         <ListView.ItemsPanel>
@@ -60,12 +61,13 @@
                                     ></menus:SortDropdownMenu>
             <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding CollectionsFABButtonVM}"
-                               Margin="20"></buttons:FABPlusButton>
+                               Margin="0,0,70,20"></buttons:FABPlusButton>
         </Grid>
         <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"></common:ConfirmationBar>
         <Grid Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
             <collctionAux:Upload DataContext="{Binding UploadVM}"></collctionAux:Upload>
         </Grid>
+        <local:ImageViewer DataContext="{Binding ImageViewerVM}"></local:ImageViewer>
 
     </Grid>
 </UserControl>

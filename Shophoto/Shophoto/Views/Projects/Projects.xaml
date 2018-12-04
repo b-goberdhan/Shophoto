@@ -15,13 +15,15 @@
     <!-- Width = 815-->
     <Grid Width="985" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
-            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+            <Grid Margin="0,0,0,0" Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
-                <DockPanel x:Name="Main" Height="Auto" VerticalAlignment="Stretch">
-                    <Border Margin="50,110,100,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
-                        <ListView Height="Auto"
-                                  ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
+                <Border Margin="0,110,0,0" Width="940" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                        <ListView Width="940" Height="490"
+                                  ScrollViewer.CanContentScroll="True" 
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   Background="Transparent" BorderBrush="Transparent"
+                                  HorizontalAlignment="Left"
                                   ItemsSource="{Binding ProjectFolders}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
@@ -30,13 +32,11 @@
                             </ListView.ItemTemplate>
                             <ListView.ItemsPanel>
                                 <ItemsPanelTemplate>
-                                    <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                                    <WrapPanel Orientation="Horizontal" MaxWidth="880"></WrapPanel>
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                         </ListView>
                     </Border>
-
-                </DockPanel>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
                 <project:Project DataContext="{Binding CurrentlyOpenedProject}"></project:Project>
@@ -44,12 +44,12 @@
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding ProjectsFABButtonVM}"
-                               Margin="20"></buttons:FABPlusButton>
+                               Margin="0,0,50,20"></buttons:FABPlusButton>
                 <input:InputBox Width="270" VerticalAlignment="Top" Height="40"
-                            Margin="160,60,0,0"
+                            Margin="160,55,220,0"
                             DataContext="{Binding SearchBoxVM}"></input:InputBox>
                 <menus:SortDropdownMenu VerticalAlignment="Top" HorizontalAlignment="Right"
-                                    Margin="0,60,100,0"
+                                    Margin="0,55,220,0"
                                     DataContext="{Binding SortDropdownMenuVM}"></menus:SortDropdownMenu>
             </Grid>
 

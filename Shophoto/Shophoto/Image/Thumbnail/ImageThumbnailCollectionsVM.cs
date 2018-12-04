@@ -12,6 +12,7 @@ namespace Shophoto.Image.Thumbnail
     public class ImageThumbnailCollectionsVM : ImageThumbnailVM
     {
         public event EventHandler OnCheckboxClicked;
+        public event EventHandler OnOpenImage;
         public ImageThumbnailCollectionsVM() : base()
         {
             base.QuickButtonState = QuickButtonState.None;
@@ -82,6 +83,18 @@ namespace Shophoto.Image.Thumbnail
                 {
                     base.IsChecked = !base.IsChecked;
                     OnCheckboxClicked?.Invoke(this, null);
+                }));
+            }
+        }
+
+        private ICommand _leftClick;
+        public override ICommand LeftClick
+        {
+            get
+            {
+                return _leftClick ?? (_leftClick = new CommandHandler(() =>
+                {
+                    OnOpenImage?.Invoke(this, null);
                 }));
             }
         }
