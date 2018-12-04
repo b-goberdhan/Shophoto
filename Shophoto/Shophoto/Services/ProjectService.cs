@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Shophoto.Views.Projects.Folder;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,17 @@ namespace Shophoto.Services
     {
         public ProjectService()
         {
+            AllProjects = new List<ProjectFolderVM>();
 
         }
+
+
+        public List<ProjectFolderVM> AllProjects
+        {
+            get;
+            private set;
+        }
+
 
          
     }

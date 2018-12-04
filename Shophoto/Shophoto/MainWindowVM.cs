@@ -41,6 +41,10 @@ namespace Shophoto.ViewModels
                 {
                     MainViewVM.ProjectsVM.GoBackToProjectsDirectory();
                 }
+                else if (SideMenuVM.State == SideMenuState.AllImages)
+                {
+
+                }
             }
         }
     }
