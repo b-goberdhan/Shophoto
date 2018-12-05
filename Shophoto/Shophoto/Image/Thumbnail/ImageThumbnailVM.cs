@@ -15,6 +15,7 @@ namespace Shophoto.Image.Thumbnail
     {
         None,
         Delete,
+        Tag,
         ThreeDot,
         Edit,
         Checkbox
@@ -97,6 +98,7 @@ namespace Shophoto.Image.Thumbnail
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("HasQuickButton");
                 NotifyPropertyChanged("HasDeleteQuickButton");
+                NotifyPropertyChanged("HasTagQuickButton");
                 NotifyPropertyChanged("HasThreeDotQuickButton");
                 NotifyPropertyChanged("HasEditQuickButton");
                 NotifyPropertyChanged("HasCheckbox");
@@ -111,6 +113,10 @@ namespace Shophoto.Image.Thumbnail
         public bool HasDeleteQuickButton
         {
             get { return QuickButtonState == QuickButtonState.Delete; }
+        }
+        public bool HasTagQuickButton
+        {
+            get { return QuickButtonState == QuickButtonState.Tag; }
         }
         public bool HasThreeDotQuickButton
         {
@@ -137,6 +143,7 @@ namespace Shophoto.Image.Thumbnail
         public virtual ICommand QuickButtonOnCheckBoxClicked { get; }
 
         public virtual ICommand DeleteQuickButtonClick { get; }
+        public virtual ICommand TagButtonClick { get; }
         public virtual ICommand ThreeDotButtonClick { get; }
         public virtual ICommand EditQuickButtonClick { get; }
 

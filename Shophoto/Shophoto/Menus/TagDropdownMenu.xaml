@@ -53,9 +53,6 @@
                                    TextTrimming="CharacterEllipsis"
                                    FontSize="15"
                                    Width="100"></TextBlock>
-                        <buttons:IconButton Width="30" Height="30" Icon="{icons:Octicons Kind=X, Width=20, Height=20}"
-                                            Command="{Binding DeleteTagCommand}"></buttons:IconButton>
-                        
                     </StackPanel>
                     
                 </DataTemplate>

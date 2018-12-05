@@ -24,6 +24,15 @@
                            BorderBrush="Transparent"
                            Icon="{iconPacks:Modern Kind=Delete, Width=20, Height=20}"
                            Command="{Binding DeleteQuickButtonClick}"></button:IconButton>
+            <button:IconButton Visibility="{Binding HasTagQuickButton, Converter={StaticResource BoolToVisConverter}}"
+                               Width="35" Height="35"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               Background="Transparent"
+                               BorderBrush="Transparent"
+                               Icon="{iconPacks:Octicons Kind=Tag, Width=20, Height=20}"
+                               Command="{Binding TagButtonClick}">
+                
+            </button:IconButton>
             <button:IconButton Visibility="{Binding HasThreeDotQuickButton, Converter={StaticResource BoolToVisConverter}}"
                                Width="35" Height="35"
                                VerticalAlignment="Top" HorizontalAlignment="Right"

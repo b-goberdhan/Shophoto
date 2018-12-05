@@ -17,7 +17,7 @@ namespace Shophoto.Image.Thumbnail
         public event EventHandler OnOpenImage;
         public ImageThumbnailCollectionsVM() : base()
         {
-            base.QuickButtonState = QuickButtonState.None;
+            base.QuickButtonState = QuickButtonState.Tag;
             Tags = new ObservableCollection<TagItemVM>();
             
         }
@@ -98,6 +98,18 @@ namespace Shophoto.Image.Thumbnail
                 return _leftClick ?? (_leftClick = new CommandHandler(() =>
                 {
                     OnOpenImage?.Invoke(this, null);
+                }));
+            }
+        }
+
+        private ICommand _tagButtonClick;
+        public override ICommand TagButtonClick
+        {
+            get
+            {
+                return _tagButtonClick ?? (_tagButtonClick = new CommandHandler(() =>
+                {
+
                 }));
             }
         }

@@ -115,6 +115,10 @@
     <Compile Include="Views\Collections\AuxView\Tag.xaml.cs">
       <DependentUpon>Tag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Collections\AuxView\TagImageDialog.xaml.cs">
+      <DependentUpon>TagImageDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Collections\AuxView\TagImageDialogVM.cs" />
     <Compile Include="Views\Collections\AuxView\TagItem.xaml.cs">
       <DependentUpon>TagItem.xaml</DependentUpon>
     </Compile>
@@ -215,6 +219,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Collections\AuxView\Tag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Collections\AuxView\TagImageDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
