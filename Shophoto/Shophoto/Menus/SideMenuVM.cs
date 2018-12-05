@@ -12,7 +12,7 @@ namespace Shophoto.Menus
     public enum SideMenuState
     {
         Project,
-        Collection
+        AllImages
     }
     public class SideMenuVM : BaseVM
     {
@@ -21,7 +21,19 @@ namespace Shophoto.Menus
             State = SideMenuState.Project;
         }
 
-        public ICommand _projectsButtonClicked;
+        private ICommand _allImagesButtonClickCommand;
+        public ICommand AllImagesButtonClickCommand
+        {
+            get
+            {
+                return _allImagesButtonClickCommand ?? (_allImagesButtonClickCommand = new CommandHandler(() =>
+                {
+                    State = SideMenuState.AllImages;
+                }));
+            }
+        }
+
+        private ICommand _projectsButtonClicked;
         public ICommand ProjectsButtonClickCommand
         {
             get {
@@ -41,12 +53,18 @@ namespace Shophoto.Menus
                 _state = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("IsProjectSelected");
+                NotifyPropertyChanged("IsAllImagesSelected");
             }
         }
 
         public bool IsProjectSelected
         {
             get { return State == SideMenuState.Project; }
+        }
+
+        public bool IsAllImagesSelected
+        {
+            get { return State == SideMenuState.AllImages; }
         }
     }
 }

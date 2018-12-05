@@ -22,6 +22,13 @@
 
             </Style.Triggers>
         </Style>
+        <Style x:Key="AllImagesMenuButton" TargetType="{x:Type buttons:IconButton}" BasedOn="{StaticResource MenuButtonStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsAllImagesSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="ProjectMenuButton" TargetType="{x:Type buttons:IconButton}" BasedOn="{StaticResource MenuButtonStyle}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding IsProjectSelected}" Value="True">
@@ -59,6 +66,12 @@
         </ControlTemplate>
     </UserControl.Resources>
     <StackPanel Width="250" VerticalAlignment="Top">
+        <buttons:IconButton Template="{StaticResource MenuButton}"
+                            Icon="{iconPacks:Octicons Kind=DeviceCamera, Width=25, Height=25}"
+                            Content="All Images" 
+                            Command="{Binding AllImagesButtonClickCommand}"
+                            Style="{StaticResource AllImagesMenuButton}"
+                            ></buttons:IconButton>
         <buttons:IconButton Template="{StaticResource MenuButton}"
                             Icon="{iconPacks:Modern Kind=Folder, Width=25, Height=25}"
                             Content="Projects" 
