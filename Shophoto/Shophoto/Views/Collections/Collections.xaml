@@ -92,10 +92,7 @@
         </Grid>
 
         <local:ImageViewer DataContext="{Binding ImageViewerVM}"></local:ImageViewer>
-        <collctionAux:Tag></collctionAux:Tag>
-
-
-
+        <collctionAux:Tag DataContext="{Binding TagVM}"></collctionAux:Tag>
 
     </Grid>
 </UserControl>

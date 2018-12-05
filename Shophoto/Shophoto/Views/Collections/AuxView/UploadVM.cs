@@ -23,8 +23,8 @@ namespace Shophoto.Views.Collections.Aux
     {
         public event EventHandler OnGoBackClicked;
         public event ImagesUploadedHandler OnUploadClicked;
-        private readonly ImageService _imageService;
-        public UploadVM(ImageService imageService, SearchBoxVM AHAHA)
+        private readonly TagsService _imageService;
+        public UploadVM(TagsService imageService, SearchBoxVM AHAHA)
         {
             _imageService = imageService;
             ImagesToUpload = new ObservableCollection<ImageThumbnailUploadVM>();

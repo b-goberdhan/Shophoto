@@ -2,8 +2,10 @@
 using Shophoto.Command;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
+using Shophoto.Views.Collections.Aux;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;

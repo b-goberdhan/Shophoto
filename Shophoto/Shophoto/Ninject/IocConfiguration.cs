@@ -21,6 +21,7 @@ namespace Shophoto.ViewModels
             Bind<SideMenuVM>().ToSelf().InTransientScope();
             Bind<PopUpVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
+            Bind<TagVM>().ToSelf().InTransientScope();
             Bind<ImageViewerVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
 
@@ -35,7 +36,8 @@ namespace Shophoto.ViewModels
 
             Bind<MainViewVM>().ToSelf().InTransientScope();
             Bind<MainWindowVM>().ToSelf().InSingletonScope();
-            Bind<ImageService>().ToSelf().InSingletonScope();
+            Bind<ProjectService>().ToSelf().InSingletonScope();
+            Bind<TagsService>().ToSelf().InSingletonScope();
         }
     }
 }

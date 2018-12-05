@@ -33,6 +33,10 @@ namespace Shophoto.InputBox
                     IsDirty = true;
                 }
                 _inputText = value;
+                if (!HasWhiteSpace)
+                {
+                    _inputText = _inputText.Replace(" ", "");
+                }
                 NotifyPropertyChanged();
             }
         }
@@ -64,7 +68,9 @@ namespace Shophoto.InputBox
             InputText = "";
         }
 
+        public bool HasWhiteSpace { get; set; } = true;
         public virtual string PlaceHolderText { get; set; }
         public virtual bool HasMultiLineText { get; }
+
     }
 }

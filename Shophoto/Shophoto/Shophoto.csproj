@@ -105,12 +105,16 @@
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="MainWindowVM.cs" />
     <Compile Include="Ninject\NinjectLocator.cs" />
-    <Compile Include="Services\ImageService.cs" />
+    <Compile Include="Services\TagsService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
     <Compile Include="Views\Collections\AuxView\Tag.xaml.cs">
       <DependentUpon>Tag.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Collections\AuxView\TagItem.xaml.cs">
+      <DependentUpon>TagItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Collections\AuxView\TagItemVM.cs" />
     <Compile Include="Views\Collections\AuxView\TagVM.cs" />
     <Compile Include="Views\Collections\Collections.xaml.cs">
       <DependentUpon>Collections.xaml</DependentUpon>
@@ -203,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Collections\AuxView\Tag.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Collections\AuxView\TagItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

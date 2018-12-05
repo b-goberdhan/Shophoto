@@ -1,6 +1,8 @@
-﻿using Shophoto.Views.Projects.Folder;
+﻿using Shophoto.Views.Collections.Aux;
+using Shophoto.Views.Projects.Folder;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,16 +13,17 @@ namespace Shophoto.Services
     {
         public ProjectService()
         {
-            AllProjects = new List<ProjectFolderVM>();
-
+            Projects = new ObservableCollection<ProjectFolderVM>();
         }
 
 
-        public List<ProjectFolderVM> AllProjects
+        public ObservableCollection<ProjectFolderVM> Projects
         {
             get;
             private set;
         }
+
+
 
 
          

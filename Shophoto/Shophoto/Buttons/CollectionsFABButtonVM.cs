@@ -12,6 +12,7 @@ namespace Shophoto.Buttons
     {
         public event EventHandler OnUploadClicked;
         public event EventHandler OnDeleteClicked;
+        public event EventHandler OnTagClicked;
 
         public override bool HasDeleteButton => true;
         public override bool HasDownloadButton => true;
@@ -49,7 +50,7 @@ namespace Shophoto.Buttons
             {
                 return _tagButtonCommand ?? (_tagButtonCommand = new CommandHandler(() =>
                 {
-
+                    OnTagClicked.Invoke(this, null);
                 }));
             }
         }

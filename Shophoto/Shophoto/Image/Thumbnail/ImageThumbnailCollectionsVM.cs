@@ -1,7 +1,9 @@
 ﻿using Shophoto.Command;
 using Shophoto.Menus.Context;
+using Shophoto.Views.Collections.Aux;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ namespace Shophoto.Image.Thumbnail
         public ImageThumbnailCollectionsVM() : base()
         {
             base.QuickButtonState = QuickButtonState.None;
+            Tags = new ObservableCollection<TagItemVM>();
             
         }
         //TODO: Implement the context menu to occur. For now, this is not available since QuickButtonSate
@@ -108,6 +111,17 @@ namespace Shophoto.Image.Thumbnail
         {
             base.IsChecked = false;
             base.QuickButtonState = QuickButtonState.None;
+        }
+
+        private ObservableCollection<TagItemVM> _tags;
+        public ObservableCollection<TagItemVM> Tags
+        {
+            get { return _tags; }
+            set
+            {
+                _tags = value;
+                NotifyPropertyChanged();
+            }
         }
     }
 }

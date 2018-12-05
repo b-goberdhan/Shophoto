@@ -5,29 +5,79 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shophoto.Views.Collections.Aux"
              xmlns:inputBox="clr-namespace:Shophoto.InputBox"
-             mc:Ignorable="d">
-    <Grid Height="300" Width="400" Background="White">
-        <StackPanel>
-            <TextBlock Text="Edit Tags" Height="45" FontSize="30" 
-                   VerticalAlignment="Top"
-                   Margin="20,30,0,0"></TextBlock>
-            <TextBlock Text="This will allow you to associate images with a keyword and further orginize your collection" 
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
+    <Grid>
+        <Grid Background="Black" Opacity="0.5">
+            <Grid.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
+            </Grid.InputBindings>
+        </Grid>
+        <Grid Height="{Binding ElementName=child, Path=ActualHeight}" Width="400" Background="WhiteSmoke">
+            <Border  BorderBrush="Black" BorderThickness="1">
+                <StackPanel x:Name="child">
+                    <Grid>
+                        <TextBlock Text="Edit Tags" Height="45" FontSize="30" 
+                                   VerticalAlignment="Top"
+                                   Margin="20,30,0,0"></TextBlock>
+                        <buttons:IconButton Icon="{iconPacks:Octicons Kind=Info, Width=13, Height=13}" Width="18" Height="18"
+                                            Margin="0,20,105,0" BorderBrush="Transparent" Background="Transparent"
+                                            Command="{Binding ToggleInfoCommand}"></buttons:IconButton>
+                    </Grid>
+                    <Grid Margin="20,0,20,10">
+                        <TextBlock Text="This will allow you to associate images with a keyword and further orginize your collection" 
                        FontSize="15" FontStyle="Italic" TextWrapping="Wrap"
-                       Margin="20,0,20,10"></TextBlock>
-            <Border Margin="20,0,20,0" BorderBrush="Black" BorderThickness="0,1,0,0">
-                <StackPanel Margin="0,10,0,0">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Desired Tag Name" FontSize="15"
-                           Width="125" Height="25" Margin="0,0,0,0"
-                           HorizontalAlignment="Left"></TextBlock>
-                        <inputBox:InputBox Margin="110,0,0,0"
-                                           Width="120" Height="40"></inputBox:InputBox>
-                    </StackPanel>
+                        Visibility="{Binding IsInfoVisible, Converter={StaticResource BoolToVisConverter}}"></TextBlock>
+                    </Grid>
                     
-                    <ListView Height="100"></ListView>
+                    <Border Margin="20,0,20,0" BorderBrush="Black" BorderThickness="0,1,0,0">
+                        <StackPanel Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Desired Tag Name" FontSize="15"
+                                           Width="160" Height="30" Margin="0,0,0,0"
+                                           TextAlignment="Left" Padding="0,5,0,0"
+                                           HorizontalAlignment="Left"></TextBlock>      
+                                <inputBox:InputBox Margin="35,0,0,0" Width="123" Height="40"
+                                                   DataContext="{Binding DesiredTagNameInputBox}"></inputBox:InputBox>
+                                <buttons:IconButton Width="40" Height="40" BorderBrush="Transparent"
+                                                    Margin="0,0,0,0" 
+                                                    Content="Add" Command="{Binding AddCommand}"></buttons:IconButton>
+                            </StackPanel>
+                            <TextBlock>Current Tags</TextBlock>
+                            <Grid Margin="0,5,0,31" Height="100">
+                                <ListView ItemsSource="{Binding TagsService.Tags}"
+                                          ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate>
+                                            <local:TagItem Margin="3"></local:TagItem>
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+                                    <ListView.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" MaxWidth="380"></WrapPanel>
+                                        </ItemsPanelTemplate>
+                                    </ListView.ItemsPanel>
+                                </ListView>
+                                <Grid Background="WhiteSmoke" Visibility="{Binding HasTags, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                                    <Border BorderBrush="Black" BorderThickness=".4">
+                                        <TextBlock FontStyle="Italic" Opacity=".6"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center">Currently no tags.</TextBlock>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+                            
+                        </StackPanel>
+                    </Border>
+                    <buttons:IconButton Content="Close" 
+                                        FontSize="15" Height="40"
+                                        Command="{Binding CloseCommand}"></buttons:IconButton>
                 </StackPanel>
             </Border>
 
-        </StackPanel>
+        </Grid>
     </Grid>
+    
 </UserControl>

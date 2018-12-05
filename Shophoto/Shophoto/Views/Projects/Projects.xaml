@@ -55,7 +55,7 @@
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   Background="Transparent" BorderBrush="Transparent"
                                   HorizontalAlignment="Left"
-                                  ItemsSource="{Binding ProjectFolders}">
+                                  ItemsSource="{Binding ProjectService.Projects}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <projectFolder:ProjectFolder Margin="5"></projectFolder:ProjectFolder>

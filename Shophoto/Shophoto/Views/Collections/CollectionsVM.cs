@@ -19,13 +19,15 @@ namespace Shophoto.Views.Collections
     public enum CollectionsState
     {
         Main,
-        Upload
+        Upload,
+        Tag
     }
     public class CollectionsVM : BaseVM
     {
         public CollectionsVM(
             CollectionsFABButtonVM fabPlusButtonVM, 
             UploadVM uploadVM, 
+            TagVM tagVM,
             SearchBoxVM searchBoxVM, 
             SortDropdownMenuVM sortDropdownMenuVM,
             DeleteConfirmationBarVM deleteConfirmationVM,
@@ -34,6 +36,7 @@ namespace Shophoto.Views.Collections
             State = CollectionsState.Main;
             CollectionsFABButtonVM = fabPlusButtonVM;
             UploadVM = uploadVM;
+            TagVM = tagVM;
             SearchBoxVM = searchBoxVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
@@ -46,7 +49,8 @@ namespace Shophoto.Views.Collections
         private void RegisterEvents()
         {
             CollectionsFABButtonVM.OnUploadClicked += FabPlusButtonVM_OnUploadClicked;
-            CollectionsFABButtonVM.OnDeleteClicked += FABPlusButtonVM_OnDeleteClicked; 
+            CollectionsFABButtonVM.OnDeleteClicked += FABPlusButtonVM_OnDeleteClicked;
+            CollectionsFABButtonVM.OnTagClicked += CollectionsFABButtonVM_OnTagClicked;
             UploadVM.OnGoBackClicked += UploadVM_OnGoBackClicked;
             UploadVM.OnUploadClicked += UploadVM_OnUploadClicked;
             SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
@@ -56,7 +60,6 @@ namespace Shophoto.Views.Collections
             ImageViewerVM.OnClickLeft += ImageViewerVM_OnClickLeft;
             ImageViewerVM.OnClickRight += ImageViewerVM_OnClickRight;
         }
-
 
 
         public CollectionsFABButtonVM CollectionsFABButtonVM { get; }
@@ -79,6 +82,12 @@ namespace Shophoto.Views.Collections
             }
         }
 
+        private void CollectionsFABButtonVM_OnTagClicked(object sender, EventArgs e)
+        {
+            TagVM.IsVisible = true;
+            CollectionsFABButtonVM.IsOpen = false;
+        }
+
         private void Thumbnail_OnCheckboxClicked(object sender, EventArgs e)
         {
             var thumbnail = sender as ImageThumbnailCollectionsVM;
@@ -91,6 +100,8 @@ namespace Shophoto.Views.Collections
                 DeleteConfirmationBarVM.NumberSelected--;
             }
         }
+
+        public TagVM TagVM { get; }
 
         public UploadVM UploadVM { get; }
         private void UploadVM_OnUploadClicked(ICollection<ImageThumbnailCollectionsVM> uploadedImages)
@@ -246,6 +257,7 @@ namespace Shophoto.Views.Collections
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("IsOnMainView");
                 NotifyPropertyChanged("IsOnUploadView");
+                NotifyPropertyChanged("IsOnTagView");
                 NotifyPropertyChanged("HasImages");
             }
         }
@@ -262,6 +274,13 @@ namespace Shophoto.Views.Collections
             get
             {
                 return State == CollectionsState.Upload;
+            }
+        }
+        public bool IsOnTagView
+        {
+            get
+            {
+                return State == CollectionsState.Tag;
             }
         }
         public bool HasImages

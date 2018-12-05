@@ -1,6 +1,7 @@
 ﻿using Shophoto.Buttons;
 using Shophoto.InputBox;
 using Shophoto.Menus;
+using Shophoto.Services;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
 using Shophoto.Views.Projects.AuxView;
@@ -28,27 +29,14 @@ namespace Shophoto.Views.Projects
             ProjectsFABButtonVM fABPlusButtonVM,
             CreateProjectVM createProjectVM,
             SortDropdownMenuVM sortDropdownMenuVM,
-            SearchBoxVM searchBoxVM)
+            SearchBoxVM searchBoxVM,
+            ProjectService projectService)
         {
             ProjectsFABButtonVM = fABPlusButtonVM;
             CreateProjectVM = createProjectVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             SearchBoxVM = searchBoxVM;
-            ProjectFolders = new ObservableCollection<ProjectFolderVM>();
-            
-            /*ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project1" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project2" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project3" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project4" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project5" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project6" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project7" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project8" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project9" });
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project10" });
-            */
-
+            ProjectService = projectService;
             RegisterEvents();
         }
 
@@ -60,7 +48,7 @@ namespace Shophoto.Views.Projects
             CreateProjectVM.OnCreateProjectClicked += CreateProjectVM_OnCreateProjectClicked;
             SortDropdownMenuVM.PropertyChanged += SortDropdownMenuVM_PropertyChanged;
             SearchBoxVM.PropertyChanged += SearchBoxVM_PropertyChanged;
-            foreach (ProjectFolderVM folder in ProjectFolders)
+            foreach (ProjectFolderVM folder in ProjectService.Projects)
             {
                 folder.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
             }
@@ -104,7 +92,7 @@ namespace Shophoto.Views.Projects
         }
         private void CreateProjectVM_OnCreateProjectClicked(ProjectFolderVM projectFolderVM)
         {
-            ProjectFolders.Add(projectFolderVM);
+            ProjectService.Projects.Add(projectFolderVM);
             projectFolderVM.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
             CreateProjectVM.Reset();
             State = ProjectsPageState.ProjectsPage;
@@ -123,18 +111,6 @@ namespace Shophoto.Views.Projects
             
         }
 
-
-
-        private ObservableCollection<ProjectFolderVM> _projectFolders;
-        public ObservableCollection<ProjectFolderVM> ProjectFolders
-        {
-            get { return _projectFolders; }
-            set
-            {
-                _projectFolders = value;
-                NotifyPropertyChanged();
-            }
-        }
 
         private void Folder_OnProjectFolderOpen(object sender, EventArgs e)
         {
@@ -161,6 +137,8 @@ namespace Shophoto.Views.Projects
             }
         }
 
+        public ProjectService ProjectService { get; }
+
         private ProjectVM _currenltyOpenedProject;
         public ProjectVM CurrentlyOpenedProject
         {
@@ -185,7 +163,7 @@ namespace Shophoto.Views.Projects
 
         public bool HasProjects
         {
-            get { return ProjectFolders.Count > 0; }
+            get { return ProjectService.Projects.Count > 0; }
         }
 
     }
