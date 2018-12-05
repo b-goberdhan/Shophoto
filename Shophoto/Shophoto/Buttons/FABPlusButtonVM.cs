@@ -29,9 +29,9 @@ namespace Shophoto.Buttons
             }
             set
             {
+                _isOpen = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("IsClosed");
-                _isOpen = value;
             }
         }
         public bool IsClosed

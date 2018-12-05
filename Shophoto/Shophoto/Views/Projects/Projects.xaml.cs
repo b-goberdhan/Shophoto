@@ -24,5 +24,10 @@ namespace Shophoto.Views.Projects
         {
             InitializeComponent();
         }
+
+        private void Storyboard_Completed(object sender, EventArgs e)
+        {
+
+        }
     }
 }

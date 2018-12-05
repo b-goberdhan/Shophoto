@@ -4,12 +4,38 @@
              xmlns:local="clr-namespace:Shophoto"
              xmlns:converters="clr-namespace:Shophoto.Converters"
              xmlns:vm="clr-namespace:Shophoto.ViewModels"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <vm:NinjectLocator x:Key="NinjectLocator"></vm:NinjectLocator>
         <converters:BoolToVisConverter x:Key="BoolToVisConverter"></converters:BoolToVisConverter>
         <SolidColorBrush x:Key="LightRed" Color="#ff4c4c"></SolidColorBrush>
         <SolidColorBrush x:Key="HoverRed" Color="#cc3c3c"></SolidColorBrush>
         <SolidColorBrush x:Key="SelectedBlue" Color="#257AFD"></SolidColorBrush>
-        <vm:NinjectLocator x:Key="NinjectLocator"></vm:NinjectLocator>
+
+        <Style x:Key="IconButtonHoverStyle" TargetType="buttons:IconButton">
+            <Setter Property="Background" Value="White"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="WhiteSmoke"></Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".5"></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <ControlTemplate x:Key="IconButtonTemplate" TargetType="buttons:IconButton">
+            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}">
+                <ContentControl HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"
+                                Padding="{TemplateBinding Padding}"
+                                Content="{TemplateBinding Content}">
+                </ContentControl>
+            </Border>
+        </ControlTemplate>
     </Application.Resources>
 </Application>

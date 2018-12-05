@@ -36,7 +36,7 @@ namespace Shophoto.Views.Projects
             SearchBoxVM = searchBoxVM;
             ProjectFolders = new ObservableCollection<ProjectFolderVM>();
             
-            ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
+            /*ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project" });
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project1" });
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project2" });
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project3" });
@@ -47,6 +47,7 @@ namespace Shophoto.Views.Projects
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project8" });
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project9" });
             ProjectFolders.Add(new ProjectFolderVM() { Name = "First Project10" });
+            */
 
             RegisterEvents();
         }
@@ -99,6 +100,7 @@ namespace Shophoto.Views.Projects
         private void CreateProjectVM_OnGoBackClicked(object sender, EventArgs e)
         {
             State = ProjectsPageState.ProjectsPage;
+            NotifyPropertyChanged("HasProjects");
         }
         private void CreateProjectVM_OnCreateProjectClicked(ProjectFolderVM projectFolderVM)
         {
@@ -106,6 +108,7 @@ namespace Shophoto.Views.Projects
             projectFolderVM.OnProjectFolderOpen += Folder_OnProjectFolderOpen;
             CreateProjectVM.Reset();
             State = ProjectsPageState.ProjectsPage;
+            NotifyPropertyChanged("HasProjects");
         }
 
         public SortDropdownMenuVM SortDropdownMenuVM { get; }
@@ -144,11 +147,18 @@ namespace Shophoto.Views.Projects
                 CustomerName = projectFolder.CustomerName,
                 CustomerEmail = projectFolder.CustomerEmail
             };
+            CurrentlyOpenedProject.OnGoBackClick += CurrentlyOpenedProject_OnGoBackClick;
+            ProjectsFABButtonVM.IsOpen = false;
         }
+
 
         public void GoBackToProjectsDirectory()
         {
-            CurrentlyOpenedProject = null;
+            if (CurrentlyOpenedProject != null)
+            {
+                CurrentlyOpenedProject.OnGoBackClick -= CurrentlyOpenedProject_OnGoBackClick;
+                CurrentlyOpenedProject = null;
+            }
         }
 
         private ProjectVM _currenltyOpenedProject;
@@ -163,9 +173,19 @@ namespace Shophoto.Views.Projects
             }
         }
 
+        private void CurrentlyOpenedProject_OnGoBackClick(object sender, EventArgs e)
+        {
+            GoBackToProjectsDirectory();
+        }
+
         public bool IsProjectFolderOpen
         {
             get { return CurrentlyOpenedProject != null; }
+        }
+
+        public bool HasProjects
+        {
+            get { return ProjectFolders.Count > 0; }
         }
 
     }
