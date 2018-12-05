@@ -66,11 +66,13 @@
                 </Border>
                 
             </StackPanel>
-            <TextBlock FontSize="30" Height="50" VerticalAlignment="Top" Margin="50,60,50,0" Text="{Binding Title,FallbackValue=My Project Collection}"></TextBlock>
+            
             <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
-                               VerticalAlignment="Top" HorizontalAlignment="Right" 
-                               Margin="0,60,270,0"></inputBox:InputBox>
-
+                               VerticalAlignment="Top" HorizontalAlignment="Left" 
+                               Margin="50,60,0,0"></inputBox:InputBox>
+            <menus:TagDropdownMenu DataContext="{Binding TagDropdownMenuVM}" Margin="70,60,0,0" Width="200">
+                
+            </menus:TagDropdownMenu>
             <menus:SortDropdownMenu HorizontalAlignment="Right"
                                     VerticalAlignment="Top"
                                     Margin="0,60,100,0"
@@ -93,6 +95,8 @@
 
         <local:ImageViewer DataContext="{Binding ImageViewerVM}"></local:ImageViewer>
         <collctionAux:Tag DataContext="{Binding TagVM}"></collctionAux:Tag>
+
+
 
     </Grid>
 </UserControl>

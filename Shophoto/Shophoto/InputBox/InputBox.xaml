@@ -5,9 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Shophoto.InputBox"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-             mc:Ignorable="d" 
-             Name="inputBox"
-             d:DesignHeight="50" d:DesignWidth="800">
+             mc:Ignorable="d"
+             Name="inputBox">
     <UserControl.Resources>
         <Style x:Key="InputBoxStyle" TargetType="TextBox">
             <Setter Property="BorderBrush" Value="Transparent"></Setter>
@@ -30,6 +29,12 @@
         <Style x:Key="WaterMarkStyle" TargetType="TextBlock">
             <Setter Property="Visibility" Value="Visible"></Setter>
             <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=RegularInput, Path=Text.IsEmpty}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=LargeInput, Path=Text.IsEmpty}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                </DataTrigger>
                 <DataTrigger Binding="{ Binding IsFocused, ElementName=RegularInput}" Value="True">
                     <Setter Property="Visibility" Value="Collapsed"></Setter>
                 </DataTrigger>
@@ -53,30 +58,39 @@
             </Border>
         </ControlTemplate>
     </UserControl.Resources>
-    <Grid>
-        <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
+    <StackPanel>
+        <Grid>
+            <TextBox Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}" 
                  Name="RegularInput" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="20" Padding="5" VerticalAlignment="Center" 
                  Style="{StaticResource InputBoxStyle}" 
                  Template="{StaticResource TextInputTemplate}"
                  Height="{Binding ElementName=inputBox, Path=Height}">
-        </TextBox>
-        <TextBox Name="LargeInput" Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
+                
+            </TextBox>
+            <TextBox Name="LargeInput" Visibility="{Binding HasMultiLineText, Converter={StaticResource BoolToVisConverter}}" 
                  Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}"
                  FontSize="20" Padding="5" VerticalAlignment="Center" 
                  TextWrapping="Wrap"
-                 AcceptsReturn="True"
+                 AcceptsReturn="True"                 
                  VerticalScrollBarVisibility="Auto"
                  Height="{Binding ElementName=inputBox, Path=Height}"
                  Style="{StaticResource InputBoxStyle}"
                  Template="{StaticResource TextInputTemplate}">
-        </TextBox>
-        <TextBlock Name="Watermark" TextAlignment="Center"
+            </TextBox>
+            <TextBlock Name="Watermark" TextAlignment="Left"
                    HorizontalAlignment="Left" VerticalAlignment="Center"
-                   Margin="20,0,0,0"
+                   Margin="10,0,0,0"
                    FontStyle="Italic" FontSize="20"
-                   Opacity=".6" IsHitTestVisible="False"
+                   Opacity=".6" IsHitTestVisible="False"       
                    Style="{StaticResource WaterMarkStyle}"
                    Text="{Binding PlaceHolderText}"></TextBlock>
-    </Grid>
+        </Grid>
+        <Grid Height="20" Visibility="{Binding HasErrorMessage, Converter={StaticResource BoolToVisConverter}}">
+            <Grid Visibility="{Binding HasError, Converter={StaticResource BoolToVisConverter}}">
+                <TextBlock FontSize="10" TextAlignment="Left" Padding="2,2,2,2"
+                       Foreground="{StaticResource LightRed}" Text="{Binding ErrorMessage}"></TextBlock>
+            </Grid>
+        </Grid>
+    </StackPanel>
 </UserControl>

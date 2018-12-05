@@ -11,10 +11,24 @@ namespace Shophoto.InputBox
 {
     public class InputBoxVM : BaseVM
     {
+        public event EventHandler OnEnterPressed;
         public InputBoxVM()
         {
             
         }
+
+        private ICommand _enterCommand;
+        public ICommand EnterCommand
+        {
+            get
+            {
+                return _enterCommand ?? (_enterCommand = new CommandHandler(() =>
+                {
+                    OnEnterPressed?.Invoke(this, null);
+                }));
+            }
+        }
+
         private string _inputText;
         public string InputText
         {
@@ -52,6 +66,18 @@ namespace Shophoto.InputBox
             }
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set
+            {
+                _errorMessage = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+
         private bool _isDirty;
         public bool IsDirty
         {
@@ -69,6 +95,7 @@ namespace Shophoto.InputBox
         }
 
         public bool HasWhiteSpace { get; set; } = true;
+        public virtual bool HasErrorMessage { get; set; }
         public virtual string PlaceHolderText { get; set; }
         public virtual bool HasMultiLineText { get; }
 

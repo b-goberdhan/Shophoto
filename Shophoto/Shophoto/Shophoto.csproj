@@ -101,6 +101,10 @@
       <DependentUpon>SortDropdownMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Menus\SortDropdownMenuVM.cs" />
+    <Compile Include="Menus\TagDropdownMenu.xaml.cs">
+      <DependentUpon>TagDropdownMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Menus\TagDropDownMenuVM.cs" />
     <Compile Include="Ninject\IocConfiguration.cs" />
     <Compile Include="Ninject\IocKernel.cs" />
     <Compile Include="MainWindowVM.cs" />
@@ -203,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menus\SortDropdownMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Menus\TagDropdownMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -29,6 +29,7 @@ namespace Shophoto.Views.Collections
             UploadVM uploadVM, 
             TagVM tagVM,
             SearchBoxVM searchBoxVM, 
+            TagDropDownMenuVM tagDropdownMenuVM,
             SortDropdownMenuVM sortDropdownMenuVM,
             DeleteConfirmationBarVM deleteConfirmationVM,
             ImageViewerVM imageViewerVM)
@@ -38,6 +39,7 @@ namespace Shophoto.Views.Collections
             UploadVM = uploadVM;
             TagVM = tagVM;
             SearchBoxVM = searchBoxVM;
+            TagDropdownMenuVM = tagDropdownMenuVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
             ImageViewerVM = imageViewerVM;
@@ -150,6 +152,7 @@ namespace Shophoto.Views.Collections
             }
         }
 
+        public TagDropDownMenuVM TagDropdownMenuVM { get; }
 
         public SortDropdownMenuVM SortDropdownMenuVM { get; }
         private void SortDropdownMenuVM_PropertyChanged(object sender, PropertyChangedEventArgs e)

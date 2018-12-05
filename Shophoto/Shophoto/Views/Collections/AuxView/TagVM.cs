@@ -19,14 +19,20 @@ namespace Shophoto.Views.Collections.Aux
             TagsService tagService)
         {
             DesiredTagNameInputBox = desiredTagNameInputBox;
-            DesiredTagNameInputBox.PlaceHolderText = "My Tag";
+            DesiredTagNameInputBox.PlaceHolderText = "MyTag";
             DesiredTagNameInputBox.HasWhiteSpace = false;
+            DesiredTagNameInputBox.HasErrorMessage = true;
+            DesiredTagNameInputBox.ErrorMessage = "Tag name already exist";
+            
             TagsService = tagService;RegisterEvents();
         }
+
+        public const string ERROR_MESSAGE = "Tag name already exist";
 
         private void RegisterEvents()
         {
             DesiredTagNameInputBox.PropertyChanged += DesiredTagNameInputBox_PropertyChanged;
+            DesiredTagNameInputBox.OnEnterPressed += DesiredTagNameInputBox_OnEnterPressed;
         }
 
 
@@ -35,6 +41,10 @@ namespace Shophoto.Views.Collections.Aux
         private void DesiredTagNameInputBox_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
      
+        }
+        private void DesiredTagNameInputBox_OnEnterPressed(object sender, EventArgs e)
+        {
+            AddTag();
         }
 
         public TagsService TagsService { get; }
@@ -58,6 +68,7 @@ namespace Shophoto.Views.Collections.Aux
                 return _closeCommand ?? (_closeCommand = new CommandHandler(() =>
                 {
                     IsVisible = false;
+                    Reset();
                 }));
             }
         }
@@ -81,26 +92,28 @@ namespace Shophoto.Views.Collections.Aux
             {
                 return _addCommand ?? (_addCommand = new CommandHandler(() =>
                 {
-                    var tag = new TagItemVM(TagsService)
-                    {
-                        Name = DesiredTagNameInputBox.InputText
-                    };
-                    if (TagsService.TagExist(tag))
-                    {
-                        DesiredTagNameInputBox.HasError = true;
-                    }
-                    else
-                    {
-                        DesiredTagNameInputBox.HasError = false;
-                        DesiredTagNameInputBox.InputText = "";
-                        TagsService.Tags.Add(tag);
-                        NotifyPropertyChanged("HasTags");
-                    }
-                    
-                    
-
-
+                    AddTag();
                 }));
+            }
+        }
+        private void AddTag()
+        {
+            var tag = new TagItemVM(TagsService)
+            {
+                Name = DesiredTagNameInputBox.InputText
+            };
+            if (TagsService.TagExist(tag))
+            {
+                DesiredTagNameInputBox.HasError = true;
+                DesiredTagNameInputBox.ErrorMessage = ERROR_MESSAGE;
+            }
+            else
+            {
+                DesiredTagNameInputBox.HasError = false;
+                DesiredTagNameInputBox.InputText = "";
+
+                TagsService.Tags.Add(tag);
+                NotifyPropertyChanged("HasTags");
             }
         }
 
@@ -121,6 +134,12 @@ namespace Shophoto.Views.Collections.Aux
             {
                 return TagsService.Tags.Count > 0;
             }
+        }
+
+        public void Reset()
+        {
+            DesiredTagNameInputBox.HasError = false;
+            DesiredTagNameInputBox.InputText = "";
         }
 
 
