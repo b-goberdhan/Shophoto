@@ -8,15 +8,20 @@
              xmlns:image="clr-namespace:Shophoto.Image"
              mc:Ignorable="d" >
     <StackPanel Width="815" Height="680" Background="WhiteSmoke">
-        <buttons:IconButton Width="75" Height="75" 
-                                    Icon="{iconPacks:Modern Kind=ArrowLeft, Width=50, Height=50}"
+        <StackPanel Height="100" Orientation="Horizontal" Margin="0,70,0,0">
+            <buttons:IconButton Width="50" Height="50" 
+                                    Icon="{iconPacks:Octicons Kind=ChevronLeft, Width=30, Height=30}"
                                     Background="Transparent" BorderBrush="Transparent"
-                                    VerticalAlignment="Top" HorizontalAlignment="Left"
-                                    Margin="60,60,0,40"
+                                    VerticalAlignment="Center" HorizontalAlignment="Left"
+                                    Margin="50,50,20,20"
                                     Command="{Binding GoBackCommand}">
-        </buttons:IconButton>
-        <TextBlock Height="55" Padding="75,0,0,0" Margin="0,0,0,10" FontSize="40">
+            </buttons:IconButton>
+            <TextBlock Height="55" Width="450" 
+                       Padding="0,0,0,0" Margin="30,30,0,0" FontSize="35"
+                       VerticalAlignment="Center">
                     Upload Images to Collection</TextBlock>
+        </StackPanel>
+
         <Border BorderBrush="Black" BorderThickness="0,2,0,0"
                         Height="400" Width="700">
             <StackPanel>
@@ -24,7 +29,9 @@
                     <Rectangle Margin="0,20,0,0" Height="300" Stroke="Black"
                                    StrokeThickness="2" StrokeDashArray="3 3">
                     </Rectangle>
-                    <ListView Margin="0,20,0,0" Width="690" Height="290" BorderBrush="Transparent"
+                    <ListView Margin="0,20,0,0" Width="690" Height="290"
+                              Background="Transparent"
+                              BorderBrush="Transparent"
                               ItemsSource="{Binding ImagesToUpload}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -46,6 +53,7 @@
                     </buttons:IconButton>
                     <buttons:IconButton Content="Upload" Margin="400,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
                                         Background="Transparent" BorderBrush="Black" BorderThickness="4"
+                                        IsEnabled="{Binding CanClickUpload}"
                                         Command="{Binding UploadCommand}">
                     </buttons:IconButton>
                 </StackPanel>       

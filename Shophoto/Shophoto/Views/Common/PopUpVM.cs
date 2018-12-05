@@ -66,6 +66,5 @@ namespace Shophoto.Views.Common
             }
         }
 
-
     }
 }

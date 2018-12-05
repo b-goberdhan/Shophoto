@@ -108,6 +108,10 @@
     <Compile Include="Services\ImageService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
+    <Compile Include="Views\Collections\AuxView\Tag.xaml.cs">
+      <DependentUpon>Tag.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Collections\AuxView\TagVM.cs" />
     <Compile Include="Views\Collections\Collections.xaml.cs">
       <DependentUpon>Collections.xaml</DependentUpon>
     </Compile>
@@ -129,6 +133,7 @@
       <DependentUpon>PopUp.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Common\PopUpVM.cs" />
+    <Compile Include="Views\Common\TagPopUpVM.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -194,6 +199,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Menus\SortDropdownMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Collections\AuxView\Tag.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

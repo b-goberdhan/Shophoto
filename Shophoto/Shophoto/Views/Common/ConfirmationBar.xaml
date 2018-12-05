@@ -33,7 +33,7 @@
                                Command="{Binding CancelClickedCommand}"></button:IconButton>
         </Grid>
         <Grid Visibility="{Binding IsOnConfirmation, Converter={StaticResource BoolToVisConverter}}"
-              HorizontalAlignment="Right" Width="400">
+              HorizontalAlignment="Right" Width="400" Margin="0,0,20,0">
             <TextBox Width="240" Height="30" HorizontalAlignment="Left" BorderThickness="0"
                      FontSize="15" VerticalContentAlignment="Center" TextAlignment="Right"
                      Text="{Binding ConfrimationText, Mode=OneWay, FallbackValue=Are you sure?}"></TextBox>

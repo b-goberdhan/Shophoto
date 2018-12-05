@@ -13,7 +13,25 @@
              xmlns:common="clr-namespace:Shophoto.Views.Common"
              mc:Ignorable="d">
     <UserControl.Resources>
-
+        <Style x:Key="FadeInAnimation" TargetType="Grid">
+            <Style.Triggers>
+                <Trigger Property="Visibility" Value="Visible">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.5"></DoubleAnimation>
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                 From="200" To="0" Duration="0:0:.10">
+                                    
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+               
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
@@ -64,10 +82,20 @@
                                Margin="0,0,70,20"></buttons:FABPlusButton>
         </Grid>
         <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"></common:ConfirmationBar>
-        <Grid Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
+        <Grid
+            Style="{StaticResource FadeInAnimation}"
+            Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
+            <Grid.RenderTransform>
+                <TranslateTransform X="0" Y="0"></TranslateTransform>
+            </Grid.RenderTransform>
             <collctionAux:Upload DataContext="{Binding UploadVM}"></collctionAux:Upload>
         </Grid>
+
         <local:ImageViewer DataContext="{Binding ImageViewerVM}"></local:ImageViewer>
+        <collctionAux:Tag></collctionAux:Tag>
+
+
+
 
     </Grid>
 </UserControl>
