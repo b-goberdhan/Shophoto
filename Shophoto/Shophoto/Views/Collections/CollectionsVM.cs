@@ -3,7 +3,9 @@ using Shophoto.Command;
 using Shophoto.Image.Thumbnail;
 using Shophoto.InputBox;
 using Shophoto.Menus;
+using Shophoto.Services;
 using Shophoto.ViewModels;
+using Shophoto.Views.Collections.Aux;
 using Shophoto.Views.Collections.Aux;
 using Shophoto.Views.Common;
 using System;
@@ -28,21 +30,25 @@ namespace Shophoto.Views.Collections
             CollectionsFABButtonVM fabPlusButtonVM, 
             UploadVM uploadVM, 
             TagVM tagVM,
+            TagImageDialogVM tagImageDialogVM,
             SearchBoxVM searchBoxVM, 
             TagDropDownMenuVM tagDropdownMenuVM,
             SortDropdownMenuVM sortDropdownMenuVM,
             DeleteConfirmationBarVM deleteConfirmationVM,
-            ImageViewerVM imageViewerVM)
+            ImageViewerVM imageViewerVM,
+            ProjectService projectService)
         {
             State = CollectionsState.Main;
             CollectionsFABButtonVM = fabPlusButtonVM;
             UploadVM = uploadVM;
+            TagImageDialogVM = tagImageDialogVM;
             TagVM = tagVM;
             SearchBoxVM = searchBoxVM;
             TagDropdownMenuVM = tagDropdownMenuVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
             ImageViewerVM = imageViewerVM;
+            ProjectService = projectService;
             RegisterEvents();
             ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>();
 
@@ -61,7 +67,9 @@ namespace Shophoto.Views.Collections
             DeleteConfirmationBarVM.PropertyChanged += DeleteConfirmationBarVM_PropertyChanged;
             ImageViewerVM.OnClickLeft += ImageViewerVM_OnClickLeft;
             ImageViewerVM.OnClickRight += ImageViewerVM_OnClickRight;
+            ProjectService.PropertyChanged += ProjectService_PropertyChanged;
         }
+
 
 
         public CollectionsFABButtonVM CollectionsFABButtonVM { get; }
@@ -105,6 +113,8 @@ namespace Shophoto.Views.Collections
 
         public TagVM TagVM { get; }
 
+        public TagImageDialogVM TagImageDialogVM { get; }
+
         public UploadVM UploadVM { get; }
         private void UploadVM_OnUploadClicked(ICollection<ImageThumbnailCollectionsVM> uploadedImages)
         {
@@ -113,10 +123,18 @@ namespace Shophoto.Views.Collections
                 foreach (ImageThumbnailCollectionsVM thumbnail in uploadedImages)
                 {
                     thumbnail.OnOpenImage += Thumbnail_OnOpenImage;
+                    thumbnail.OnTagClicked += Thumbnail_OnTagClicked;
                     _imageThumbnails.Add(thumbnail);
                 }
                 State = CollectionsState.Main;
             }
+        }
+
+        private void Thumbnail_OnTagClicked(object sender, EventArgs e)
+        {
+            var thumbnail = sender as ImageThumbnailCollectionsVM;
+            TagImageDialogVM.CurrentThumbnail = thumbnail;
+            TagImageDialogVM.IsVisible = true;
         }
 
         private void Thumbnail_OnOpenImage(object sender, EventArgs e)
@@ -235,6 +253,11 @@ namespace Shophoto.Views.Collections
 
         }
 
+        public ProjectService ProjectService { get; }
+        private void ProjectService_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
         private ObservableCollection<ImageThumbnailCollectionsVM> _imageThumbnails;
         public ObservableCollection<ImageThumbnailCollectionsVM> ImageThumbnails
         {

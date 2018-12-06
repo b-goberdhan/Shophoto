@@ -9,6 +9,21 @@
              d:DesignHeight="210" d:DesignWidth="100"
              Width="100" Height="260">
     <UserControl.Resources>
+        <Style x:Key="MenuButtonsAnimation" TargetType="StackPanel">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsOpen}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Height"
+                                                 From="0" To ="{Binding ElementName=MenuButtons, Path=ActualHeight}"
+                                                 Duration="0:0:0.25"></DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
         <Style x:Key="FABHover" TargetType="Button">
             <Setter Property="Foreground" Value="White"></Setter>
             <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>

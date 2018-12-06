@@ -41,5 +41,7 @@ namespace Shophoto.Views.Collections.Aux
                 }));
             }
         }
+
+
     }
 }

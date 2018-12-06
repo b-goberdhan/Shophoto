@@ -15,6 +15,7 @@ namespace Shophoto.Image.Thumbnail
     {
         public event EventHandler OnCheckboxClicked;
         public event EventHandler OnOpenImage;
+        public event EventHandler OnTagClicked;
         public ImageThumbnailCollectionsVM() : base()
         {
             base.QuickButtonState = QuickButtonState.Tag;
@@ -109,7 +110,7 @@ namespace Shophoto.Image.Thumbnail
             {
                 return _tagButtonClick ?? (_tagButtonClick = new CommandHandler(() =>
                 {
-
+                    OnTagClicked?.Invoke(this, null);
                 }));
             }
         }

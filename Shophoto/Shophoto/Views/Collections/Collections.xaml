@@ -95,6 +95,7 @@
 
         <local:ImageViewer DataContext="{Binding ImageViewerVM}"></local:ImageViewer>
         <collctionAux:Tag DataContext="{Binding TagVM}"></collctionAux:Tag>
+        <collctionAux:TagImageDialog DataContext="{Binding TagImageDialogVM}"></collctionAux:TagImageDialog>
 
 
 

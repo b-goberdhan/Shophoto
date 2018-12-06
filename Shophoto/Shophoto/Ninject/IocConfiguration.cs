@@ -22,6 +22,7 @@ namespace Shophoto.ViewModels
             Bind<PopUpVM>().ToSelf().InTransientScope();
             Bind<UploadVM>().ToSelf().InTransientScope();
             Bind<TagVM>().ToSelf().InTransientScope();
+            Bind<TagImageDialogVM>().ToSelf().InTransientScope();
             Bind<ImageViewerVM>().ToSelf().InTransientScope();
             Bind<CreateProjectVM>().ToSelf().InTransientScope();
 

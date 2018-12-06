@@ -72,7 +72,7 @@
                 </Border>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
-                <project:Project DataContext="{Binding CurrentlyOpenedProject}"></project:Project>
+                <project:Project DataContext="{Binding ProjectService.CurrentlyOpenedProject}"></project:Project>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"

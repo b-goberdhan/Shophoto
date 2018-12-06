@@ -68,7 +68,7 @@
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                 </ListView>
-                                <Grid Background="WhiteSmoke" Visibility="{Binding HasTags, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                                <Grid Background="WhiteSmoke" Visibility="{Binding HasTags, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                                     <Border BorderBrush="Black" BorderThickness=".4">
                                         <TextBlock FontStyle="Italic" Opacity=".6"
                                                    VerticalAlignment="Center"
