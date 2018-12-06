@@ -39,14 +39,41 @@ namespace Shophoto.Views.Collections.Aux
             get { return CurrentThumbnail?.Tags; }
         }
 
+        private ObservableCollection<SelectableTagItemVM> _tags;
+        public ObservableCollection<SelectableTagItemVM> Tags
+        {
+            get
+            {
+                if (!IsVisible)
+                {
+                    _tags = null;
+                }
+                else if (IsVisible && _tags == null)
+                {
+                    _tags = _tags = new ObservableCollection<SelectableTagItemVM>();
+                    foreach (var tag in TagsService.Tags)
+                    {
+                        _tags.Add(new SelectableTagItemVM()
+                        {
+                            Tag = tag,
+                            IsSelected = CurrentThumbnail.Tags.Contains(tag)
+                        });
+                    }
+                }
+                return _tags;
+            }
+        }
+
         private bool _isVisible;
         public bool IsVisible
         {
             get { return _isVisible; }
             set
             {
+                
                 _isVisible = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("Tags");
             }
         }
 
@@ -71,8 +98,17 @@ namespace Shophoto.Views.Collections.Aux
             {
                 return _toggleTagSelected ?? (_toggleTagSelected = new CommandHandler((obj) =>
                 {
-                    var tagItem = obj as TagItemVM;
-                    
+                    var tagItem = obj as SelectableTagItemVM;
+                    if (!CurrentThumbnail.Tags.Contains(tagItem.Tag))
+                    {
+                        CurrentThumbnail.Tags.Add(tagItem.Tag);
+                        tagItem.IsSelected = true;
+                    }
+                    else
+                    {
+                        CurrentThumbnail.Tags.Remove(tagItem.Tag);
+                        tagItem.IsSelected = false ;
+                    }
                 }));
             }
         }

@@ -12,13 +12,16 @@ namespace Shophoto.Views.Collections.Aux
 {
     public class TagItemVM : BaseVM
     {
-        public TagItemVM(TagsService tagsService)
+        public TagItemVM(
+            TagsService tagsService,
+            ProjectService projectService)
         {
             TagsService = tagsService;
+            ProjectService = projectService;
         }
 
         public TagsService TagsService { get; }
-
+        public ProjectService ProjectService { get; }
         private string _name;
         public string Name
         {
@@ -38,6 +41,14 @@ namespace Shophoto.Views.Collections.Aux
                 return _deleteTagCommand ?? (_deleteTagCommand = new CommandHandler(() =>
                 {
                     TagsService.Tags.Remove(this);
+                    // Remove the tag from all projects!
+                    foreach (var project in ProjectService.Projects)
+                    {
+                        foreach (var image in project.CollectionsVM.ImageThumbnails)
+                        {
+                            image.Tags.Remove(this);
+                        }
+                    } 
                 }));
             }
         }

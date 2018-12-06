@@ -112,6 +112,7 @@
     <Compile Include="Services\TagsService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="ViewModels\BaseVM.cs" />
+    <Compile Include="Views\Collections\AuxView\SelectableTagItemVM.cs" />
     <Compile Include="Views\Collections\AuxView\Tag.xaml.cs">
       <DependentUpon>Tag.xaml</DependentUpon>
     </Compile>

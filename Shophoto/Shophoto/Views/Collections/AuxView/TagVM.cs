@@ -5,6 +5,7 @@ using Shophoto.ViewModels;
 using Shophoto.Views.Collections.Aux;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace Shophoto.Views.Collections.Aux
     {
         public TagVM(
             InputBoxVM desiredTagNameInputBox,
-            TagsService tagService)
+            TagsService tagService,
+            ProjectService projectService)
         {
             DesiredTagNameInputBox = desiredTagNameInputBox;
             DesiredTagNameInputBox.PlaceHolderText = "MyTag";
@@ -24,7 +26,11 @@ namespace Shophoto.Views.Collections.Aux
             DesiredTagNameInputBox.HasErrorMessage = true;
             DesiredTagNameInputBox.ErrorMessage = "Tag name already exist";
             
-            TagsService = tagService;RegisterEvents();
+            TagsService = tagService;
+            ProjectService = projectService;
+
+            RegisterEvents();
+
         }
 
         public const string ERROR_MESSAGE = "Tag name already exist";
@@ -49,6 +55,8 @@ namespace Shophoto.Views.Collections.Aux
 
         public TagsService TagsService { get; }
 
+
+        public ProjectService ProjectService { get; }
         private bool _isVisible;
         public bool IsVisible
         {
@@ -59,6 +67,8 @@ namespace Shophoto.Views.Collections.Aux
                 NotifyPropertyChanged();
             }
         }
+
+
 
         private ICommand _closeCommand;
         public ICommand CloseCommand
@@ -98,7 +108,7 @@ namespace Shophoto.Views.Collections.Aux
         }
         private void AddTag()
         {
-            var tag = new TagItemVM(TagsService)
+            var tag = new TagItemVM(TagsService, ProjectService)
             {
                 Name = DesiredTagNameInputBox.InputText
             };
