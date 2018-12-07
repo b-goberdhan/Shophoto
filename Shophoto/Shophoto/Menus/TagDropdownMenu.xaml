@@ -8,20 +8,38 @@
              xmlns:icons="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:local1="clr-namespace:Shophoto.Views.Collections.Aux"
              mc:Ignorable="d" 
+             Name="tagDropdownFilter"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style TargetType="buttons:IconButton" x:Key="DropdownButtons">
             <Setter Property="Height" Value="40"></Setter>
             <Setter Property="Background" Value="White"></Setter>
-            <Setter Property="BorderBrush" Value="WhiteSmoke"></Setter>
-            <Setter Property="BorderThickness" Value="0,0,0,1"></Setter>
             <Setter Property="FontSize" Value="18"></Setter>
+            <Setter Property="BorderBrush" Value="White"></Setter>
+            <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasFilterSelected}" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                    <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="TagSelectedTextblockStyle" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsSelected}" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <StackPanel>
         <Grid>
             <buttons:IconButton Width="200" Height="40" Style="{StaticResource DropdownButtons}"
                             Command="{Binding OnOpenDropdownClicked}">
+
                 <Grid Width="175">
                     <TextBlock
                     TextAlignment="Center"
@@ -37,19 +55,25 @@
                                         VerticalAlignment="Center"
                                         HorizontalAlignment="Right"></icons:PackIconOcticons>
                 </Grid>
+
             </buttons:IconButton>
         </Grid>
         <ListView Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}}" Width="200" MaxHeight="200" BorderThickness="0"
-                  ItemsSource="{Binding TagsService.Tags}"
+                  ItemsSource="{Binding Tags}"
                   ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Width="180" Height="30" Margin="4">
+                        <StackPanel.InputBindings>
+                            <MouseBinding Gesture="LeftClick" Command="{Binding DataContext.OnTagFilterToggled, ElementName=tagDropdownFilter}"
+                                          CommandParameter="{Binding}"></MouseBinding>
+                        </StackPanel.InputBindings>
                         <icons:PackIconOcticons Kind="Tag" Width="20" Height="20"
                                                 Margin="5"></icons:PackIconOcticons>
-                        <TextBlock Text="{Binding Name}" Padding="2,4,2,0"
+                        <TextBlock Text="{Binding Tag.Name}" Padding="2,4,2,0"
+                                   Style="{StaticResource TagSelectedTextblockStyle}"
                                    TextTrimming="CharacterEllipsis"
                                    FontSize="15"
                                    Width="100"></TextBlock>

@@ -127,6 +127,7 @@ namespace Shophoto.Views.Collections
                     _imageThumbnails.Add(thumbnail);
                 }
                 State = CollectionsState.Main;
+                ApplySorting();
             }
         }
 
@@ -158,15 +159,7 @@ namespace Shophoto.Views.Collections
         {
             if (e.PropertyName == "InputText")
             {
-                FilterCollectionImagesByText(SearchBoxVM.InputText);
-            }
-        }
-        private void FilterCollectionImagesByText(string text)
-        {
-            foreach (ImageThumbnailCollectionsVM thumbnails in _imageThumbnails)
-            {
-
-                thumbnails.Visible = thumbnails.Name.ToLower().IndexOf(text.ToLower()) == 0;
+                ApplyAllFilters();
             }
         }
 
@@ -177,20 +170,7 @@ namespace Shophoto.Views.Collections
         {
             if (e.PropertyName == "SortingState")
             {
-                if (SortDropdownMenuVM.SortingState == SortDropdownState.Alphabetical)
-                {
-                    ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) =>
-                    {
-                        return thumbnail.Name;
-                    }));
-                }
-                else if(SortDropdownMenuVM.SortingState == SortDropdownState.Date)
-                {
-                    ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) => 
-                    {
-                        return thumbnail.DateUploaded; 
-                    }));
-                }
+                ApplySorting();
             }
         }
 
@@ -267,6 +247,70 @@ namespace Shophoto.Views.Collections
                 NotifyPropertyChanged();
             }
         }
+
+        private ObservableCollection<TagItemVM> _tagFilters;
+        public ObservableCollection<TagItemVM> TagFilters
+        {
+            get { return _tagFilters ?? (_tagFilters = new ObservableCollection<TagItemVM>()); }
+            set
+            {
+                _tagFilters = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private void ApplyTagFilter()
+        {
+            foreach (var image in ImageThumbnails)
+            {
+                bool isImageVisible = true;
+                foreach (var tag in TagFilters)
+                {
+                    if (!image.Tags.Contains(tag))
+                    {
+                        isImageVisible = false;
+                        break;
+                    }
+
+                }
+                image.Visible = isImageVisible;
+            }
+
+        }
+        private void FilterCollectionImagesBySearchText()
+        {
+            foreach (ImageThumbnailCollectionsVM thumbnails in _imageThumbnails)
+            {
+
+                thumbnails.Visible = thumbnails.Name.ToLower().IndexOf(SearchBoxVM.InputText.ToLower()) == 0;
+            }
+        }
+        private void ApplySorting()
+        {
+            if (SortDropdownMenuVM.SortingState == SortDropdownState.Alphabetical)
+            {
+                ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) =>
+                {
+                    return thumbnail.Name;
+                }));
+            }
+            else if (SortDropdownMenuVM.SortingState == SortDropdownState.Date)
+            {
+                ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) =>
+                {
+                    return thumbnail.DateUploaded;
+                }));
+            }
+        }
+
+        public void ApplyAllFilters()
+        {
+            FilterCollectionImagesBySearchText();
+            ApplyTagFilter();
+            //then just sort
+            ApplySorting();
+        }
+
 
         
 
