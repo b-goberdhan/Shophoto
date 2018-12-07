@@ -36,6 +36,29 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="SlideAnimationProject" TargetType="Grid">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsProjectFolderOpen}" Value="True">
+                    <DataTrigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard Duration="0:0:0.25">
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 From="0" To="1" Duration="0:0:0.25">
+                                </DoubleAnimation>
+
+                                <DoubleAnimation Storyboard.TargetProperty="RenderTransform.(TranslateTransform.X)"
+                                                 From="-975" To="0" Duration="0:0:0.25">
+                                    <DoubleAnimation.EasingFunction>
+                                        <CubicEase EasingMode="EaseIn"></CubicEase>
+                                    </DoubleAnimation.EasingFunction>
+
+                                </DoubleAnimation>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </DataTrigger.EnterActions>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <!-- Width = 815-->
     <Grid Width="985" Background="WhiteSmoke">
@@ -55,7 +78,8 @@
                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                   Background="Transparent" BorderBrush="Transparent"
                                   HorizontalAlignment="Left"
-                                  ItemsSource="{Binding ProjectService.Projects}">
+                                  ItemsSource="{Binding ProjectService.Projects}"
+                                  ItemContainerStyle="{StaticResource ListViewItemStyle}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <projectFolder:ProjectFolder Margin="5"></projectFolder:ProjectFolder>
@@ -71,7 +95,11 @@
 
                 </Border>
             </Grid>
-            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}">
+            <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter},FallbackValue=Hidden}"
+                  Style="{StaticResource SlideAnimationProject}">
+                <Grid.RenderTransform>
+                    <TranslateTransform X="0" Y="0"></TranslateTransform>
+                </Grid.RenderTransform>
                 <project:Project DataContext="{Binding ProjectService.CurrentlyOpenedProject}"></project:Project>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">

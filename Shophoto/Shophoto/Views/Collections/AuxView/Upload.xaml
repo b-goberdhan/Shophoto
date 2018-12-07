@@ -32,7 +32,8 @@
                     <ListView Margin="0,20,0,0" Width="690" Height="290"
                               Background="Transparent"
                               BorderBrush="Transparent"
-                              ItemsSource="{Binding ImagesToUpload}">
+                              ItemsSource="{Binding ImagesToUpload}"
+                              ItemContainerStyle="{StaticResource ListViewItemStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <image:ImageThumbnail Margin="5"></image:ImageThumbnail>

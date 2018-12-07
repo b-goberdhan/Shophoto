@@ -59,7 +59,7 @@
             </buttons:IconButton>
         </Grid>
         <ListView Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}}" Width="200" MaxHeight="200" BorderThickness="0"
-                  ItemsSource="{Binding Tags}"
+                  ItemsSource="{Binding Tags}" ItemContainerStyle="{StaticResource ListViewItemDropdownStyle}"
                   ScrollViewer.CanContentScroll="True" 
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ScrollViewer.VerticalScrollBarVisibility="Auto">

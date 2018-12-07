@@ -54,6 +54,7 @@
                             <TextBlock>Current Tags</TextBlock>
                             <Grid Margin="0,5,0,31" Height="100">
                                 <ListView ItemsSource="{Binding TagsService.Tags}"
+                                          ItemContainerStyle="{StaticResource ListViewItemStyle}"
                                           ScrollViewer.CanContentScroll="True" 
                                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                                           ScrollViewer.VerticalScrollBarVisibility="Auto">

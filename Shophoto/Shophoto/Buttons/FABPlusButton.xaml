@@ -26,10 +26,10 @@
         </Style>
         <Style x:Key="FABHover" TargetType="Button">
             <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
+            <Setter Property="Background" Value="{StaticResource SpaceBlue}"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="{StaticResource HoverRed}"></Setter>
+                    <Setter Property="Background" Value="{StaticResource HoverSpaceBlue}"></Setter>
                 </Trigger>
             </Style.Triggers>
         </Style>

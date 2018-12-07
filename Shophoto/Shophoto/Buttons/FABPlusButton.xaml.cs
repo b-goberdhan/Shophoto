@@ -24,7 +24,5 @@ namespace Shophoto.Buttons
         {
             InitializeComponent();
         }
-
-     
     }
 }

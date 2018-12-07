@@ -23,17 +23,6 @@ namespace Shophoto.Menus
         public SortDropdownMenu()
         {
             InitializeComponent();
-            this.LostFocus += SortDropdownMenu_LostFocus;
-        }
-
-        public SortDropdownMenuVM VM { get { return DataContext as SortDropdownMenuVM; } }
-
-        private void SortDropdownMenu_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (VM != null)
-            {
-                VM.IsDropdownOpen = false;
-            }
         }
     }
 }

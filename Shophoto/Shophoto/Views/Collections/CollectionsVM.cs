@@ -44,6 +44,8 @@ namespace Shophoto.Views.Collections
             TagImageDialogVM = tagImageDialogVM;
             TagVM = tagVM;
             SearchBoxVM = searchBoxVM;
+            SearchBoxVM.HasErrorMessage = true;
+            SearchBoxVM.ErrorMessage = "No search results";
             TagDropdownMenuVM = tagDropdownMenuVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
@@ -159,6 +161,7 @@ namespace Shophoto.Views.Collections
         {
             if (e.PropertyName == "InputText")
             {
+                //FilterCollectionImagesBySearchText();
                 ApplyAllFilters();
             }
         }
@@ -261,29 +264,39 @@ namespace Shophoto.Views.Collections
 
         private void ApplyTagFilter()
         {
+            if (ImageThumbnails == null || ImageThumbnails.Count == 0)
+            {
+                return;
+            }
             foreach (var image in ImageThumbnails)
             {
-                bool isImageVisible = true;
+                bool isImageVisibleInTagFilter = true;
                 foreach (var tag in TagFilters)
                 {
                     if (!image.Tags.Contains(tag))
                     {
-                        isImageVisible = false;
+                        isImageVisibleInTagFilter = false;
                         break;
                     }
 
                 }
-                image.Visible = isImageVisible;
+                image.Visible = image.Visible && isImageVisibleInTagFilter;
             }
 
         }
         private void FilterCollectionImagesBySearchText()
         {
-            foreach (ImageThumbnailCollectionsVM thumbnails in _imageThumbnails)
+            int visibleImages = 0;
+            foreach (ImageThumbnailCollectionsVM thumbnails in ImageThumbnails)
             {
 
                 thumbnails.Visible = thumbnails.Name.ToLower().IndexOf(SearchBoxVM.InputText.ToLower()) == 0;
+                if (thumbnails.Visible)
+                {
+                    visibleImages++;
+                }
             }
+            SearchBoxVM.HasError = visibleImages == 0 && SearchBoxVM.InputText != "";
         }
         private void ApplySorting()
         {
@@ -307,8 +320,6 @@ namespace Shophoto.Views.Collections
         {
             FilterCollectionImagesBySearchText();
             ApplyTagFilter();
-            //then just sort
-            ApplySorting();
         }
 
 

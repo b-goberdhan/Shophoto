@@ -14,8 +14,8 @@
         SizeToContent="Width">
     <Grid HorizontalAlignment="Stretch">
         <StackPanel Width="Auto" Orientation="Horizontal">
-            <menus:SideMenu HorizontalAlignment="Left" DataContext="{Binding SideMenuVM}"></menus:SideMenu>
-            <views:MainView HorizontalAlignment="Stretch" DataContext="{Binding MainViewVM}"></views:MainView>
+            <menus:SideMenu Panel.ZIndex="0" HorizontalAlignment="Left" DataContext="{Binding SideMenuVM}"></menus:SideMenu>
+            <views:MainView Panel.ZIndex="-1" HorizontalAlignment="Stretch" DataContext="{Binding MainViewVM}"></views:MainView>
         </StackPanel>
     </Grid>
 </Window>

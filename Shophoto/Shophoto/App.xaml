@@ -12,7 +12,8 @@
         <SolidColorBrush x:Key="LightRed" Color="#ff4c4c"></SolidColorBrush>
         <SolidColorBrush x:Key="HoverRed" Color="#cc3c3c"></SolidColorBrush>
         <SolidColorBrush x:Key="SelectedBlue" Color="#257AFD"></SolidColorBrush>
-
+        <SolidColorBrush x:Key="SpaceBlue" Color="#314689"></SolidColorBrush>
+        <SolidColorBrush x:Key="HoverSpaceBlue" Color="#243364"></SolidColorBrush>
         <Style x:Key="IconButtonHoverStyle" TargetType="buttons:IconButton">
             <Setter Property="Background" Value="White"></Setter>
             <Setter Property="Opacity" Value="1"></Setter>
@@ -26,6 +27,78 @@
 
             </Style.Triggers>
         </Style>
+        <Style x:Key="IconButtonBlueHoverStyle" TargetType="buttons:IconButton">
+            <Setter Property="Background" Value="{StaticResource SpaceBlue}"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource HoverSpaceBlue}"></Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".5"></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="IconButtonTransparentHoverStyle" TargetType="buttons:IconButton">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".5"></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ListViewItemStyle"  TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="rootBorder" BorderBrush="Transparent" BorderThickness="2" Opacity="1">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rootBorder"
+                                        Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                                <Setter TargetName="rootBorder"
+                                        Property="Opacity" Value=".85"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ListViewItemDropdownStyle"  TargetType="ListViewItem">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                        <Border x:Name="rootBorder" 
+                                Background="White"
+                                BorderBrush="WhiteSmoke" 
+                                BorderThickness="0,0,0,1" Opacity="1"
+                                >
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="rootBorder"
+                                        Property="BorderBrush" Value="{StaticResource SelectedBlue}"></Setter>
+                                <Setter TargetName="rootBorder"
+                                        Property="Opacity" Value=".85"></Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <ControlTemplate x:Key="IconButtonTemplate" TargetType="buttons:IconButton">
             <Border BorderBrush="{TemplateBinding BorderBrush}"
                     BorderThickness="{TemplateBinding BorderThickness}"
@@ -35,6 +108,16 @@
                                 Padding="{TemplateBinding Padding}"
                                 Content="{TemplateBinding Content}">
                 </ContentControl>
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ListViewTemplate" TargetType="ListBoxItem">
+            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{TemplateBinding Background}">
+                <ContentPresenter HorizontalAlignment="Stretch" 
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                  Width="Auto" Margin="0" Content="{TemplateBinding Content}"/>
+
             </Border>
         </ControlTemplate>
     </Application.Resources>

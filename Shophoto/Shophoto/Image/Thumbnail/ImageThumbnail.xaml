@@ -14,67 +14,84 @@
         <MouseBinding Gesture="LeftClick" Command="{Binding LeftClick}"></MouseBinding>
         <MouseBinding Gesture="RightClick" Command="{Binding RightClick}"></MouseBinding>
     </UserControl.InputBindings>
-    <Grid Width="200" Height="150" Background="White">
-        <Image Source="{Binding ImageSource}"></Image>
+    <Grid Width="200" Height="150" Background="WhiteSmoke">
+        <Image VerticalAlignment="Center" HorizontalAlignment="Right"
+               SnapsToDevicePixels="True"
+               Stretch="UniformToFill"
+               Margin="0,32,0,0"
+               Source="{Binding ImageSource}"></Image>
         <Grid Visibility="{Binding HasQuickButton, Converter={StaticResource BoolToVisConverter}}">
             <button:IconButton Visibility="{Binding HasDeleteQuickButton, Converter={StaticResource BoolToVisConverter}}"
                            Width="35" Height="35"
                            VerticalAlignment="Top" HorizontalAlignment="Right"
-                           Background="Transparent"
-                           BorderBrush="Transparent"
+                            BorderBrush="Transparent"
+                           Style="{StaticResource IconButtonTransparentHoverStyle}"
+                           Template="{StaticResource IconButtonTemplate  }"
                            Icon="{iconPacks:Modern Kind=Delete, Width=20, Height=20}"
                            Command="{Binding DeleteQuickButtonClick}"></button:IconButton>
             <button:IconButton Visibility="{Binding HasTagQuickButton, Converter={StaticResource BoolToVisConverter}}"
                                Width="35" Height="35"
-                               VerticalAlignment="Top" HorizontalAlignment="Right"
-                               Background="Transparent"
                                BorderBrush="Transparent"
+                               VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Style="{StaticResource IconButtonTransparentHoverStyle}"
+                               Template="{StaticResource IconButtonTemplate  }"
                                Icon="{iconPacks:Octicons Kind=Tag, Width=20, Height=20}"
                                Command="{Binding TagButtonClick}">
                 
             </button:IconButton>
             <button:IconButton Visibility="{Binding HasThreeDotQuickButton, Converter={StaticResource BoolToVisConverter}}"
                                Width="35" Height="35"
-                               VerticalAlignment="Top" HorizontalAlignment="Right"
-                               Background="Transparent"
                                BorderBrush="Transparent"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               Style="{StaticResource IconButtonTransparentHoverStyle}"
+                               Template="{StaticResource IconButtonTemplate  }"
                                Icon="{iconPacks:Material Kind=DotsHorizontal, Width=20, Height=20}"
                                Command="{Binding ThreeDotButtonClick}">
             </button:IconButton>
             <button:IconButton Visibility="{Binding HasEditQuickButton, Converter={StaticResource BoolToVisConverter}}"
                                Width="35" Height="35"
-                               VerticalAlignment="Top" HorizontalAlignment="Right"
-                               Background="Transparent"
                                BorderBrush="Transparent"
+                               VerticalAlignment="Top" HorizontalAlignment="Right"
+                               Style="{StaticResource IconButtonTransparentHoverStyle}"
+                               Template="{StaticResource IconButtonTemplate  }"
                                Icon="{iconPacks:Modern Kind=PageEdit, Width=20, Height=20}"
                                Command="{Binding EditQuickButtonClick}">
             </button:IconButton>
             <Grid Visibility="{Binding HasCheckbox, Converter={StaticResource BoolToVisConverter}}" 
                   VerticalAlignment="Top" HorizontalAlignment="Right">
                 <button:IconButton Width="35" Height="35" 
+                                   BorderBrush="Black" BorderThickness="1"
                                Icon="{iconPacks:Material Kind=Check}"
                                Visibility="{Binding IsChecked, Converter={StaticResource BoolToVisConverter}}"
                                Command="{Binding QuickButtonOnCheckBoxClicked}"
+                               Style="{StaticResource IconButtonTransparentHoverStyle}"
+                               Template="{StaticResource IconButtonTemplate  }"
                                Background="White"
                                ></button:IconButton>
                 <button:IconButton Width="35" Height="35" 
+                                   BorderBrush="Black" BorderThickness="1"
                                    Visibility="{Binding IsChecked,Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
                                    Command="{Binding QuickButtonOnCheckBoxClicked}"
+                                   Style="{StaticResource IconButtonTransparentHoverStyle}"
+                                   Template="{StaticResource IconButtonTemplate  }"
                                    Background="White"></button:IconButton> 
             </Grid>
             
         </Grid>
 
-        <Grid VerticalAlignment="Bottom" Width="200" Height="40" Background="WhiteSmoke">
+        <Grid VerticalAlignment="Bottom" Width="200" Height="32" Background="WhiteSmoke">
             <TextBlock VerticalAlignment="Center" Margin="5,0,0,0"
-                       FontSize="20" Text="{Binding Name}">
+                       Width="180" TextTrimming="CharacterEllipsis"
+                       FontSize="15" Text="{Binding Name}">
             </TextBlock>
         </Grid>
         
-        <Border BorderBrush="Black" BorderThickness="1"></Border>
+        <Border BorderBrush="Black" Opacity="0.20" BorderThickness="1"></Border>
+        <!--
         <contextMenus:ContextMenu DataContext="{Binding ImageThumbnailContextMenuVM}" 
                                   Margin="0,35,10,0" 
                                   VerticalAlignment="Top" HorizontalAlignment="Right">
         </contextMenus:ContextMenu>
+        -->
     </Grid>
 </UserControl>

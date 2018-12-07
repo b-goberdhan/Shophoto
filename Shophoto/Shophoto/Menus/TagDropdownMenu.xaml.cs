@@ -23,17 +23,6 @@ namespace Shophoto.Menus
         public TagDropdownMenu()
         {
             InitializeComponent();
-            this.LostFocus += TagDropdownMenu_LostFocus;
-        }
-
-        public TagDropDownMenuVM VM { get { return DataContext as TagDropDownMenuVM; } }
-        
-        private void TagDropdownMenu_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (VM != null)
-            {
-                VM.IsDropdownOpen = false;
-            }
         }
     }
 }

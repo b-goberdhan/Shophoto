@@ -36,7 +36,7 @@
     <Grid Width="815" Background="WhiteSmoke">
         <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
             <StackPanel x:Name="Main">
-                <Border Width="730" Height="490" Margin="0,110,0,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
+                <Border Width="730" Height="490" Margin="0,115,0,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
                     <Grid>
                         <Grid Visibility="{Binding HasImages, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}"
                               Height="490">
@@ -50,24 +50,25 @@
                                   Width="730" Height="490"
                           ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto"
                           Background="Transparent" BorderBrush="Transparent"
-                          ItemsSource="{Binding ImageThumbnails}">
+                          ItemsSource="{Binding ImageThumbnails}" ItemContainerStyle="{StaticResource ListViewItemStyle}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <image:ImageThumbnail Margin="8"></image:ImageThumbnail>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                        <ListView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
-                            </ItemsPanelTemplate>
-                        </ListView.ItemsPanel>
+                            <ListView.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                                </ItemsPanelTemplate>
+                            </ListView.ItemsPanel>
+
                         </ListView>
                     </Grid>
                 </Border>
                 
             </StackPanel>
             
-            <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200" Height="40"
+            <inputBox:InputBox DataContext="{Binding SearchBoxVM}" Width="200"
                                VerticalAlignment="Top" HorizontalAlignment="Left" 
                                Margin="50,60,0,0"></inputBox:InputBox>
             <menus:TagDropdownMenu DataContext="{Binding TagDropdownMenuVM}" Margin="70,60,0,0" Width="200">
