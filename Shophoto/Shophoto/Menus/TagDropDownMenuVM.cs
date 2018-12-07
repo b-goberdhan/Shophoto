@@ -121,5 +121,16 @@ namespace Shophoto.Menus
             }
         }
 
+        private bool _hasImagesAndTags;
+        public bool HasImagesAndTags
+        {
+            get { return _hasImagesAndTags; }
+            set
+            {
+                _hasImagesAndTags = value;
+                NotifyPropertyChanged();
+            }
+        }
+
     }
 }

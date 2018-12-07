@@ -36,7 +36,8 @@ namespace Shophoto.Views.Collections
             SortDropdownMenuVM sortDropdownMenuVM,
             DeleteConfirmationBarVM deleteConfirmationVM,
             ImageViewerVM imageViewerVM,
-            ProjectService projectService)
+            ProjectService projectService,
+            TagsService tagsService)
         {
             State = CollectionsState.Main;
             CollectionsFABButtonVM = fabPlusButtonVM;
@@ -51,6 +52,7 @@ namespace Shophoto.Views.Collections
             DeleteConfirmationBarVM = deleteConfirmationVM;
             ImageViewerVM = imageViewerVM;
             ProjectService = projectService;
+            TagsService = tagsService;
             RegisterEvents();
             ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>();
 
@@ -69,10 +71,11 @@ namespace Shophoto.Views.Collections
             DeleteConfirmationBarVM.PropertyChanged += DeleteConfirmationBarVM_PropertyChanged;
             ImageViewerVM.OnClickLeft += ImageViewerVM_OnClickLeft;
             ImageViewerVM.OnClickRight += ImageViewerVM_OnClickRight;
+            TagVM.PropertyChanged += TagVM_PropertyChanged;
             ProjectService.PropertyChanged += ProjectService_PropertyChanged;
         }
 
-
+       
 
         public CollectionsFABButtonVM CollectionsFABButtonVM { get; }
 
@@ -114,6 +117,7 @@ namespace Shophoto.Views.Collections
         }
 
         public TagVM TagVM { get; }
+        
 
         public TagImageDialogVM TagImageDialogVM { get; }
 
@@ -129,8 +133,10 @@ namespace Shophoto.Views.Collections
                     _imageThumbnails.Add(thumbnail);
                 }
                 State = CollectionsState.Main;
+
                 ApplySorting();
             }
+            TagDropdownMenuVM.HasImagesAndTags = ImageThumbnails.Count != 0 && TagsService.Tags.Count != 0;
         }
 
         private void Thumbnail_OnTagClicked(object sender, EventArgs e)
@@ -191,6 +197,7 @@ namespace Shophoto.Views.Collections
                     }
                 }
             }
+            TagDropdownMenuVM.HasImagesAndTags = ImageThumbnails.Count > 0 && TagVM.HasTags;
         }
         private void DeleteConfirmationBarVM_OnDeleteConfirmed(object sender, EventArgs e)
         {
@@ -240,6 +247,12 @@ namespace Shophoto.Views.Collections
         private void ProjectService_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             
+        }
+
+        public TagsService TagsService { get; }
+        private void TagVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            TagDropdownMenuVM.HasImagesAndTags = ImageThumbnails.Count > 0 && TagVM.HasTags;
         }
         private ObservableCollection<ImageThumbnailCollectionsVM> _imageThumbnails;
         public ObservableCollection<ImageThumbnailCollectionsVM> ImageThumbnails
@@ -317,7 +330,7 @@ namespace Shophoto.Views.Collections
         }
 
         public void ApplyAllFilters()
-        {
+        {           
             FilterCollectionImagesBySearchText();
             ApplyTagFilter();
         }

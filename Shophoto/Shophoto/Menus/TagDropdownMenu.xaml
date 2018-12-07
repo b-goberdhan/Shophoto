@@ -38,7 +38,8 @@
     <StackPanel>
         <Grid>
             <buttons:IconButton Width="200" Height="40" Style="{StaticResource DropdownButtons}"
-                            Command="{Binding OnOpenDropdownClicked}">
+                                Command="{Binding OnOpenDropdownClicked}"
+                                IsEnabled="{Binding HasImagesAndTags}">
 
                 <Grid Width="175">
                     <TextBlock
