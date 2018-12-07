@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Shophoto.Menus.Context
 {
-    public abstract class ContextMenuVM : BaseVM
+    public class ContextMenuVM : BaseVM
     {
 
         public ContextMenuVM()

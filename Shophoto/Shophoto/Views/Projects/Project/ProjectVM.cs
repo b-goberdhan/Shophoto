@@ -1,6 +1,10 @@
 ﻿using Shophoto.Command;
+using Shophoto.InputBox;
+using Shophoto.Menus.Context;
+using Shophoto.Services;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;
+using Shophoto.Views.Projects.AuxView;
 using Shophoto.Views.Projects.Folder;
 using System;
 using System.Collections.Generic;
@@ -11,13 +15,56 @@ using System.Windows.Input;
 
 namespace Shophoto.Views.Projects.Project
 {
+    public enum ProjectState
+    {
+        Normal,
+        Edit,
+        Delete
+    }
     public class ProjectVM : BaseVM
     {
         public event EventHandler OnGoBackClick;
-        public ProjectVM()
-        { 
+        public ProjectVM(ProjectService projectService, ProjectFolderVM projectFolderVM)
+        {
+
+            //InputVMs...
+            ProjectService = projectService;
+            ProjectFolderVM = projectFolderVM;
         }
 
+        public void Init()
+        {
+            ContextMenuVM = new ContextMenuVM();
+            EditProjectVM = new EditProjectVM(ProjectService);
+            ContextMenuVM.MenuItems.Add(new ContextMenuItemVM("Edit", () =>
+            {
+                State = ProjectState.Edit;
+                EditProjectVM.IsVisible = true;
+                ContextMenuVM.IsOpen = false;
+            }));
+            ContextMenuVM.MenuItems.Add(new ContextMenuItemVM("Delete", () =>
+            {
+                State = ProjectState.Delete;
+                //TODO: Delete prompt
+                ContextMenuVM.IsOpen = false;
+            }));
+
+        }
+
+        public ProjectService ProjectService { get; }
+        public ProjectFolderVM ProjectFolderVM { get; }
+        private ProjectState _state;
+        public ProjectState State
+        {
+            get { return _state; }
+            set
+            {
+                _state = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public EditProjectVM EditProjectVM { get; private set; }
 
         private string _name;
         public string Name
@@ -76,6 +123,18 @@ namespace Shophoto.Views.Projects.Project
             }
         }
 
+        private ICommand _toggleContextMenuCommand;
+        public ICommand ToggleContextMenuCommand
+        {
+            get
+            {
+                return _toggleContextMenuCommand ?? (_toggleContextMenuCommand = new CommandHandler(() =>
+                {
+                    ContextMenuVM.IsOpen = !ContextMenuVM.IsOpen;
+                }));
+            }
+        }
+
 
         private CollectionsVM _collectionsVM;
         public CollectionsVM CollectionsVM
@@ -87,5 +146,9 @@ namespace Shophoto.Views.Projects.Project
                 NotifyPropertyChanged();
             }
         }
+
+        public ContextMenuVM ContextMenuVM { get; private set; }
     }
+
+
 }

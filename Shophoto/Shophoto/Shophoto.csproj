@@ -159,6 +159,10 @@
       <DependentUpon>CreateProject.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Projects\AuxView\CreateProjectVM.cs" />
+    <Compile Include="Views\Projects\AuxView\EditProject.xaml.cs">
+      <DependentUpon>EditProject.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Projects\AuxView\EditProjectVM.cs" />
     <Compile Include="Views\Projects\Folder\ProjectFolder.xaml.cs">
       <DependentUpon>ProjectFolder.xaml</DependentUpon>
     </Compile>
@@ -260,6 +264,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Projects\AuxView\CreateProject.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Projects\AuxView\EditProject.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

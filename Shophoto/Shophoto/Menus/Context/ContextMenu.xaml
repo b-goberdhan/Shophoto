@@ -10,8 +10,8 @@
              Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}"
              Panel.ZIndex="1">
     <StackPanel>
-        <ListView Width="120" ItemsSource="{Binding MenuItems}" 
-                  BorderBrush="Transparent" BorderThickness="0">
+        <ListView Width="102" ItemsSource="{Binding MenuItems}" ItemContainerStyle="{StaticResource ListViewItemDropdownStyle}"
+                  BorderBrush="WhiteSmoke" BorderThickness="0" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <contextMenu:ContextMenuItem></contextMenu:ContextMenuItem>

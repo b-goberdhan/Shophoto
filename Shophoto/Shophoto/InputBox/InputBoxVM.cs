@@ -61,8 +61,12 @@ namespace Shophoto.InputBox
             get { return _hasError; }
             set
             {
-                _hasError = value;
-                NotifyPropertyChanged();
+                if (_hasError != value)
+                {
+                    _hasError = value;
+                    NotifyPropertyChanged();
+                }
+
             }
         }
 

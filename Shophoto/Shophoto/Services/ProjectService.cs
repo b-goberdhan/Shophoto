@@ -47,7 +47,7 @@ namespace Shophoto.Services
             }
             else
             {
-                CurrentlyOpenedProject = new ProjectVM()
+                CurrentlyOpenedProject = new ProjectVM(this, projectFolder)
                 {
                     Name = projectFolder.Name,
                     CollectionsVM = projectFolder.CollectionsVM,
@@ -55,6 +55,7 @@ namespace Shophoto.Services
                     CustomerName = projectFolder.CustomerName,
                     CustomerEmail = projectFolder.CustomerEmail
                 };
+                CurrentlyOpenedProject.Init();
                 _goBackClickHandler = goBackClickHandler;
                 CurrentlyOpenedProject.OnGoBackClick += _currentlyOpenedProject_OnGoBackClick;
             }

@@ -1,6 +1,7 @@
 ﻿using Shophoto.Buttons;
 using Shophoto.InputBox;
 using Shophoto.Menus;
+using Shophoto.Menus.Context;
 using Shophoto.Services;
 using Shophoto.ViewModels;
 using Shophoto.Views.Collections;

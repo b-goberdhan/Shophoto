@@ -7,10 +7,10 @@
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              mc:Ignorable="d">
     <buttons:IconButton Content="{Binding Name, FallbackValue=Edit}"
-                        BorderBrush="Transparent"
-                        FontSize="20"
+                        BorderBrush="Gray" BorderThickness="0,0,0,1"
+                        Background="WhiteSmoke"
+                        FontSize="15"
                         Command="{Binding OnClick}"
-                        Background="White"
-                        Width="120" Height="30">
+                        Width="100" Height="30">
     </buttons:IconButton>
 </UserControl>

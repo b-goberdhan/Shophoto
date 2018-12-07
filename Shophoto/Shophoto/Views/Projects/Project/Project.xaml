@@ -7,12 +7,25 @@
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:buttons="clr-namespace:Shophoto.Buttons"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:context="clr-namespace:Shophoto.Menus.Context"
+             xmlns:auxview="clr-namespace:Shophoto.Views.Projects.AuxView"
              mc:Ignorable="d">
     <Grid Width="1005" Height="Auto">
         <Border BorderBrush="{StaticResource SelectedBlue}" BorderThickness="2,0,0,0">
             <StackPanel Orientation="Horizontal">
                 <StackPanel HorizontalAlignment="Left" Background="White" Width="190">
-                    <StackPanel Orientation="Horizontal" Margin="0,40,0,0">
+                    <StackPanel Orientation="Horizontal" Height="40">
+                        <buttons:IconButton Margin="150,0,0,0" 
+                                            Width="40" Height="40"
+                                            Icon="{iconPacks:Material Kind=DotsHorizontal}" 
+                                            Template="{StaticResource IconButtonTemplate}"
+                                            Style="{StaticResource IconButtonHoverStyle}"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding ToggleContextMenuCommand}"
+                                            >
+                        </buttons:IconButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,0">
                         <buttons:IconButton HorizontalAlignment="Left" Width="40" Height="40" 
                                         Margin="0,15,0,0"
                                         Icon="{iconPacks:Octicons Kind=ChevronLeft}"
@@ -23,7 +36,8 @@
                         
                     </StackPanel>
                     <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
-                        <TextBlock Margin="10,0,10,0" Height="40" Background="Transparent"
+                        <TextBlock Margin="10,0,10,0" MaxHeight="80" Background="Transparent"
+                                   Width="200" TextWrapping="Wrap"
                        TextAlignment="Left"
                        FontSize="25" Text="{Binding Name, FallbackValue=First Project}"></TextBlock>
                     </Viewbox>
@@ -55,8 +69,10 @@
                 <collections:Collections DataContext="{Binding CollectionsVM}"></collections:Collections>
             </StackPanel>
         </Border>
-       
-        
-        
+
+
+        <context:ContextMenu HorizontalAlignment="Left" Margin="80,40,0,0"
+                             DataContext="{Binding ContextMenuVM}"></context:ContextMenu>
+        <auxview:EditProject DataContext="{Binding EditProjectVM}"></auxview:EditProject>
     </Grid>
 </UserControl>
