@@ -124,10 +124,9 @@ namespace Shophoto.Views.Projects
 
         public void GoBackToProjectsDirectory()
         {
-            if (ProjectService.CurrentlyOpenedProject != null)
-            {
-                ProjectService.SetCurrentlyOpenedProject(null, null);
-            }
+
+            ProjectService.SetCurrentlyOpenedProject(null, null);
+            
         }
 
         public ProjectService ProjectService { get; }

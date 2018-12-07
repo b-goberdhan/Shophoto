@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Shophoto.Views.Projects.AuxView.DeleteProject"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Shophoto.Views.Projects.AuxView"
+             xmlns:inputbox="clr-namespace:Shophoto.InputBox"
+             xmlns:buttons="clr-namespace:Shophoto.Buttons"
+             mc:Ignorable="d"
+             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
+    <UserControl.Resources>
+        <Style x:Key="DeleteButtonStyle" TargetType="buttons:IconButton">
+            <Setter Property="Foreground" Value="White"></Setter>
+            <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
+                    <Setter Property="Opacity" Value=".6"></Setter>
+                </Trigger>
+                <Trigger Property="IsMouseOver"  Value="True">
+                    <Setter Property="Background" Value="{StaticResource HoverRed}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Background="Black" Opacity=".5">
+            <Grid.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
+            </Grid.InputBindings>
+        </Grid>
+        <Grid Width="520" Height="304" Background="WhiteSmoke" >
+            <StackPanel>
+                <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                    <TextBlock Height="45" FontSize="30"
+                               VerticalAlignment="Top"
+                               Text="Delete Project"
+                               Margin="20,30,0,10"></TextBlock>
+                </Border>
+                <StackPanel Margin="20,10,20,0">
+                    <TextBlock Text="Please type the name of the project in order to confirm its deletion." 
+                               TextWrapping="Wrap"
+                               Height="60"
+                               FontSize="20"></TextBlock>
+                    <TextBlock Text="Warning this cannot be un done."
+                               FontSize="15"
+                               Foreground="{StaticResource LightRed}"
+                               Height="30" Padding="5"></TextBlock>
+                    <inputbox:InputBox Margin="20" DataContext="{Binding ProjectNameInputBoxVM}"></inputbox:InputBox>
+
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <buttons:IconButton Content="Cancel" 
+                                        BorderThickness="0"
+                                        FontSize="15" Height="40" Width="260" 
+                                        Style="{StaticResource IconButtonGrayHoverStyle}"
+                                        Template="{StaticResource IconButtonTemplate}"
+                                        Command="{Binding CloseCommand}"></buttons:IconButton>
+                    <buttons:IconButton Content="Delete" 
+                                        BorderThickness="0"
+                                        IsEnabled="{Binding CanDelete}"
+                                        Style="{StaticResource DeleteButtonStyle}"
+                                        Command="{Binding OnDeleteCommand}"
+                                        Template="{StaticResource IconButtonTemplate}"
+                                        FontSize="15" Height="40" Width="260" ></buttons:IconButton>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

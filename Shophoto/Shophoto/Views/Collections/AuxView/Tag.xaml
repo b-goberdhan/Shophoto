@@ -15,22 +15,24 @@
                 <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
             </Grid.InputBindings>
         </Grid>
-        <Grid Height="{Binding ElementName=child, Path=ActualHeight}" Width="400" Background="WhiteSmoke">
-            <Border  BorderBrush="Black" BorderThickness="1">
+        <Grid Height="330" Width="400" Background="WhiteSmoke">
+            <Border  BorderBrush="Black" BorderThickness="0">
                 <StackPanel x:Name="child">
                     <Grid>
                         <TextBlock Text="Manage Tags" Height="45" FontSize="30" 
                                    VerticalAlignment="Top"
                                    Margin="20,30,0,0"></TextBlock>
-                        <buttons:IconButton Icon="{iconPacks:Octicons Kind=Info, Width=13, Height=13}" Width="18" Height="18"
+                        <!--<buttons:IconButton Icon="{iconPacks:Octicons Kind=Info, Width=13, Height=13}" Width="18" Height="18"
                                             Margin="0,20,-10,0" BorderBrush="Transparent" Background="Transparent"
-                                            Command="{Binding ToggleInfoCommand}"></buttons:IconButton>
+                                            Command="{Binding ToggleInfoCommand}"></buttons:IconButton> -->
                     </Grid>
+                    <!--
                     <Grid Margin="20,0,20,10">
                         <TextBlock Text="This will allow you to associate images with a keyword and further orginize your collection" 
                        FontSize="15" FontStyle="Italic" TextWrapping="Wrap"
                         Visibility="{Binding IsInfoVisible, Converter={StaticResource BoolToVisConverter}}"></TextBlock>
                     </Grid>
+                    -->
                     
                     <Border Margin="20,0,20,0" BorderBrush="Black" BorderThickness="0,1,0,0">
                         <StackPanel Margin="0,10,0,0">
@@ -47,6 +49,8 @@
                                 </inputBox:InputBox>
                                 <buttons:IconButton Width="40" Height="40" BorderBrush="Transparent"
                                                     Margin="0,0,0,0" 
+                                                    Template="{StaticResource IconButtonTemplate}"
+                                                   
                                                     Content="Add" Command="{Binding AddCommand}">
 
                                 </buttons:IconButton>
@@ -82,6 +86,9 @@
                     </Border>
                     <buttons:IconButton Content="Close" 
                                         FontSize="15" Height="40"
+                                        BorderThickness="0"
+                                        Template="{StaticResource IconButtonTemplate}"
+                                        Style="{StaticResource IconButtonGrayHoverStyle}"
                                         Command="{Binding CloseCommand}"></buttons:IconButton>
                 </StackPanel>
             </Border>

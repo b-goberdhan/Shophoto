@@ -17,10 +17,11 @@
             Margin="5"
             VerticalAlignment="Top"
             HorizontalAlignment="Center"
-            Kind="FolderOpen" Width="100" Height="100"></iconPacks:PackIconModern>
+            Kind="Folder" Width="100" Height="100"></iconPacks:PackIconModern>
             <Grid Height="40" VerticalAlignment="Bottom">
                 <TextBlock
-                     Background="WhiteSmoke" Height="40" FontSize="20" 
+                     Background="WhiteSmoke" Height="30" FontSize="15" 
+                    Margin="0,4,0,0"
                      VerticalAlignment="Center" Padding="5"
                      Text="{Binding Name, FallbackValue=My Project}"></TextBlock>
             </Grid>

@@ -82,5 +82,8 @@
                             Icon="{iconPacks:Octicons Kind=Settings, Width=25, Height=25}"
                             Style="{StaticResource MenuButtonStyle}"
                             Content="Settings"/>
+        <Grid Background="White"  Height="1800">
+            
+        </Grid>
     </StackPanel>
 </UserControl>

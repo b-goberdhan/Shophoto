@@ -14,6 +14,8 @@
         <SolidColorBrush x:Key="SelectedBlue" Color="#257AFD"></SolidColorBrush>
         <SolidColorBrush x:Key="SpaceBlue" Color="#4965be"></SolidColorBrush>
         <SolidColorBrush x:Key="HoverSpaceBlue" Color="#3e59af"></SolidColorBrush>
+        <SolidColorBrush x:Key="LightGray" Color="#cccccc"></SolidColorBrush>
+        <SolidColorBrush x:Key="HoverLightGray" Color="#c1c1c1"></SolidColorBrush>
         <Style x:Key="IconButtonHoverStyle" TargetType="buttons:IconButton">
             <Setter Property="Background" Value="White"></Setter>
             <Setter Property="Opacity" Value="1"></Setter>
@@ -48,6 +50,20 @@
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="Foreground" Value="{StaticResource SelectedBlue}"></Setter>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value=".5"></Setter>
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="IconButtonGrayHoverStyle" TargetType="buttons:IconButton">
+            <Setter Property="Background" Value="{StaticResource LightGray}"></Setter>
+            <Setter Property="Foreground" Value="Black"></Setter>
+            <Setter Property="Opacity" Value="1"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource HoverLightGray}"></Setter>
                 </Trigger>
                 <Trigger Property="IsEnabled" Value="False">
                     <Setter Property="Opacity" Value=".5"></Setter>

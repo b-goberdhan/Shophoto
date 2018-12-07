@@ -74,5 +74,6 @@
         <context:ContextMenu HorizontalAlignment="Left" Margin="80,40,0,0"
                              DataContext="{Binding ContextMenuVM}"></context:ContextMenu>
         <auxview:EditProject DataContext="{Binding EditProjectVM}"></auxview:EditProject>
+        <auxview:DeleteProject DataContext="{Binding DeleteProjectVM}"></auxview:DeleteProject>
     </Grid>
 </UserControl>

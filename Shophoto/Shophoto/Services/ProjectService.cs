@@ -63,6 +63,12 @@ namespace Shophoto.Services
             NotifyPropertyChanged("CurrentlyOpenedProject");
         }
 
+        public void DeleteCurrentlyOpenedProject()
+        {
+            //CurrentlyOpenedProject.OnGoBackClick -= _currentlyOpenedProject_OnGoBackClick;
+            Projects.Remove(CurrentlyOpenedProject.ProjectFolderVM);
+            CurrentlyOpenedProject = null;
+        }
 
     }
 }

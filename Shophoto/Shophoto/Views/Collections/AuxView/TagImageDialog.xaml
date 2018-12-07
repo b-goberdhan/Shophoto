@@ -92,6 +92,9 @@
                 </Border>
                 <buttons:IconButton Content="Close" 
                                     FontSize="15" Height="40"
+                                    BorderThickness="0"
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonGrayHoverStyle}"
                                     Command="{Binding CloseCommand}"></buttons:IconButton>
             </StackPanel>
         </Grid>

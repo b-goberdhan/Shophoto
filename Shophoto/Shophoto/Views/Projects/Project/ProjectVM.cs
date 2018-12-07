@@ -36,6 +36,7 @@ namespace Shophoto.Views.Projects.Project
         {
             ContextMenuVM = new ContextMenuVM();
             EditProjectVM = new EditProjectVM(ProjectService);
+            DeleteProjectVM = new DeleteProjectVM(ProjectService);
             ContextMenuVM.MenuItems.Add(new ContextMenuItemVM("Edit", () =>
             {
                 State = ProjectState.Edit;
@@ -46,9 +47,18 @@ namespace Shophoto.Views.Projects.Project
             {
                 State = ProjectState.Delete;
                 //TODO: Delete prompt
+                DeleteProjectVM.IsVisible = true;
                 ContextMenuVM.IsOpen = false;
             }));
 
+            DeleteProjectVM.OnDelete += DeleteProjectVM_OnDelete;
+
+        }
+
+        private void DeleteProjectVM_OnDelete(object sender, EventArgs e)
+        {
+            ProjectService.DeleteCurrentlyOpenedProject();
+            OnGoBackClick?.Invoke(this, null);
         }
 
         public ProjectService ProjectService { get; }
@@ -65,7 +75,7 @@ namespace Shophoto.Views.Projects.Project
         }
 
         public EditProjectVM EditProjectVM { get; private set; }
-
+        public DeleteProjectVM DeleteProjectVM { get; private set; }
         private string _name;
         public string Name
         {
