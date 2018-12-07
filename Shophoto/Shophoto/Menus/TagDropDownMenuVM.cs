@@ -23,7 +23,7 @@ namespace Shophoto.Menus
         public bool IsDropdownOpen
         {
             get { return _isDropdownOpen; }
-            private set
+            set
             {
                 _isDropdownOpen = value;
                 NotifyPropertyChanged();
