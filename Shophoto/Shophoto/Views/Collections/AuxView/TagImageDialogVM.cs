@@ -116,6 +116,8 @@ namespace Shophoto.Views.Collections.Aux
 
 
 
+
+
         public TagsService TagsService { get; }
         public ProjectService ProjectService { get; }
     }
