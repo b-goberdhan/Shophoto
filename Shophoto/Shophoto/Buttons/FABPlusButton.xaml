@@ -50,7 +50,7 @@
         <ControlTemplate x:Key="FABMenuButtons" TargetType="{x:Type buttons:IconButton}">
             <StackPanel Orientation="Horizontal" Width="90">
 
-                <Grid Background="Black" Width="45" Height="20" Margin="0,0,5,0" >
+                <Grid Background="Black" Width="50" Height="20" Margin="0,0,5,0" >
                     <ContentControl Content="{TemplateBinding Content}"
                                 VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2"
                                 Foreground="AntiqueWhite" FontSize="8">
@@ -79,7 +79,7 @@
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Octicons Kind=Tag}"
                                 Style="{StaticResource FABHover}"
-                                Content="Tag"
+                                Content="Mange Tags"
                                 Command="{Binding TagButtonCommand}"></buttons:IconButton>
             <buttons:IconButton Visibility="{Binding HasDownloadButton, Converter={StaticResource BoolToVisConverter}}"
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"

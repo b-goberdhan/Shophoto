@@ -136,5 +136,25 @@ namespace Shophoto.Image.Thumbnail
                 NotifyPropertyChanged();
             }
         }
+
+        public void AddTag(TagItemVM tagItemVM)
+        {
+            Tags.Add(tagItemVM);
+            NotifyPropertyChanged("Tags");
+            NotifyPropertyChanged("HasTags");
+        }
+
+        public void RemoveTag(TagItemVM tagItemVM)
+        {
+            Tags.Remove(tagItemVM);
+            NotifyPropertyChanged("Tags");
+            NotifyPropertyChanged("HasTags");
+        }
+
+        public override bool HasTags
+        {
+            get { return Tags.Count > 0; }
+        }
+
     }
 }

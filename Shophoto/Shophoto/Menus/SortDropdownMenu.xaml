@@ -19,7 +19,8 @@
     </UserControl.Resources>
     <StackPanel Width="150">
             <buttons:IconButton Height="40" Style="{StaticResource DropdownButtons}"
-                            Command="{Binding OnOpenDropdownClicked}">
+                            Command="{Binding OnOpenDropdownClicked}"
+                                >
                 <Grid>
                     <TextBlock
                          Text="{Binding CurrentSortingSelected, Mode=OneWay}" 

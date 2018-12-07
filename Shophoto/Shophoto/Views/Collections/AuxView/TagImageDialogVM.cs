@@ -101,12 +101,12 @@ namespace Shophoto.Views.Collections.Aux
                     var tagItem = obj as SelectableTagItemVM;
                     if (!CurrentThumbnail.Tags.Contains(tagItem.Tag))
                     {
-                        CurrentThumbnail.Tags.Add(tagItem.Tag);
+                        CurrentThumbnail.AddTag(tagItem.Tag);
                         tagItem.IsSelected = true;
                     }
                     else
                     {
-                        CurrentThumbnail.Tags.Remove(tagItem.Tag);
+                        CurrentThumbnail.RemoveTag(tagItem.Tag);
                         tagItem.IsSelected = false ;
                     }
                 }));

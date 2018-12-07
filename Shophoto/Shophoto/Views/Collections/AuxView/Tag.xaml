@@ -19,11 +19,11 @@
             <Border  BorderBrush="Black" BorderThickness="1">
                 <StackPanel x:Name="child">
                     <Grid>
-                        <TextBlock Text="Edit Tags" Height="45" FontSize="30" 
+                        <TextBlock Text="Manage Tags" Height="45" FontSize="30" 
                                    VerticalAlignment="Top"
                                    Margin="20,30,0,0"></TextBlock>
                         <buttons:IconButton Icon="{iconPacks:Octicons Kind=Info, Width=13, Height=13}" Width="18" Height="18"
-                                            Margin="0,20,105,0" BorderBrush="Transparent" Background="Transparent"
+                                            Margin="0,20,-10,0" BorderBrush="Transparent" Background="Transparent"
                                             Command="{Binding ToggleInfoCommand}"></buttons:IconButton>
                     </Grid>
                     <Grid Margin="20,0,20,10">

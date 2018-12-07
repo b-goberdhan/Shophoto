@@ -87,7 +87,7 @@ namespace Shophoto.Image.Thumbnail
         }
 
         private QuickButtonState _quickButtonState;
-        protected QuickButtonState QuickButtonState {
+        protected virtual QuickButtonState QuickButtonState {
             get
             {
                 return _quickButtonState;
@@ -140,6 +140,8 @@ namespace Shophoto.Image.Thumbnail
                 NotifyPropertyChanged();
             }
         }
+
+        public virtual bool HasTags { get; }
         public virtual ICommand QuickButtonOnCheckBoxClicked { get; }
 
         public virtual ICommand DeleteQuickButtonClick { get; }

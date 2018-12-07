@@ -127,6 +127,18 @@ namespace Shophoto.Views.Collections.Aux
             }
         }
 
+        private ICommand _removeCommand;
+        public ICommand RemoveCommand
+        {
+            get
+            {
+                return _removeCommand ?? (_removeCommand = new CommandHandler((tag) =>
+                {
+
+                }));
+            }
+        }
+
         private bool _isInfoVisible;
         public bool IsInfoVisible
         {

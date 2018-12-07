@@ -7,6 +7,7 @@
              xmlns:collections="clr-namespace:Shophoto.Views.Collections"
              xmlns:projects="clr-namespace:Shophoto.Views.Projects">
     <Grid Width="Auto" HorizontalAlignment="Stretch">
+        <!--<collections:Collections Visibility="{Binding IsOnAllImages, Converter={StaticResource BoolToVisConverter}}"></collections:Collections>-->
         <projects:Projects DataContext="{Binding ProjectsVM}"></projects:Projects>
     </Grid>
 </UserControl>
