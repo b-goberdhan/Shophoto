@@ -123,7 +123,7 @@ namespace Shophoto.Image.Thumbnail
         public void HideDeleteCheckbox()
         {
             base.IsChecked = false;
-            base.QuickButtonState = QuickButtonState.None;
+            base.QuickButtonState = QuickButtonState.Tag;
         }
 
         private ObservableCollection<TagItemVM> _tags;
