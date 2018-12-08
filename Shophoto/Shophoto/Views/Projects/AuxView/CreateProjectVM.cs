@@ -65,12 +65,12 @@ namespace Shophoto.Views.Projects.AuxView
             CanCreateProject = VerifyInputBoxesHaveText();
         }
 
-        private ICommand _goBackCommand;
-        public ICommand GoBackCommand
+        private ICommand _closeCommand;
+        public ICommand CloseCommand
         {
             get
             {
-                return _goBackCommand ?? (_goBackCommand = new CommandHandler(() =>
+                return _closeCommand ?? (_closeCommand = new CommandHandler(() =>
                 {
                     OnGoBackClicked?.Invoke(this, null);
                 }));
@@ -120,7 +120,6 @@ namespace Shophoto.Views.Projects.AuxView
         {
             return 
                 ProjectNameInputBoxVM.InputText.Replace(" ", "") != "" &&
-                ProjectSummaryInputBoxVM.InputText.Replace(" ", "") != "" &&
                 CustomerNameInputBoxVM.InputText.Replace(" ", "") != "" &&
                 EmailInputBoxVM.InputText.Replace(" ", "") != "";
         }
@@ -128,7 +127,6 @@ namespace Shophoto.Views.Projects.AuxView
         private void SetErrorOnInputBoxes()
         {
             ProjectNameInputBoxVM.HasError = ProjectNameInputBoxVM.InputText.Replace(" ", "") == "" && ProjectNameInputBoxVM.IsDirty;
-            ProjectSummaryInputBoxVM.HasError = ProjectSummaryInputBoxVM.InputText.Replace(" ", "") == "" && ProjectSummaryInputBoxVM.IsDirty;
             CustomerNameInputBoxVM.HasError = CustomerNameInputBoxVM.InputText.Replace(" ", "") == "" && CustomerNameInputBoxVM.IsDirty;
             EmailInputBoxVM.HasError = EmailInputBoxVM.InputText.Replace(" ", "") == "" && EmailInputBoxVM.IsDirty;
         }

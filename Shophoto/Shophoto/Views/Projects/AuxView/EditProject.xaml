@@ -15,7 +15,7 @@
                 <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
             </Grid.InputBindings>
         </Grid>
-        <Grid Width="520" Height="490" Background="WhiteSmoke">
+        <Grid Width="520" Height="489" Background="WhiteSmoke">
             <StackPanel>
                 <Border BorderBrush="Black" BorderThickness="0,0,0,1">
                     <TextBlock Text="Edit Project" Height="45" FontSize="30" 
@@ -49,9 +49,22 @@
                         </input:InputBox>
                     </StackPanel>
                 </StackPanel>
-                <buttons:IconButton Content="Save Changes" FontSize="15" Height="40"
-                                    IsEnabled="{Binding IsValid}"
+                <StackPanel Orientation="Horizontal">
+                    <buttons:IconButton Content="Cancel" FontSize="15" Height="40" Width="260"
+                                        BorderThickness="0"
+                                        Command="{Binding CloseCommand}"
+                                        Template="{StaticResource IconButtonTemplate}"
+                                        Style="{StaticResource IconButtonGrayHoverStyle}">
+                        
+                    </buttons:IconButton>
+                    <buttons:IconButton Content="Save Changes" FontSize="15" Height="40" Width="260"
+                                    BorderThickness="0"
+                                        IsEnabled="{Binding IsValid}"
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource PositiveButtonStyle}"
                                     Command="{Binding SaveChangesCommand}"></buttons:IconButton>
+                </StackPanel>
+
             </StackPanel>
 
         </Grid>

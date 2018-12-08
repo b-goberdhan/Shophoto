@@ -7,32 +7,31 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:image="clr-namespace:Shophoto.Image"
              mc:Ignorable="d" >
-    <StackPanel Width="815" Height="680" Background="WhiteSmoke">
-        <StackPanel Height="100" Orientation="Horizontal" Margin="0,70,0,0">
-            <buttons:IconButton Width="50" Height="50" 
-                                    Icon="{iconPacks:Octicons Kind=ChevronLeft, Width=30, Height=30}"
-                                    Background="Transparent" BorderBrush="Transparent"
-                                    VerticalAlignment="Center" HorizontalAlignment="Left"
-                                    Margin="50,50,20,20"
-                                    Command="{Binding GoBackCommand}">
-            </buttons:IconButton>
-            <TextBlock Height="55" Width="450" 
-                       Padding="0,0,0,0" Margin="30,30,0,0" FontSize="35"
-                       VerticalAlignment="Center">
-                    Upload Images to Collection</TextBlock>
-        </StackPanel>
+    <Grid>
+        <Grid Background="Black" Opacity=".5">
+            <Grid.InputBindings>
+                <MouseBinding Gesture="LeftClick" Command="{Binding GoBackCommand}"></MouseBinding>
+            </Grid.InputBindings>
+        </Grid>
+        <StackPanel Width="500" Height="526" Background="WhiteSmoke">
+            <Border BorderBrush="Black" BorderThickness="0,0,0,1">
+                <TextBlock Height="45" Width="450" 
+                    Margin="20,30,0,10" FontSize="30"
+                           
+                    VerticalAlignment="Center">
+                Upload Images</TextBlock>
+            </Border>
 
-        <Border BorderBrush="Black" BorderThickness="0,2,0,0"
-                        Height="400" Width="700">
-            <StackPanel>
+            <StackPanel Margin="20,10,20,0">
                 <Grid>
                     <Rectangle Margin="0,20,0,0" Height="300" Stroke="Black"
                                    StrokeThickness="2" StrokeDashArray="3 3">
                     </Rectangle>
-                    <ListView Margin="0,20,0,0" Width="690" Height="290"
+                    <ListView Margin="0,20,0,0" Width="450" Height="290"
                               Background="Transparent"
                               BorderBrush="Transparent"
                               ItemsSource="{Binding ImagesToUpload}"
+                                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                               ItemContainerStyle="{StaticResource ListViewItemStyle}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
@@ -41,24 +40,40 @@
                         </ListView.ItemTemplate>
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" MaxWidth="700"></WrapPanel>
+                                <WrapPanel Orientation="Horizontal" MaxWidth="640"></WrapPanel>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                     </ListView>
                 </Grid>
 
-                <StackPanel Orientation="Horizontal" Height="75" Margin="0,0,0,0" VerticalAlignment="Center">
-                    <buttons:IconButton Content="Browse..." FontSize="30" Height="50" Width="150"
-                                        Background="Transparent" BorderBrush="Black" BorderThickness="4"
-                                        Command="{Binding BrowseCommand}">
-                    </buttons:IconButton>
-                    <buttons:IconButton Content="Upload" Margin="400,0,0,0" FontSize="30" Height="50" Width="150" VerticalAlignment="Center"
-                                        Background="Transparent" BorderBrush="Black" BorderThickness="4"
-                                        IsEnabled="{Binding CanClickUpload}"
-                                        Command="{Binding UploadCommand}">
-                    </buttons:IconButton>
-                </StackPanel>       
             </StackPanel>
-        </Border>
-    </StackPanel>
+
+            <buttons:IconButton Content="Browse..." FontSize="15" Height="40" Width="150"
+                                Margin="330,10,0,0"
+                                    BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left"
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonGrayHoverStyle}"
+                                    Command="{Binding BrowseCommand}">
+            </buttons:IconButton>
+
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" >
+                <buttons:IconButton Content="Cancel" FontSize="15" Height="40" Width="250"
+
+                                    BorderBrush="Black" BorderThickness="0"
+                                    Template="{StaticResource IconButtonTemplate}"
+                                    Style="{StaticResource IconButtonGrayHoverStyle}"
+                                    Command="{Binding GoBackCommand}">
+                </buttons:IconButton>
+                <buttons:IconButton Content="Upload" FontSize="15" Height="40" Width="250" HorizontalAlignment="Left"
+                                BorderBrush="Black" BorderThickness="0"
+                                IsEnabled="{Binding CanClickUpload}"
+                                Template="{StaticResource IconButtonTemplate}"
+                                Style="{StaticResource PositiveButtonStyle}"
+                                        Command="{Binding UploadCommand}">
+                </buttons:IconButton>
+            </StackPanel>
+
+        </StackPanel>
+    </Grid>
+   
 </UserControl>

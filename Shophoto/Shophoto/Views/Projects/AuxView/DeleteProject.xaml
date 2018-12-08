@@ -9,20 +9,7 @@
              mc:Ignorable="d"
              Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
     <UserControl.Resources>
-        <Style x:Key="DeleteButtonStyle" TargetType="buttons:IconButton">
-            <Setter Property="Foreground" Value="White"></Setter>
-            <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
-            <Setter Property="Opacity" Value="1"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Background" Value="{StaticResource LightRed}"></Setter>
-                    <Setter Property="Opacity" Value=".6"></Setter>
-                </Trigger>
-                <Trigger Property="IsMouseOver"  Value="True">
-                    <Setter Property="Background" Value="{StaticResource HoverRed}"></Setter>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        
     </UserControl.Resources>
     <Grid>
         <Grid Background="Black" Opacity=".5">
@@ -30,7 +17,7 @@
                 <MouseBinding Gesture="LeftClick" Command="{Binding CloseCommand}"></MouseBinding>
             </Grid.InputBindings>
         </Grid>
-        <Grid Width="520" Height="304" Background="WhiteSmoke" >
+        <Grid Width="520" Height="320" Background="WhiteSmoke" >
             <StackPanel>
                 <Border BorderBrush="Black" BorderThickness="0,0,0,1">
                     <TextBlock Height="45" FontSize="30"
@@ -43,10 +30,13 @@
                                TextWrapping="Wrap"
                                Height="60"
                                FontSize="20"></TextBlock>
-                    <TextBlock Text="Warning this cannot be un done."
+                    <TextBlock Text="Warning this will delete all photos associated with this project and 
+                               cannot be un done."
+                               TextWrapping="Wrap" 
+                               
                                FontSize="15"
                                Foreground="{StaticResource LightRed}"
-                               Height="30" Padding="5"></TextBlock>
+                               Height="45" Padding="5"></TextBlock>
                     <inputbox:InputBox Margin="20" DataContext="{Binding ProjectNameInputBoxVM}"></inputbox:InputBox>
 
 
@@ -61,7 +51,7 @@
                     <buttons:IconButton Content="Delete" 
                                         BorderThickness="0"
                                         IsEnabled="{Binding CanDelete}"
-                                        Style="{StaticResource DeleteButtonStyle}"
+                                        Style="{StaticResource DangerButtonStyle}"
                                         Command="{Binding OnDeleteCommand}"
                                         Template="{StaticResource IconButtonTemplate}"
                                         FontSize="15" Height="40" Width="260" ></buttons:IconButton>

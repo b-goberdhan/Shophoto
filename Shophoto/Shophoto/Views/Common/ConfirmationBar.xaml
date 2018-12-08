@@ -8,29 +8,38 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="800" 
              Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}">
-    <Grid Height="40" Background="White">
+    <Grid Height="40" Background="{StaticResource LightRed}">
         <Grid>
-            <TextBox VerticalAlignment="Center"  BorderThickness="0"
+            <TextBlock VerticalAlignment="Center"
                  HorizontalAlignment="Left"
+                       Foreground="White"
                  Margin="20,0"
                  Width="40"
                  TextAlignment="Center"
                  Text="{Binding NumberSelected, FallbackValue=999}"
-                 FontSize="20"></TextBox>
-            <TextBox VerticalAlignment="Center"
+                 FontSize="20"></TextBlock>
+            <TextBlock VerticalAlignment="Center"
+                     Foreground="White"
+                     Background="{StaticResource LightRed}"
                  HorizontalAlignment="Left"
-                 BorderThickness="0"
+
                  FontSize="15"
-                 Margin="75,0">Selected</TextBox>
+                 Margin="75,0">Selected</TextBlock>
         </Grid>
         <Grid Visibility="{Binding IsOnConfirmation, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False, FallbackValue=Collapsed}" 
-            HorizontalAlignment="Right" Width="120" Margin="20,0">
-            <button:IconButton Width="50" Height="30" Content="OK"
+            HorizontalAlignment="Right" Width="120" Margin="40,0">
+            <button:IconButton Width="60" Height="35" Content="Cancel"
                                HorizontalAlignment="Left"
-                               Command="{Binding OkClickedCommand}"></button:IconButton>
-            <button:IconButton Width="50" Height="30" Content="Cancel"
-                               HorizontalAlignment="Right"
+                               FontSize="15"
+                               Template="{StaticResource IconButtonTemplate}"
+                               Style="{StaticResource DangerButtonStyle}"
                                Command="{Binding CancelClickedCommand}"></button:IconButton>
+            <button:IconButton Width="60" Height="35" Content="OK"
+                               HorizontalAlignment="Right"
+                                Template="{StaticResource IconButtonTemplate}"
+                               Style="{StaticResource DangerButtonStyle}"
+                               Command="{Binding OkClickedCommand}"></button:IconButton>
+
         </Grid>
         <Grid Visibility="{Binding IsOnConfirmation, Converter={StaticResource BoolToVisConverter}}"
               HorizontalAlignment="Right" Width="400" Margin="0,0,20,0">

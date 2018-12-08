@@ -62,7 +62,7 @@
     </UserControl.Resources>
     <!-- Width = 815-->
     <Grid Width="985" Background="WhiteSmoke">
-        <Grid Visibility="{Binding IsOnProjectPage, Converter={StaticResource BoolToVisConverter}}">
+        <Grid>
             <Grid Margin="0,0,0,0" Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                 <TextBlock FontSize="35" Margin="50">Project Directory</TextBlock>
                 <Border Margin="0,110,0,0" Width="940" BorderThickness="0,1,0,0" BorderBrush="Gray">
@@ -116,8 +116,8 @@
 
         </Grid>
         <!-- Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}"-->
-        <Grid VerticalAlignment="Center"
-              HorizontalAlignment="Center" 
+        <Grid VerticalAlignment="Stretch"
+              HorizontalAlignment="Stretch" 
               Visibility="{Binding IsOnCreateProjectPage, Converter={StaticResource BoolToVisConverter}}"
               Style="{StaticResource FadeInAndSlideAnimation}">
             <Grid.RenderTransform>

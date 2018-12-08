@@ -68,7 +68,7 @@
     
     <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right">
         
-        <StackPanel Margin="0,0,3,0" Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}">
+        <StackPanel Margin="0,0,8,0" Visibility="{Binding IsOpen, Converter={StaticResource BoolToVisConverter}}">
             <buttons:IconButton Visibility="{Binding HasDeleteButton, Converter={StaticResource BoolToVisConverter}}" 
                                 Template="{StaticResource FABMenuButtons}" Margin="0,0,0,5"
                                 Icon="{iconPacks:Octicons Kind=Trashcan}"

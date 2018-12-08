@@ -33,27 +33,29 @@
                                         Style="{StaticResource IconButtonHoverStyle}"
                                         BorderBrush="Transparent"
                                         Command="{Binding GoBackClickCommand}"></buttons:IconButton>
-                        
+                        <TextBlock Text="Go back" FontSize="15" Padding="0,25,0,0"></TextBlock>
+
                     </StackPanel>
-                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left">
+                    <Viewbox StretchDirection="DownOnly" HorizontalAlignment="Left" Margin="0,20,0,30"> 
                         <TextBlock Margin="10,0,10,0" MaxHeight="80" Background="Transparent"
                                    Width="200" TextWrapping="Wrap"
                        TextAlignment="Left"
                        FontSize="25" Text="{Binding Name, FallbackValue=First Project}"></TextBlock>
                     </Viewbox>
 
-                    <TextBlock Margin="10,10,20,10" FontSize="18" TextAlignment="Left" Text="Info:"></TextBlock>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="200">
-                        <TextBlock Margin="20,0,20,10" FontSize="15" TextAlignment="Left" 
+                    <TextBlock Visibility="{Binding HasSummary, Converter={StaticResource BoolToVisConverter}}" Margin="10,10,20,10" FontSize="15" TextAlignment="Left" Text="Summary:"></TextBlock>
+                    <ScrollViewer Visibility="{Binding HasSummary, Converter={StaticResource BoolToVisConverter}}" 
+                        VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" MaxHeight="200">
+                        <TextBlock Margin="20,0,20,10" FontSize="13" TextAlignment="Left" 
                        TextWrapping="Wrap" Opacity=".8"
                        FontStyle="Italic" 
                        Text="{Binding Summary, FallbackValue=thskdnldndlfdf dfddfdfdf sdsdsf df df}"></TextBlock>
                     </ScrollViewer>
                     
-                    <TextBlock Margin="10,10,20,10" FontSize="18" TextAlignment="Left" Text="Customer Name:"></TextBlock>
-                    <TextBlock Margin="20,0,20,0" FontSize="15" TextAlignment="Left" Text="{Binding CustomerName}"></TextBlock>
-                    <TextBlock Margin="10,10,20,10" FontSize="18" TextAlignment="Left" Text="Customer Email:"></TextBlock>
-                    <TextBlock Margin="20,0,20,0" FontSize="15" TextAlignment="Left" Text="{Binding CustomerEmail}"></TextBlock>
+                    <TextBlock Margin="10,10,20,10" FontSize="15" TextAlignment="Left" Text="Customer Name:"></TextBlock>
+                    <TextBlock Margin="20,0,20,0" FontSize="13" TextAlignment="Left" Text="{Binding CustomerName}"></TextBlock>
+                    <TextBlock Margin="10,10,20,10" FontSize="15" TextAlignment="Left" Text="Customer Email:"></TextBlock>
+                    <TextBlock Margin="20,0,20,0" FontSize="13" TextAlignment="Left" Text="{Binding CustomerEmail}"></TextBlock>
 
                     <buttons:IconButton Width="110"
                                         HorizontalAlignment="Left"

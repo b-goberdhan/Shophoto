@@ -87,6 +87,8 @@ namespace Shophoto.Views.Projects.Project
             }
         }
 
+        public bool HasSummary { get { return Summary != ""; } }
+
         private string _summary;
         public string Summary
         {
@@ -95,6 +97,7 @@ namespace Shophoto.Views.Projects.Project
             {
                 _summary = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("HasSummary");
             }
         }
 

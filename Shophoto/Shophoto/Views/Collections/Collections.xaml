@@ -34,7 +34,7 @@
         </Style>
     </UserControl.Resources>
     <Grid Width="815" Background="WhiteSmoke">
-        <Grid Visibility="{Binding IsOnMainView, Converter={StaticResource BoolToVisConverter}}">
+        <Grid>
             <StackPanel x:Name="Main">
                 <Border Width="730" Height="490" Margin="0,115,0,0" BorderThickness="0,1,0,0" BorderBrush="Gray">
                     <Grid>
@@ -84,9 +84,11 @@
                                DataContext="{Binding CollectionsFABButtonVM}"
                                Margin="0,0,70,20"></buttons:FABPlusButton>
         </Grid>
-        <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"></common:ConfirmationBar>
+        <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"
+                               ></common:ConfirmationBar>
         <Grid
             Style="{StaticResource FadeInAnimation}"
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
             Visibility="{Binding IsOnUploadView, FallbackValue=Collapsed, Converter={StaticResource BoolToVisConverter}}">
             <Grid.RenderTransform>
                 <TranslateTransform X="0" Y="0"></TranslateTransform>

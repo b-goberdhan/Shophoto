@@ -59,7 +59,7 @@ namespace Shophoto.Views.Projects.AuxView
             {
                 EmailInputBoxVM.HasError = EmailInputBoxVM.InputText == "";
             }
-
+            NotifyPropertyChanged("IsValid");
         }
 
         private void CustomerNameInputBoxVM_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -68,6 +68,7 @@ namespace Shophoto.Views.Projects.AuxView
             {
                 CustomerNameInputBoxVM.HasError = CustomerNameInputBoxVM.InputText == "";
             }
+            NotifyPropertyChanged("IsValid");
         }
 
 
@@ -77,6 +78,7 @@ namespace Shophoto.Views.Projects.AuxView
             {
                 ProjectNameInputBoxVM.HasError = ProjectNameInputBoxVM.InputText == "";
             }
+            NotifyPropertyChanged("IsValid");
         }
 
         public ProjectService ProjectService { get; }
@@ -116,6 +118,14 @@ namespace Shophoto.Views.Projects.AuxView
                     ProjectService.CurrentlyOpenedProject.ProjectFolderVM.CustomerName = CustomerNameInputBoxVM.InputText;
                     IsVisible = false;
                 }));
+            }
+        }
+
+        public bool IsValid
+        {
+            get {
+                return !EmailInputBoxVM.HasError && !ProjectNameInputBoxVM.HasError &&
+                  !CustomerNameInputBoxVM.HasError;
             }
         }
 
