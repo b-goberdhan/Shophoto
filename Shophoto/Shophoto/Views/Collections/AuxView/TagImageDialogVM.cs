@@ -22,7 +22,16 @@ namespace Shophoto.Views.Collections.Aux
             ProjectService = projectService;
             TagsExist = TagsService.Tags.Count > 0;
         }
-        public bool TagsExist { get; set; }
+        private bool _tagsExist;
+        public bool TagsExist
+        {
+            get { return _tagsExist; }
+            set
+            {
+                _tagsExist = value;
+                NotifyPropertyChanged();
+            }
+        }
         private ImageThumbnailCollectionsVM _currentThumbnail;
         public ImageThumbnailCollectionsVM CurrentThumbnail
         {
@@ -74,6 +83,7 @@ namespace Shophoto.Views.Collections.Aux
                 
                 _isVisible = value;
                 NotifyPropertyChanged();
+                TagsExist = TagsService.Tags.Count > 0;
                 NotifyPropertyChanged("Tags");
             }
         }
