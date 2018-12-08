@@ -7,7 +7,7 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d" 
              d:DesignHeight="150" d:DesignWidth="200"
-              >
+             Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisConverter}}" >
     <UserControl.InputBindings>
         <MouseBinding Gesture="LeftClick" Command="{Binding LeftClickCommand}"></MouseBinding>
     </UserControl.InputBindings>

@@ -31,11 +31,15 @@
             <button:IconButton Width="60" Height="35" Content="Cancel"
                                HorizontalAlignment="Left"
                                FontSize="15"
+                               BorderThickness="0"
+                               Margin="0,0,-50,0"
                                Template="{StaticResource IconButtonTemplate}"
                                Style="{StaticResource DangerButtonStyle}"
                                Command="{Binding CancelClickedCommand}"></button:IconButton>
             <button:IconButton Width="60" Height="35" Content="OK"
                                HorizontalAlignment="Right"
+                               BorderThickness="0"
+                                FontSize="15"
                                 Template="{StaticResource IconButtonTemplate}"
                                Style="{StaticResource DangerButtonStyle}"
                                Command="{Binding OkClickedCommand}"></button:IconButton>
@@ -44,13 +48,22 @@
         <Grid Visibility="{Binding IsOnConfirmation, Converter={StaticResource BoolToVisConverter}}"
               HorizontalAlignment="Right" Width="400" Margin="0,0,20,0">
             <TextBox Width="240" Height="30" HorizontalAlignment="Left" BorderThickness="0"
+                     Background="{StaticResource LightRed}"
+                     Foreground="White"
                      FontSize="15" VerticalContentAlignment="Center" TextAlignment="Right"
                      Text="{Binding ConfrimationText, Mode=OneWay, FallbackValue=Are you sure?}"></TextBox>
             <button:IconButton Width="50" Height="30" Margin="260,0,0,0" Content="Yes"
+                               FontSize="15"
                                HorizontalAlignment="Left"
+                               BorderThickness="0"
+                               Template="{StaticResource IconButtonTemplate}"
+                               Style="{StaticResource DangerButtonStyle}"
                                Command="{Binding ConfirmationYesClickedCommand}"></button:IconButton>
             <button:IconButton Width="50" Height="30" Margin="0,0,20,0" Content="No"
-
+                               BorderThickness="0"
+                               FontSize="15"
+                               Template="{StaticResource IconButtonTemplate}"
+                               Style="{StaticResource DangerButtonStyle}"
                                HorizontalAlignment="Right"
                                Command="{Binding ConfirmationNoClickedCommand}"></button:IconButton>
         </Grid>

@@ -20,8 +20,9 @@ namespace Shophoto.Views.Collections.Aux
         {
             TagsService = tagsService;
             ProjectService = projectService;
+            TagsExist = TagsService.Tags.Count > 0;
         }
-
+        public bool TagsExist { get; set; }
         private ImageThumbnailCollectionsVM _currentThumbnail;
         public ImageThumbnailCollectionsVM CurrentThumbnail
         {

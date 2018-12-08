@@ -80,9 +80,13 @@
                                     Height="120"
                                     DataContext="{Binding SortDropdownMenuVM}"
                                     ></menus:SortDropdownMenu>
-            <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+            <Grid Visibility="{Binding DeleteConfirmationBarVM.IsVisible, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
+                <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                   
                                DataContext="{Binding CollectionsFABButtonVM}"
                                Margin="0,0,70,20"></buttons:FABPlusButton>
+            </Grid>
+            
         </Grid>
         <common:ConfirmationBar DataContext="{Binding DeleteConfirmationBarVM}" VerticalAlignment="Bottom"
                                ></common:ConfirmationBar>

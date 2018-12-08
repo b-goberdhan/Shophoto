@@ -18,11 +18,15 @@ namespace Shophoto.Services
             Projects = new ObservableCollection<ProjectFolderVM>();
         }
 
-
+        private ObservableCollection<ProjectFolderVM> _projects;
         public ObservableCollection<ProjectFolderVM> Projects
         {
-            get;
-            private set;
+            get { return _projects; }
+            set
+            {
+                _projects = value;
+                NotifyPropertyChanged();
+            }
         }
 
         public ProjectVM CurrentlyOpenedProject { get; private set; }
@@ -68,6 +72,22 @@ namespace Shophoto.Services
             //CurrentlyOpenedProject.OnGoBackClick -= _currentlyOpenedProject_OnGoBackClick;
             Projects.Remove(CurrentlyOpenedProject.ProjectFolderVM);
             CurrentlyOpenedProject = null;
+        }
+
+        public void SortByName()
+        {
+            Projects = new ObservableCollection<ProjectFolderVM>(Projects.OrderBy((project) => 
+            {
+                return project.Name;
+            }));
+        }
+
+        public void SortByDateCreated()
+        {
+            Projects = new ObservableCollection<ProjectFolderVM>(Projects.OrderByDescending((project) =>
+            {
+                return project.DateCreated;
+            }));
         }
 
     }

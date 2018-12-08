@@ -11,6 +11,7 @@
              xmlns:input="clr-namespace:Shophoto.InputBox"
              xmlns:menus="clr-namespace:Shophoto.Menus"
              xmlns:project="clr-namespace:Shophoto.Views.Projects.Project"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style x:Key="FadeInAndSlideAnimation" TargetType="Grid">
@@ -59,6 +60,16 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <ControlTemplate x:Key="AddProjectButton" TargetType="Button" >
+            <Border Background="{TemplateBinding Background}" Width="50" Height="50" CornerRadius="50">
+                <Grid>
+                    <iconPacks:PackIconMaterial VerticalAlignment="Center" HorizontalAlignment="Center" 
+                                          Kind="FolderPlus" Foreground="White"
+                                          Height="30" Width="30">
+                    </iconPacks:PackIconMaterial>
+                </Grid>
+            </Border>
+        </ControlTemplate>
     </UserControl.Resources>
     <!-- Width = 815-->
     <Grid Width="985" Background="WhiteSmoke">
@@ -103,10 +114,18 @@
                 <project:Project DataContext="{Binding ProjectService.CurrentlyOpenedProject}"></project:Project>
             </Grid>
             <Grid Visibility="{Binding IsProjectFolderOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
-                <buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                <!--<buttons:FABPlusButton x:Name="CollectionFAB" VerticalAlignment="Bottom" HorizontalAlignment="Right"
                                DataContext="{Binding ProjectsFABButtonVM}"
-                               Margin="0,0,50,20"></buttons:FABPlusButton>
-                <input:InputBox Width="270" VerticalAlignment="Top" Height="40"
+                               Margin="0,0,50,20"></buttons:FABPlusButton> -->
+                <buttons:IconButton x:Name="CreateProject"
+                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                                    Margin="0,0,50,20"
+                                    Command="{Binding AddProjectCommand}"
+                                    Template="{StaticResource AddProjectButton}"
+                                    Style="{StaticResource IconButtonBlueHoverStyle}">
+                    
+                </buttons:IconButton>
+                <input:InputBox Width="270" VerticalAlignment="Top" 
                             Margin="160,55,220,0"
                             DataContext="{Binding SearchBoxVM}"></input:InputBox>
                 <menus:SortDropdownMenu VerticalAlignment="Top" HorizontalAlignment="Right"

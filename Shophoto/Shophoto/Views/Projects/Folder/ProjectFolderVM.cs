@@ -18,6 +18,7 @@ namespace Shophoto.Views.Projects.Folder
         public event EventHandler OnProjectFolderOpen;
         public ProjectFolderVM()
         {
+            IsVisible = true;
         }
         private string _name;
         public string Name
@@ -62,6 +63,22 @@ namespace Shophoto.Views.Projects.Folder
                 NotifyPropertyChanged();
             }
         }
+
+        private bool _isVisible;
+        public bool IsVisible
+        {
+            get
+            {
+                return _isVisible;
+            }
+            set
+            {
+                _isVisible = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        public DateTime DateCreated { get; set; }
 
         private CollectionsVM _collectionsVM;
         public CollectionsVM CollectionsVM

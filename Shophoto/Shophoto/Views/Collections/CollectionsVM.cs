@@ -148,9 +148,13 @@ namespace Shophoto.Views.Collections
 
         private void Thumbnail_OnOpenImage(object sender, EventArgs e)
         {
-            ImageViewerVM.Image = (sender as ImageThumbnailCollectionsVM);
-            SetDisabledLeftRight();
-            ImageViewerVM.IsVisible = true;
+            if (!DeleteConfirmationBarVM.IsVisible)
+            {
+                ImageViewerVM.Image = (sender as ImageThumbnailCollectionsVM);
+                SetDisabledLeftRight();
+                ImageViewerVM.IsVisible = true;
+            }
+
         }
 
         private void UploadVM_OnGoBackClicked(object sender, EventArgs e)
@@ -322,7 +326,7 @@ namespace Shophoto.Views.Collections
             }
             else if (SortDropdownMenuVM.SortingState == SortDropdownState.Date)
             {
-                ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderBy((thumbnail) =>
+                ImageThumbnails = new ObservableCollection<ImageThumbnailCollectionsVM>(ImageThumbnails.OrderByDescending((thumbnail) =>
                 {
                     return thumbnail.DateUploaded;
                 }));

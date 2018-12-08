@@ -97,7 +97,8 @@ namespace Shophoto.Views.Projects.AuxView
                             Name = ProjectNameInputBoxVM.InputText,
                             Summary = ProjectSummaryInputBoxVM.InputText,
                             CustomerName = CustomerNameInputBoxVM.InputText,
-                            CustomerEmail = EmailInputBoxVM.InputText
+                            CustomerEmail = EmailInputBoxVM.InputText,
+                            DateCreated = DateTime.Now
                         };
                         OnCreateProjectClicked?.Invoke(project);
                     }                   

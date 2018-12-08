@@ -116,6 +116,7 @@ namespace Shophoto.Views.Collections.Aux
         {
             OpenFileDialog fileBrowser = new OpenFileDialog();
             fileBrowser.Multiselect = true;
+            fileBrowser.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             var result = fileBrowser.ShowDialog();
             if (result == true)
             {

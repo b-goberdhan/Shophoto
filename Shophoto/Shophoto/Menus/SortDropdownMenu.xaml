@@ -17,14 +17,14 @@
             <Setter Property="FontSize" Value="18"></Setter>
         </Style>
     </UserControl.Resources>
-    <StackPanel Width="150">
+    <StackPanel Width="160">
             <buttons:IconButton Height="40" Style="{StaticResource DropdownButtons}"
                             Command="{Binding OnOpenDropdownClicked}"
                                 >
                 <Grid>
                     <TextBlock
                          Text="{Binding CurrentSortingSelected, Mode=OneWay}" 
-                         Width="100"
+                         Width="110"
                          Margin="0,0,20,0"></TextBlock>
                     <icons:PackIconOcticons Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}, ConverterParameter=True, FallbackValue=Collapsed}" 
                                         Kind="ChevronUp"
@@ -37,11 +37,11 @@
                 </Grid>
             </buttons:IconButton>
             <StackPanel Visibility="{Binding IsDropdownOpen, Converter={StaticResource BoolToVisConverter}}">
-                <buttons:IconButton Style="{StaticResource DropdownButtons}" Content="Name"
+                <buttons:IconButton Style="{StaticResource DropdownButtons}" Content="{Binding SortAlphaText}"
                                 Command="{Binding OnAlphaSort}"></buttons:IconButton>
                 <buttons:IconButton Style="{StaticResource DropdownButtons}" 
                                 Command="{Binding OnDateSort}"
-                                Content="Date Upload"></buttons:IconButton>
+                               Content="{Binding SortDateText}"></buttons:IconButton>
             </StackPanel>
 
     </StackPanel>

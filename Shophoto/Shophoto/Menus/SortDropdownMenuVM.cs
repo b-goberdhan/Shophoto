@@ -18,7 +18,33 @@ namespace Shophoto.Menus
     {
         public SortDropdownMenuVM() : base()
         {
+            SortDateText = "Date Upload";
+            SortAlphaText = "Name";
+        }
 
+        private string _sortDateText;
+        public string SortDateText
+        {
+            get
+            {
+                return _sortDateText;
+            }
+            set
+            {
+                _sortDateText = value;
+                NotifyPropertyChanged();
+            }
+        }
+
+        private string _sortAplhaText;
+        public string SortAlphaText
+        {
+            get { return _sortAplhaText; }
+            set
+            {
+                _sortAplhaText = value;
+                NotifyPropertyChanged();
+            }
         }
 
         public string CurrentSortingSelected
@@ -27,11 +53,11 @@ namespace Shophoto.Menus
             {
                 if (SortingState == SortDropdownState.Date)
                 {
-                    return "Date Upload";
+                    return SortDateText;
                 }
                 else if (SortingState == SortDropdownState.Alphabetical)
                 {
-                    return "Name";
+                    return SortAlphaText;
                 }
                 return "";
             }
@@ -46,6 +72,8 @@ namespace Shophoto.Menus
                 _sortingState = value;
                 NotifyPropertyChanged();
                 NotifyPropertyChanged("CurrentSortingSelected");
+                NotifyPropertyChanged("SortAlphaText");
+                NotifyPropertyChanged("SortDateText");
             }
         }
 
@@ -57,6 +85,8 @@ namespace Shophoto.Menus
             {
                 _isDropdownOpen = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("SortAlphaText");
+                NotifyPropertyChanged("SortDateText");
             }
         }
 

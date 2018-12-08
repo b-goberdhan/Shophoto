@@ -1,4 +1,5 @@
 ﻿using Shophoto.Buttons;
+using Shophoto.Command;
 using Shophoto.InputBox;
 using Shophoto.Menus;
 using Shophoto.Menus.Context;
@@ -15,6 +16,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Shophoto.Views.Projects
 {
@@ -36,7 +38,10 @@ namespace Shophoto.Views.Projects
             ProjectsFABButtonVM = fABPlusButtonVM;
             CreateProjectVM = createProjectVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
+            SortDropdownMenuVM.SortDateText = "Date Created";
             SearchBoxVM = searchBoxVM;
+            SearchBoxVM.HasErrorMessage = true;
+            SearchBoxVM.ErrorMessage = "No search results";
             ProjectService = projectService;
             RegisterEvents();
         }
@@ -86,11 +91,24 @@ namespace Shophoto.Views.Projects
             State = ProjectsPageState.CreateProjectPage;
         }
 
+        private ICommand _addProjectCommand; 
+        public ICommand AddProjectCommand
+        {
+            get
+            {
+                return _addProjectCommand ?? (_addProjectCommand = new CommandHandler(() =>
+                {
+                    State = ProjectsPageState.CreateProjectPage;
+                }));
+            }
+        }
+
         public CreateProjectVM CreateProjectVM { get; }
         private void CreateProjectVM_OnGoBackClicked(object sender, EventArgs e)
         {
             State = ProjectsPageState.ProjectsPage;
             NotifyPropertyChanged("HasProjects");
+
         }
         private void CreateProjectVM_OnCreateProjectClicked(ProjectFolderVM projectFolderVM)
         {
@@ -99,20 +117,56 @@ namespace Shophoto.Views.Projects
             CreateProjectVM.Reset();
             State = ProjectsPageState.ProjectsPage;
             NotifyPropertyChanged("HasProjects");
+            SortProjects();
         }
 
         public SortDropdownMenuVM SortDropdownMenuVM { get; }
         private void SortDropdownMenuVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+            SortProjects();
+        }
+
+        private void SortProjects()
+        {
+            if (SortDropdownMenuVM.SortingState == SortDropdownState.Alphabetical)
+            {
+                ProjectService.SortByName();
+                
+            }
+            else if (SortDropdownMenuVM.SortingState == SortDropdownState.Date)
+            {
+                ProjectService.SortByDateCreated();
+            }
         }
 
         public SearchBoxVM SearchBoxVM { get; }
         private void SearchBoxVM_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+            if (e.PropertyName == "InputText")
+            {
+                FilterBySearchText();
+            }
         }
 
+        private void FilterBySearchText()
+        {
+            int visibleImages = 0;
+            foreach (var project in ProjectService.Projects)
+            {
+
+                project.IsVisible = project.Name.ToLower().IndexOf(SearchBoxVM.InputText.ToLower()) == 0;
+                if (project.IsVisible)
+                {
+                    visibleImages++;
+                }
+            }
+            SearchBoxVM.HasError = visibleImages == 0 && SearchBoxVM.InputText != "";
+        }
+        private void ApplyAllFilters()
+        {
+            //Sort
+            //Filter
+        }
 
         private void Folder_OnProjectFolderOpen(object sender, EventArgs e)
         {
