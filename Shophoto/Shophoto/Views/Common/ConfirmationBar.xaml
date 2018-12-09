@@ -24,7 +24,7 @@
                  HorizontalAlignment="Left"
 
                  FontSize="15"
-                 Margin="75,0">Selected</TextBlock>
+                 Margin="75,0">Selected for deletion</TextBlock>
         </Grid>
         <Grid Visibility="{Binding IsOnConfirmation, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False, FallbackValue=Collapsed}" 
             HorizontalAlignment="Right" Width="120" Margin="40,0">

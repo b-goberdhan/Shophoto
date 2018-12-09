@@ -94,6 +94,7 @@ namespace Shophoto.Views.Collections
             foreach (var thumbnail in ImageThumbnails)
             {
                 thumbnail.ShowDeleteCheckbox();
+                thumbnail.OnCheckboxClicked -= Thumbnail_OnCheckboxClicked;
                 thumbnail.OnCheckboxClicked += Thumbnail_OnCheckboxClicked;
             }
         }

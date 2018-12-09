@@ -76,6 +76,7 @@ namespace Shophoto.Views.Common
         private void Reset()
         {
             base.IsVisible = false;
+            base.IsOnConfirmation = false;
             base.NumberSelected = 0;
         }
        
