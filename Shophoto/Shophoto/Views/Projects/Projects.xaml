@@ -81,7 +81,7 @@
                         <Grid Visibility="{Binding HasProjects, Converter={StaticResource BoolToVisConverter}, ConverterParameter=False}">
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center"
                                 FontSize="25" FontStyle="Italic" Opacity="0.75">
-                                Click '+' than add project to get started.</TextBlock>
+                                Click the icon in the bottom right to get started.</TextBlock>
                         </Grid>
                         <ListView Width="940" Height="490" Visibility="{Binding HasProjects, Converter={StaticResource BoolToVisConverter}}"
                                   ScrollViewer.CanContentScroll="True" 

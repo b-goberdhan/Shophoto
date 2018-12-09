@@ -40,6 +40,7 @@ namespace Shophoto.Views.Projects
             SortDropdownMenuVM = sortDropdownMenuVM;
             SortDropdownMenuVM.SortDateText = "Date Created";
             SearchBoxVM = searchBoxVM;
+            SearchBoxVM.PlaceHolderText = "Search by name";
             SearchBoxVM.HasErrorMessage = true;
             SearchBoxVM.ErrorMessage = "No search results";
             ProjectService = projectService;
@@ -108,6 +109,7 @@ namespace Shophoto.Views.Projects
         {
             State = ProjectsPageState.ProjectsPage;
             NotifyPropertyChanged("HasProjects");
+            CreateProjectVM.Reset();
 
         }
         private void CreateProjectVM_OnCreateProjectClicked(ProjectFolderVM projectFolderVM)
@@ -180,7 +182,7 @@ namespace Shophoto.Views.Projects
         {
 
             ProjectService.SetCurrentlyOpenedProject(null, null);
-            
+            NotifyPropertyChanged("HasProjects");
         }
 
         public ProjectService ProjectService { get; }

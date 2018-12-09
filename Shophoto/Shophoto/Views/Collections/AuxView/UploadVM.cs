@@ -69,7 +69,9 @@ namespace Shophoto.Views.Collections.Aux
                         imagesUploaded.Add(new ImageThumbnailCollectionsVM()
                         {
                             ImageSource = uploadThumbnail.ImageSource.Clone(),
-                            Name = uploadThumbnail.Name
+                            Name = uploadThumbnail.Name,
+                            DateUploaded = DateTime.Now
+                            
                         });
                     }
                     OnUploadClicked?.Invoke(imagesUploaded);
@@ -90,6 +92,7 @@ namespace Shophoto.Views.Collections.Aux
             {
                 _imageToUpload = value;
                 NotifyPropertyChanged();
+                NotifyPropertyChanged("CanClickUpload");
             }
         }
 

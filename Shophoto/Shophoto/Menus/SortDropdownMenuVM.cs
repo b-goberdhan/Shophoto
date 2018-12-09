@@ -18,7 +18,7 @@ namespace Shophoto.Menus
     {
         public SortDropdownMenuVM() : base()
         {
-            SortDateText = "Date Upload";
+            SortDateText = "Upload Date";
             SortAlphaText = "Name";
         }
 

@@ -155,6 +155,10 @@ namespace Shophoto.Image.Thumbnail
         {
             get { return Tags.Count > 0; }
         }
+        public void NotifyHasTags()
+        {
+            NotifyPropertyChanged("HasTags");
+        }
 
     }
 }

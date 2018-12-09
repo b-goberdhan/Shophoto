@@ -69,8 +69,7 @@
         <buttons:IconButton Template="{StaticResource MenuButton}"
                             Icon="{iconPacks:Octicons Kind=DeviceCamera, Width=25, Height=25}"
                             Content="All Images" 
-                            Command="{Binding AllImagesButtonClickCommand}"
-                            Style="{StaticResource AllImagesMenuButton}"
+                            Style="{StaticResource MenuButtonStyle}"
                             ></buttons:IconButton>
         <buttons:IconButton Template="{StaticResource MenuButton}"
                             Icon="{iconPacks:Modern Kind=Folder, Width=25, Height=25}"

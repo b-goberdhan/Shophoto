@@ -47,6 +47,7 @@ namespace Shophoto.Views.Collections.Aux
                         foreach (var image in project.CollectionsVM.ImageThumbnails)
                         {
                             image.Tags.Remove(this);
+                            image.NotifyHasTags();
                         }
                     } 
                 }));

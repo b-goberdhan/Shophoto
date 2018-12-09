@@ -47,6 +47,7 @@ namespace Shophoto.Views.Collections
             SearchBoxVM = searchBoxVM;
             SearchBoxVM.HasErrorMessage = true;
             SearchBoxVM.ErrorMessage = "No search results";
+            SearchBoxVM.PlaceHolderText = "Search by name";
             TagDropdownMenuVM = tagDropdownMenuVM;
             SortDropdownMenuVM = sortDropdownMenuVM;
             DeleteConfirmationBarVM = deleteConfirmationVM;
