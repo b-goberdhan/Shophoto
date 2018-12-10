@@ -118,6 +118,7 @@ namespace Shophoto.Image.Thumbnail
         public void ShowDeleteCheckbox()
         {
             base.QuickButtonState = QuickButtonState.Checkbox;
+            NotifyHasTags();
         }
 
         public void HideDeleteCheckbox()
@@ -153,7 +154,7 @@ namespace Shophoto.Image.Thumbnail
 
         public override bool HasTags
         {
-            get { return Tags.Count > 0; }
+            get { return Tags.Count > 0 && QuickButtonState == QuickButtonState.Tag; }
         }
         public void NotifyHasTags()
         {

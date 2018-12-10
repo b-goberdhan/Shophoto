@@ -202,6 +202,12 @@ namespace Shophoto.Views.Collections
                         thumbnail.HideDeleteCheckbox();
                     }
                 }
+
+                foreach (var thumbnail in ImageThumbnails)
+                {
+                    thumbnail.NotifyHasTags();
+                }
+                
             }
             TagDropdownMenuVM.HasImagesAndTags = ImageThumbnails.Count > 0 && TagVM.HasTags;
         }
